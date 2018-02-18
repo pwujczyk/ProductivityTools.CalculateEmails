@@ -1,0 +1,11 @@
+[Oo]bj/
+[Bb]in/
+.nuget/
+packages/
+artifacts/
+*.user
+*.suo
+debug/
+out/
+.vs
+client_secret.json
