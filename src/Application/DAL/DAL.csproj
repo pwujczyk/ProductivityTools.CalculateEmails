@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ConnectionStringHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\ConnectionStringLightHelperPT.0.0.1\lib\v4.6.1\ConnectionStringHelper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,10 +47,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\ConfigurationService\ConfigurationServiceClient\ConfigurationServiceClient.csproj">
-      <Project>{0c305323-a6ca-4dd2-818d-b88bfc9ac5ea}</Project>
-      <Name>ConfigurationServiceClient</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DALContracts\DALContracts.csproj">
       <Project>{9cf64e20-4550-4cda-a2e7-a2f9efac7905}</Project>
       <Name>DALContracts</Name>
@@ -56,6 +55,9 @@
       <Project>{82cdb431-6cfb-4f71-b292-843741eafd03}</Project>
       <Name>DBScripts</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
