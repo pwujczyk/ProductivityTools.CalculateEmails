@@ -110,6 +110,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml" />
@@ -197,6 +198,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Serializer.cs" />
+    <Compile Include="ServiceClient.cs" />
     <Compile Include="TaskManager.cs" />
     <Compile Include="ThisAddIn.cs">
       <SubType>Code</SubType>
@@ -228,9 +230,21 @@
     <None Include="Resources\TaskProcessed.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\MasterConfigurationPT\MasterConfiguration\MasterConfiguration.csproj">
+      <Project>{108cefcd-3617-4c60-bdf3-d1f77636fb62}</Project>
+      <Name>MasterConfiguration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\WPFMeetings\Nugets\IoCManager\IoCManager.csproj">
       <Project>{b12661af-45a4-43c6-b569-b2dd5ba2b682}</Project>
       <Name>IoCManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\CalculateEmails.Contract\CalculateEmails.Contract.csproj">
+      <Project>{2ba5b1bc-4720-444e-954f-50a95fbac076}</Project>
+      <Name>CalculateEmails.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\Configuration\Configuration.csproj">
+      <Project>{8060356b-3757-4eda-8e6a-2fc0da6feaa3}</Project>
+      <Name>Configuration</Name>
     </ProjectReference>
     <ProjectReference Include="..\DALContracts\DALContracts.csproj">
       <Project>{9cf64e20-4550-4cda-a2e7-a2f9efac7905}</Project>

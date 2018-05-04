@@ -24,6 +24,11 @@ namespace CalculateEmails
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
+
+            var x = AppDomain.CurrentDomain.SetupInformation;
+            ServiceClient client = new ServiceClient();
+            client.GetData();
+
             this.emailManager = new BLManager();
 
             InboxFolders = new List<Microsoft.Office.Interop.Outlook.Folder>();
