@@ -157,6 +157,8 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="Actions\ActionItem.cs" />
+    <Compile Include="Actions\ActionMap.cs" />
     <Compile Include="AddinTask.cs" />
     <Compile Include="BaseManager.cs" />
     <Compile Include="CalculateEmails.cs">
@@ -235,6 +237,7 @@
       <Name>DALContracts</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -30,8 +30,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ConnectionStringLightPT, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\ConnectionStringLightPT.0.0.2\lib\v4.6.1\ConnectionStringLightPT.dll</HintPath>
+    </Reference>
     <Reference Include="DbUp, Version=3.3.5.0, Culture=neutral, PublicKeyToken=4b419c53bdfd4cbf, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\dbup.3.3.5\lib\net35\DbUp.dll</HintPath>
+    </Reference>
+    <Reference Include="DBUpPT, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\DBUpPT.0.0.1\lib\v4.6.1\DBUpPT.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -60,6 +67,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\VisualStudio\ConfigurationService\ConfigurationServiceClient\ConfigurationServiceClient.csproj">
+      <Project>{0c305323-a6ca-4dd2-818d-b88bfc9ac5ea}</Project>
+      <Name>ConfigurationServiceClient</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

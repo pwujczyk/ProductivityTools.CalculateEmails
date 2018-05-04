@@ -47,6 +47,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\VisualStudio\ConfigurationService\ConfigurationServiceClient\ConfigurationServiceClient.csproj">
+      <Project>{0c305323-a6ca-4dd2-818d-b88bfc9ac5ea}</Project>
+      <Name>ConfigurationServiceClient</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DALContracts\DALContracts.csproj">
       <Project>{9cf64e20-4550-4cda-a2e7-a2f9efac7905}</Project>
       <Name>DALContracts</Name>

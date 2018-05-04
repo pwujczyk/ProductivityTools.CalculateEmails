@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ConfigurationServiceClient;
+using DBUpPT;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -9,15 +11,18 @@ namespace DBScripts
 {
     public class Scripts
     {
-        public const string server = @".\sql2014";
-        public const string dbName = "mBoxTest1";
-
         public void DatabaseUpdatePerform()
         {
-          
-            
-            DBUpHelper.DBUp dBUp = new DBUpHelper.DBUp("outlook");
-            dBUp.PerformUpdate(server,dbName,Assembly.GetExecutingAssembly(),true);
+            ConfigurationClient client = new ConfigurationClient();
+            string serverName = client.GetSqlDataSource();
+            string dbName = client.GetSqlServerDataBaseName();
+
+            DBUp dBUp = new DBUp("outlook");
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            dBUp.PerformUpdate(serverName, dbName, assembly, false);
+
+            //DatabaseUpdate db = new DatabaseUpdate("outlook");
+            //db.PerformUpdate(client.GetSqlDataSource(),client.GetSqlServerDataBaseName(), Assembly.GetExecutingAssembly());
         }
     }
 }

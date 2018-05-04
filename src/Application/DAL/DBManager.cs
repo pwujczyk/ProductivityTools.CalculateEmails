@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using DALContracts;
+using ConfigurationServiceClient;
 
 namespace DAL
 {
@@ -15,8 +16,8 @@ namespace DAL
         {
             get
             {
-                var connection=ConnectionStringLightHelper.ConnectionStringLight.GetSqlServerConnectionString(DBScripts.Scripts.server, DBScripts.Scripts.dbName);
-                return connection;
+                ConfigurationClient client = new ConfigurationClient();
+                return client.GetSqlServerConnectionString();
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using DALContracts;
+﻿using CalculateEmails.Actions;
+using DALContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,25 +8,44 @@ using System.Threading.Tasks;
 
 namespace CalculateEmails
 {
-    class BLManager: BaseManager
+
+    delegate void MailAction();
+
+    class BLManager : BaseManager
     {
-        
+
+        private int secondsdelay = 10;
         List<MailElement> mailElements = new List<MailElement>();
-        //List<CalculationDetails> Details;
+        private List<ActionItem> list = new List<ActionItem>();
 
-
-        //CalculationDetails DetailsItems
-        //{
-        //    get
-        //    {
-        //        return this.Details.FirstOrDefault(x => x.Date == this.CurrentDay);
-        //    }
-        //}
-
-
-        private bool CheckIfElementExist(ProcessingType type, InboxType subinbox)
+        private void Process(ActionType processingType, InboxType doneIn)
         {
-            var element = this.mailElements.FirstOrDefault(x => x.ProcessingType == type && x.SubInbox == subinbox && x.AddedDate.AddSeconds(500) > DateTime.Now);
+            this.list.Add(new ActionItem() { Action = ActionType.Added, DoneIn = InboxType.Main, AndPreviousAction = ActionType.None, PreviousDoneIn = InboxType.None, ThenPerform = IncreaseMailCount });
+            this.list.Add(new ActionItem() { Action = ActionType.Added, DoneIn = InboxType.Main, AndPreviousAction = ActionType.Removed, PreviousDoneIn = InboxType.Subinbox, ThenPerform = DoNothing });
+
+            this.list.Add(new ActionItem() { Action = ActionType.Removed, DoneIn = InboxType.Main, AndPreviousAction = ActionType.None, PreviousDoneIn = InboxType.None, ThenPerform = IncreaseProcessed });
+
+            this.list.Add(new ActionItem() { Action = ActionType.Added, DoneIn = InboxType.Subinbox, AndPreviousAction = ActionType.Removed, PreviousDoneIn = InboxType.Main, ThenPerform = DecreaseProcessed });
+
+            foreach (var item in list)
+            {
+                if (item.Action == processingType && item.DoneIn == doneIn)
+                {
+                    var element = this.mailElements.FirstOrDefault(x =>
+                                    x.PreviousAction == item.AndPreviousAction
+                                    && x.PreviousDoneIn == item.PreviousDoneIn
+                                    && x.AddedDate.AddSeconds(secondsdelay) > DateTime.Now);
+                    if (element != null)
+                    {
+                        item.ThenPerform();
+                    }
+                }
+            }
+        }
+
+        private bool CheckIfElementExist(ActionType type, InboxType subinbox)
+        {
+            var element = this.mailElements.FirstOrDefault(x => x.PreviousAction == type && x.PreviousDoneIn == subinbox && x.AddedDate.AddSeconds(500) > DateTime.Now);
             if (element != null)
             {
                 this.mailElements.Remove(element);
@@ -39,7 +59,10 @@ namespace CalculateEmails
 
         public void InboxAdded()
         {
-            if (CheckIfElementExist(ProcessingType.removed, InboxType.subinbox))
+            this.Process(ActionType.Added, InboxType.Main);
+
+            return;
+            if (CheckIfElementExist(ActionType.Removed, InboxType.Subinbox))
             {
                 //DecreaseMailCount();
                 DecreaseProcessed();
@@ -47,13 +70,15 @@ namespace CalculateEmails
             else
             {
                 IncreaseMailCount();
-                this.mailElements.Add(new MailElement(ProcessingType.added, InboxType.main));
+                this.mailElements.Add(new MailElement(ActionType.Added, InboxType.Main));
             }
         }
 
         public void InboxItemRemovedProcessed()
         {
-            if (CheckIfElementExist(ProcessingType.processed, InboxType.subinbox))
+            this.Process(ActionType.Removed, InboxType.Main);
+            return;
+            if (CheckIfElementExist(ActionType.Processed, InboxType.Subinbox))
             {
                 //IncreaseMailCount();
                 //do nothing
@@ -62,13 +87,14 @@ namespace CalculateEmails
             else
             {
                 IncreaseProcessed();
-                this.mailElements.Add(new MailElement(ProcessingType.processed, InboxType.main));
+                this.mailElements.Add(new MailElement(ActionType.Processed, InboxType.Main));
             }
         }
 
         public void SubInboxRemoved()
         {
-            if (CheckIfElementExist(ProcessingType.added, InboxType.main))
+            return;
+            if (CheckIfElementExist(ActionType.Added, InboxType.Main))
             {
                 DecreaseMailCount();
 
@@ -76,29 +102,31 @@ namespace CalculateEmails
             else
             {
                 IncreaseProcessed();
-                this.mailElements.Add(new MailElement(ProcessingType.removed, InboxType.subinbox));
+                this.mailElements.Add(new MailElement(ActionType.Removed, InboxType.Subinbox));
             }
         }
 
         public void SubInboxAdded()
         {
-
-            if (CheckIfElementExist(ProcessingType.processed, InboxType.main))
+            this.Process(ActionType.Added, InboxType.Subinbox);
+            return;
+            if (CheckIfElementExist(ActionType.Processed, InboxType.Main))
             {
                 DecreaseProcessed();
             }
             else
             {
-                this.mailElements.Add(new MailElement(ProcessingType.added, InboxType.subinbox));
+                this.mailElements.Add(new MailElement(ActionType.Added, InboxType.Subinbox));
             }
         }
 
         public void SentItems_ItemAdd()
         {
+            return;
             NewSentItem();
         }
 
-
+        private void DoNothing() { }
 
         private void IncreaseMailCount()
         {
