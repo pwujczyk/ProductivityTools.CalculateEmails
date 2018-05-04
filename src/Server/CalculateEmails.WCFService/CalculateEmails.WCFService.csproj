@@ -64,7 +64,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\Common\CalculateEmails.Contract\CalculateEmails.Contract.csproj">
+    <ProjectReference Include="..\..\Common\CalculateEmails.Contract\CalculateEmails.Contract.csproj">
       <Project>{2ba5b1bc-4720-444e-954f-50a95fbac076}</Project>
       <Name>CalculateEmails.Contract</Name>
     </ProjectReference>

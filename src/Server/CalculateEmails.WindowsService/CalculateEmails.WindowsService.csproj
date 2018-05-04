@@ -57,7 +57,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MasterConfigurationPT\MasterConfiguration\MasterConfiguration.csproj">
+    <ProjectReference Include="..\..\..\..\MasterConfigurationPT\MasterConfiguration\MasterConfiguration.csproj">
       <Project>{108cefcd-3617-4c60-bdf3-d1f77636fb62}</Project>
       <Name>MasterConfiguration</Name>
     </ProjectReference>
@@ -65,11 +65,11 @@
       <Project>{2ffd0e87-f59f-4e00-b6fb-95ad7d878586}</Project>
       <Name>CalculateEmails.WCFService</Name>
     </ProjectReference>
-    <ProjectReference Include="..\src\Common\CalculateEmails.Contract\CalculateEmails.Contract.csproj">
+    <ProjectReference Include="..\..\Common\CalculateEmails.Contract\CalculateEmails.Contract.csproj">
       <Project>{2ba5b1bc-4720-444e-954f-50a95fbac076}</Project>
       <Name>CalculateEmails.Contract</Name>
     </ProjectReference>
-    <ProjectReference Include="..\src\Common\Configuration\Configuration.csproj">
+    <ProjectReference Include="..\..\Common\Configuration\Configuration.csproj">
       <Project>{8060356b-3757-4eda-8e6a-2fc0da6feaa3}</Project>
       <Name>Configuration</Name>
     </ProjectReference>

@@ -55,7 +55,7 @@
       <Project>{fa4a7673-84e9-4377-b19a-f65d753337e3}</Project>
       <Name>CalculateEmails.WindowsService</Name>
     </ProjectReference>
-    <ProjectReference Include="..\src\Common\Configuration\Configuration.csproj">
+    <ProjectReference Include="..\..\Common\Configuration\Configuration.csproj">
       <Project>{8060356b-3757-4eda-8e6a-2fc0da6feaa3}</Project>
       <Name>Configuration</Name>
     </ProjectReference>
