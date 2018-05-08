@@ -36,7 +36,7 @@ namespace DALTests
         public void SaveCalcuateDay()
         {
             int testedValue = 987;
-            CalculationDay c =  manager.GetLastCalculationDay(Now);
+            CalculationDayDB c =  manager.GetLastCalculationDay(Now);
             c.MailCountAdd = testedValue;
             manager.SaveTodayCalculationDay(c);
 

@@ -1,4 +1,6 @@
 ﻿using CalculateEmails.Contract;
+using CalculateEmails.Contract.DataContract;
+using CalculateEmails.Contract.ServiceContract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,10 +28,15 @@ namespace CalculateEmails
         }
 
 
-        public void GetData()
+        public CalculationDay ProcessOutlookMail(InboxType inboxType, EmailActionType actionType)
         {
-            var x=this.Client.GetData(3);
+            var x = this.Client.ProcessMail(inboxType, actionType);
+            return x;
         }
 
+        public CalculationDay ProcesOutlookTask(TaskActionType taskActionType)
+        {
+            return new CalculationDay();
+        }
     }
 }

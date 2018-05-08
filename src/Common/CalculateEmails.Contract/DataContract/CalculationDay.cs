@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DALContracts
+namespace CalculateEmails.Contract.DataContract
 {
-    public class CalculationDayDB
+    public class CalculationDay
     {
         public int CalculateEmailsId { get; set; }
         public DateTime Date { get; set; }

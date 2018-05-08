@@ -21,9 +21,9 @@ namespace DAL
             }
         }
 
-        public CalculationDay GetLastCalculationDay(DateTime date)
+        public CalculationDayDB GetLastCalculationDay(DateTime date)
         {
-            CalculationDay result = new CalculationDay();
+            CalculationDayDB result = new CalculationDayDB();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
 
@@ -59,7 +59,7 @@ namespace DAL
             s.DatabaseUpdatePerform();
         }
 
-        public void SaveTodayCalculationDay(CalculationDay calcualtionDay)
+        public void SaveTodayCalculationDay(CalculationDayDB calcualtionDay)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

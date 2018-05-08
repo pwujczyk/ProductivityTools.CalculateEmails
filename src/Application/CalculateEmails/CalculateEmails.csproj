@@ -158,19 +158,13 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="Actions\ActionItem.cs" />
-    <Compile Include="Actions\ActionMap.cs" />
     <Compile Include="AddinTask.cs" />
-    <Compile Include="BaseManager.cs" />
     <Compile Include="CalculateEmails.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CalculateEmails.Designer.cs">
       <DependentUpon>CalculateEmails.cs</DependentUpon>
     </Compile>
-    <Compile Include="CalculationDetails.cs" />
-    <Compile Include="EmailManager.cs" />
-    <Compile Include="MailElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -199,7 +193,6 @@
     </Compile>
     <Compile Include="Serializer.cs" />
     <Compile Include="ServiceClient.cs" />
-    <Compile Include="TaskManager.cs" />
     <Compile Include="ThisAddIn.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -245,10 +238,6 @@
     <ProjectReference Include="..\..\Common\Configuration\Configuration.csproj">
       <Project>{8060356b-3757-4eda-8e6a-2fc0da6feaa3}</Project>
       <Name>Configuration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DALContracts\DALContracts.csproj">
-      <Project>{9cf64e20-4550-4cda-a2e7-a2f9efac7905}</Project>
-      <Name>DALContracts</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -4,21 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CalculateEmails.Actions
+namespace CalculateEmails.Contract.DataContract
 {
-
-    enum ActionType
+    public enum EmailActionType
     {
         Added,
         Removed,
         Processed,
-        None
-    }
-
-    enum InboxType
-    {
-        Main,
-        Subinbox,
         None
     }
 }

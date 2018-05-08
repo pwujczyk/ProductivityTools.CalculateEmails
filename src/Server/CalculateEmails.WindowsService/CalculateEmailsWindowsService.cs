@@ -1,4 +1,5 @@
 ﻿using CalculateEmails.Contract;
+using CalculateEmails.Contract.ServiceContract;
 using CalculateEmails.WCFService;
 using MasterConfiguration;
 using System;

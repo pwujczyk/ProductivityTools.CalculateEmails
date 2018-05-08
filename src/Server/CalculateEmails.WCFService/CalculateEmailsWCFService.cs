@@ -1,4 +1,6 @@
 ﻿using CalculateEmails.Contract;
+using CalculateEmails.Contract.DataContract;
+using CalculateEmails.Contract.ServiceContract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +12,18 @@ namespace CalculateEmails.WCFService
 {
     public class CalculateEmailsWCFService : ICalculateEmailsWCFService
     {
-        public string GetData(int value)
+        public CalculateEmailsWCFService()
         {
-            return string.Format("You entered: {0}", value);
-        }       
+        }
+
+        public CalculationDay ProcessMail(InboxType inboxType, EmailActionType actionType)
+        {
+            return new CalculationDay();
+        }
+
+        public CalculationDay ProcessTask(TaskActionType taskActionType)
+        {
+            return new CalculationDay();
+        }
     }
 }

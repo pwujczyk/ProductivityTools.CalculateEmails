@@ -1,23 +1,30 @@
-﻿using DALContracts;
+﻿using AutoMapper;
+using CalculateEmails.Contract.DataContract;
+using DALContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Outlook = Microsoft.Office.Interop.Outlook;
 
-namespace CalculateEmails
+namespace CalculateEmails.WCFService.Application
 {
     class BaseManager
     {
         private IDBManager DBManager { get; set; }
-        public CalculationDay TodayCalculationDetails { get; set; }
+        public CalculationDayDB TodayCalculationDetails { get; set; }
+
+        private MapperConfiguration mapperConfiguration;
 
         public BaseManager()
         {
-            DBManager=IoCManager.IoCManager.GetSinglenstance<IDBManager>();
+            DBManager = IoCManager.IoCManager.GetSinglenstance<IDBManager>();
             DBManager.PerformDatabaseupdate();
             FillTodaysCalculationDetails();
+
+            
+            //or
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<CalculationDayDB, CalculationDay>());
         }
 
         protected void PerformChange(Action a)
@@ -25,7 +32,7 @@ namespace CalculateEmails
             FillTodaysCalculationDetails();
             a();
             SaveDetailList();
-           // UpdateLabel();
+            // UpdateLabel();
         }
 
         private void FillTodaysCalculationDetails()

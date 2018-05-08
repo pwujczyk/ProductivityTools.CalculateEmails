@@ -8,8 +8,8 @@ namespace DALContracts
 {
     public interface IDBManager
     {
-        CalculationDay GetLastCalculationDay(DateTime date);
-        void SaveTodayCalculationDay(CalculationDay calcualtionDay);
+        CalculationDayDB GetLastCalculationDay(DateTime date);
+        void SaveTodayCalculationDay(CalculationDayDB calcualtionDay);
         void PerformDatabaseupdate();
     }
 }

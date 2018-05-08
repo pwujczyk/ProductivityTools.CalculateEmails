@@ -1,4 +1,4 @@
-﻿using CalculateEmails.Actions;
+﻿using CalculateEmails.Contract.DataContract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +12,10 @@ namespace CalculateEmails
     class MailElement
     {
         public DateTime AddedDate { get; set; }
-        public ActionType PreviousAction { get; set; }
+        public EmailActionType PreviousAction { get; set; }
         public InboxType PreviousDoneIn { get; set; }
 
-        public MailElement(ActionType processingType,InboxType inboxType)
+        public MailElement(EmailActionType processingType,InboxType inboxType)
         {
             this.AddedDate = DateTime.Now;
             this.PreviousAction = processingType;

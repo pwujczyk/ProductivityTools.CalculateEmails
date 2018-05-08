@@ -7,12 +7,13 @@ using Outlook = Microsoft.Office.Interop.Outlook;
 using Office = Microsoft.Office.Core;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using CalculateEmails.Contract.DataContract;
 
 namespace CalculateEmails
 {
     public partial class ThisAddIn
     {
-        TaskManager manager = new TaskManager();
+        //TaskManager manager = new TaskManager();
 
         private void TodoManage()
         {
@@ -31,21 +32,20 @@ namespace CalculateEmails
                 var x = element.FlagStatus;
                 if (element.FlagStatus == Microsoft.Office.Interop.Outlook.OlFlagStatus.olFlagComplete)
                 {
-                    manager.TaskItems_ItemChange(Item);
-                    
+                    UpdateLabel(new ServiceClient().ProcesOutlookTask(TaskActionType.Changed));
+                    //manager.TaskItems_ItemChange(Item);       
                 }
             }
-           
         }
 
         private void TaskItems_ItemRemove()
         {
-            manager.TaskItems_ItemRemove();
+            UpdateLabel(new ServiceClient().ProcesOutlookTask(TaskActionType.Removed));
         }
 
         private void TaskItems_ItemAdd(object Item)
         {
-            manager.TaskItems_ItemAdd(Item);
+            UpdateLabel(new ServiceClient().ProcesOutlookTask(TaskActionType.Added));
         }
     }
 }
