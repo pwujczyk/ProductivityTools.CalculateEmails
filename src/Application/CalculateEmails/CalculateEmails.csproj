@@ -158,7 +158,10 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="AddinTask.cs" />
+    <Compile Include="HeartBeatCheck.cs" />
+    <Compile Include="HeartBeatChecker.cs" />
+    <Compile Include="ThisAddInMails.cs" />
+    <Compile Include="ThisAddInTasks.cs" />
     <Compile Include="CalculateEmails.cs">
       <SubType>Component</SubType>
     </Compile>

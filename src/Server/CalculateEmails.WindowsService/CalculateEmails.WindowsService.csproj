@@ -44,11 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CalculateEmailsWindowsService.cs">
+    <Compile Include="PSCalculateEmais.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="CalculateEmailsWindowsService.Designer.cs">
-      <DependentUpon>CalculateEmailsWindowsService.cs</DependentUpon>
+    <Compile Include="PSCalculateEmais.Designer.cs">
+      <DependentUpon>PSCalculateEmais.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -28,15 +28,21 @@ namespace CalculateEmails
         }
 
 
-        public CalculationDay ProcessOutlookMail(InboxType inboxType, EmailActionType actionType)
+   
+        public async Task<CalculationDay> ProcessOutlookMail(InboxType inboxType, EmailActionType actionType)
         {
-            var x = this.Client.ProcessMail(inboxType, actionType);
+            var x = await this.Client.ProcessMail(inboxType, actionType);
             return x;
         }
 
         public CalculationDay ProcesOutlookTask(TaskActionType taskActionType)
         {
             return new CalculationDay();
+        }
+
+        public bool HeartBeat()
+        {
+            return this.Client.HeartBeat();
         }
     }
 }

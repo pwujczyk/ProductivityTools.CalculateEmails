@@ -15,11 +15,11 @@ using System.Threading.Tasks;
 
 namespace CalculateEmails.WindowsService
 {
-    public partial class CalculateEmailsWindowsService : ServiceBase
+    public partial class PSCalculateEmais : ServiceBase
     {
 
         ServiceHost host;
-        public CalculateEmailsWindowsService()
+        public PSCalculateEmais()
         {
             InitializeComponent();
         }

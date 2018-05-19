@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CalculateEmails.Contract.ServiceContract
 {
@@ -13,10 +14,16 @@ namespace CalculateEmails.Contract.ServiceContract
     public interface ICalculateEmailsWCFService
     {
         [OperationContract]
-        CalculationDay ProcessMail(InboxType inboxType, EmailActionType actionType);
+        [HeartBeatCheck]
+        Task<CalculationDay> ProcessMail(InboxType inboxType, EmailActionType actionType);
 
         [OperationContract]
+        [HeartBeatCheck]
         CalculationDay ProcessTask(TaskActionType taskActionType);
+
+        [OperationContract]
+        [HeartBeatCheck]
+        bool HeartBeat();
     }
 }
 

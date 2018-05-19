@@ -7,6 +7,8 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CalculateEmails.WCFService
 {
@@ -16,14 +18,25 @@ namespace CalculateEmails.WCFService
         {
         }
 
-        public CalculationDay ProcessMail(InboxType inboxType, EmailActionType actionType)
+        public Task<CalculationDay> ProcessMail(InboxType inboxType, EmailActionType actionType)
         {
-            return new CalculationDay();
+            return Task.Run(() => PerformOperation());
+        }
+
+        private CalculationDay PerformOperation()
+        {
+            Thread.Sleep(20000);
+            return new CalculationDay { MailCountAdd = 1 };
         }
 
         public CalculationDay ProcessTask(TaskActionType taskActionType)
         {
             return new CalculationDay();
+        }
+
+        public bool HeartBeat()
+        {
+            return true;
         }
     }
 }

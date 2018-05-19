@@ -1,6 +1,6 @@
 ﻿namespace CalculateEmails.WindowsService
 {
-    partial class CalculateEmailsWindowsService
+    partial class PSCalculateEmais
     {
         /// <summary> 
         /// Required designer variable.

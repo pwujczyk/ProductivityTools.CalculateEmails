@@ -8,6 +8,7 @@ using Office = Microsoft.Office.Core;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using CalculateEmails.Contract.DataContract;
+using System.Threading;
 
 namespace CalculateEmails
 {
@@ -15,6 +16,9 @@ namespace CalculateEmails
     {
         const string MainInboxName = "Inbox";
         const string CalculateEmails = "CalculateEmails";
+
+        private static bool ServiceIsWorking;
+
 
         //BLManager emailManager;
 
@@ -25,138 +29,50 @@ namespace CalculateEmails
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
+            MasterConfiguration.MConfiguration.SetCurrentDomainPath(true);
+
+
+            Thread t = new Thread(new ThreadStart(HeartBeatChecker));
+            t.Start();
+
             this.InboxFolders = new List<Outlook.Folder>();
             this.listOfItems = new List<Outlook.Items>();
 
-            RegisterMainInboxHandlers();
-            FindAllInboxFolders();
-            RegisterSubInboxHandlers();
+            MailsManage();
+            TodoManage();
 
-            SetLabelStartValue();
-
-            ///ServiceClient client = new ServiceClient();
-            ///client.GetData();
-
-            ///this.emailManager = new BLManager();
-
-            
-            //FillDetailList();
-
-            //UpdateLabel(emailManager.TodayCalculationDetails);
-            Outlook.MAPIFolder inbox = Application.Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderInbox);
+            // Outlook.MAPIFolder inbox = Application.Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderInbox);
 
             //inboxItems = inbox.Items;
             //inboxItems.ItemAdd += InboxFolderItemAdded;
             //  inboxItems.ItemRemove += InboxItems_ItemRemove;
             // inboxItems.ItemChange += InboxItems_ItemChange;
 
-            RegisterSentItemsHanlder();
-            TodoManage();
+
+
 
             currentExplorer = Globals.ThisAddIn.Application.ActiveExplorer();
             currentExplorer.SelectionChange += CurrentExplorer_SelectionChange;
 
         }
 
-        private void SetLabelStartValue()
+        public void HeartBeatChecker()
         {
-           // throw new NotImplementedException();
-        }
-
-        private void RegisterMainInboxHandlers()
-        {
-            Outlook.Items mainInbox = Application.Session.DefaultStore.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderInbox).Items;
-            mainInbox.ItemRemove += MainInboxRemoved;
-            mainInbox.ItemAdd += MainInboxAdded;
-            mainInbox.ItemChange += MainInboxChanged;
-
-            listOfItems.Add(mainInbox);
-        }
-
-        private void RegisterSubInboxHandlers()
-        {
-            foreach (Outlook.Folder folder in this.InboxFolders)
+            bool result = true;
+            for (int i = 0; i < 10; i++)
             {
-                Outlook.Items folderItems = folder.Items;
-                if (folder.Name!= MainInboxName)
+                try
                 {
-                    folderItems.ItemRemove += SubInboxRemoved;
-                    folderItems.ItemAdd += SubInboxAdded;
-                    folderItems.ItemChange += SubInboxChanged;
+                    new ServiceClient().HeartBeat();
+                    ServiceIsWorking = true;
                 }
-               
-
-                listOfItems.Add(folderItems);
-            }
-        }
-
-        private void SubInboxChanged(object Item)
-        {
-            //throw new NotImplementedException();
-        }
-
-        private void FindAllInboxFolders()
-        {
-            FindAllInboxFoldersRecursive(Application.Session.DefaultStore.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderInbox).Folders);
-        }
-
-        private void MainInboxAdded(object Item)
-        {
-            UpdateLabel(new ServiceClient().ProcessOutlookMail(InboxType.Main, EmailActionType.Added));
-        }
-
-        private void SubInboxAdded(object Item)
-        {
-            UpdateLabel(new ServiceClient().ProcessOutlookMail(InboxType.Subinbox, EmailActionType.Added));
-        }
-
-        private void MainInboxRemoved()
-        {
-            UpdateLabel(new ServiceClient().ProcessOutlookMail(InboxType.Main, EmailActionType.Removed));
-        }
-
-        private void SubInboxRemoved()
-        {
-            UpdateLabel(new ServiceClient().ProcessOutlookMail(InboxType.Subinbox, EmailActionType.Removed));
-        }
-
-        
-
-        private void RegisterSentItemsHanlder()
-        {
-            Outlook.MAPIFolder sent = Application.Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderSentMail);
-            sentItems = sent.Items;
-            sentItems.ItemAdd += SentItems_ItemAdd;
-        }
-
-        private void SentItems_ItemAdd(object Item)
-        {
-            UpdateLabel(new ServiceClient().ProcessOutlookMail(InboxType.Sent, EmailActionType.Added));
-        }
-
-        private void MainInboxChanged(object Item)
-        {
-            // PerformChange(() => this.DetailsItems.TaskCountAdded++);
-            //var i = Item as Outlook.MailItem;
-            //if(i!=null)
-            //{
-            //    string s = (i.Parent as Outlook.Folder).Name;
-            //}
-        }
-
-
-        private void FindAllInboxFoldersRecursive(Outlook.Folders folders)
-        {
-            foreach (Outlook.Folder folder in folders)
-            {
-                if (folder.Folders.Count > 0)
+                catch (Exception)
                 {
-                    FindAllInboxFoldersRecursive(folder.Folders);
+                    ServiceIsWorking = false;
                 }
-                if (folder.Name.StartsWith("Inbox"))
-                {
-                    this.InboxFolders.Add(folder);
-                }
+
+                Globals.Ribbons.CalculateEmails.chHeartBeat.Checked = ServiceIsWorking;
+                Thread.Sleep(TimeSpan.FromSeconds(10));
             }
         }
 
@@ -190,31 +106,31 @@ namespace CalculateEmails
         //}
 
 
-        private Outlook.NoteItem CheckCounterContainer()
-        {
-            Outlook.Explorer objExplorer = Globals.ThisAddIn.Application.ActiveExplorer();
-            var folder = this.Application.Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderNotes);
-            var xx = folder.Items;
-            foreach (Outlook.NoteItem item in xx)
-            {
-                if (item.Subject == CalculateEmails)
-                {
-                    return item;
-                }
-            }
-            Outlook.NoteItem newContact = (Outlook.NoteItem)this.Application.CreateItem(Outlook.OlItemType.olNoteItem);
-            try
-            {
-                newContact.Body = CalculateEmails + Environment.NewLine;
-                newContact.Save();
-            }
-            catch
-            {
-                MessageBox.Show("The new contact was not saved.");
-            }
+        //private Outlook.NoteItem CheckCounterContainer()
+        //{
+        //    Outlook.Explorer objExplorer = Globals.ThisAddIn.Application.ActiveExplorer();
+        //    var folder = this.Application.Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderNotes);
+        //    var xx = folder.Items;
+        //    foreach (Outlook.NoteItem item in xx)
+        //    {
+        //        if (item.Subject == CalculateEmails)
+        //        {
+        //            return item;
+        //        }
+        //    }
+        //    Outlook.NoteItem newContact = (Outlook.NoteItem)this.Application.CreateItem(Outlook.OlItemType.olNoteItem);
+        //    try
+        //    {
+        //        newContact.Body = CalculateEmails + Environment.NewLine;
+        //        newContact.Save();
+        //    }
+        //    catch
+        //    {
+        //        MessageBox.Show("The new contact was not saved.");
+        //    }
 
-            return newContact;
-        }
+        //    return newContact;
+        //}
 
         private DateTime CurrentDay
         {

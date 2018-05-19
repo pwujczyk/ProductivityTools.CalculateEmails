@@ -40,10 +40,6 @@
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tab1 = this.Factory.CreateRibbonTab();
             this.group1 = this.Factory.CreateRibbonGroup();
-            this.group2 = this.Factory.CreateRibbonGroup();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.tab2 = this.Factory.CreateRibbonTab();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.box2 = this.Factory.CreateRibbonBox();
             this.button2 = this.Factory.CreateRibbonButton();
             this.lblInCounter = this.Factory.CreateRibbonLabel();
@@ -53,15 +49,18 @@
             this.box4 = this.Factory.CreateRibbonBox();
             this.button4 = this.Factory.CreateRibbonButton();
             this.lblProcessedCounter = this.Factory.CreateRibbonLabel();
+            this.group2 = this.Factory.CreateRibbonGroup();
             this.box1 = this.Factory.CreateRibbonBox();
-            this.box5 = this.Factory.CreateRibbonBox();
-            this.box6 = this.Factory.CreateRibbonBox();
             this.button1 = this.Factory.CreateRibbonButton();
-            this.button5 = this.Factory.CreateRibbonButton();
-            this.button6 = this.Factory.CreateRibbonButton();
             this.lblTaskAdd = this.Factory.CreateRibbonLabel();
+            this.box5 = this.Factory.CreateRibbonBox();
+            this.button5 = this.Factory.CreateRibbonButton();
             this.lblTaskRemoved = this.Factory.CreateRibbonLabel();
+            this.box6 = this.Factory.CreateRibbonBox();
+            this.button6 = this.Factory.CreateRibbonButton();
             this.lblTaskFinished = this.Factory.CreateRibbonLabel();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.tab2 = this.Factory.CreateRibbonTab();
             this.group3 = this.Factory.CreateRibbonGroup();
             this.box7 = this.Factory.CreateRibbonBox();
             this.button7 = this.Factory.CreateRibbonButton();
@@ -82,17 +81,20 @@
             this.box12 = this.Factory.CreateRibbonBox();
             this.button12 = this.Factory.CreateRibbonButton();
             this.lblTaskFinished2 = this.Factory.CreateRibbonLabel();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.group5 = this.Factory.CreateRibbonGroup();
+            this.chHeartBeat = this.Factory.CreateRibbonCheckBox();
             this.tab1.SuspendLayout();
             this.group1.SuspendLayout();
-            this.group2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
-            this.tab2.SuspendLayout();
             this.box2.SuspendLayout();
             this.box3.SuspendLayout();
             this.box4.SuspendLayout();
+            this.group2.SuspendLayout();
             this.box1.SuspendLayout();
             this.box5.SuspendLayout();
             this.box6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.tab2.SuspendLayout();
             this.group3.SuspendLayout();
             this.box7.SuspendLayout();
             this.box8.SuspendLayout();
@@ -101,6 +103,7 @@
             this.box10.SuspendLayout();
             this.box11.SuspendLayout();
             this.box12.SuspendLayout();
+            this.group5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab1
@@ -109,6 +112,7 @@
             this.tab1.ControlId.OfficeId = "TabMail";
             this.tab1.Groups.Add(this.group1);
             this.tab1.Groups.Add(this.group2);
+            this.tab1.Groups.Add(this.group5);
             this.tab1.Label = "TabMail";
             this.tab1.Name = "tab1";
             // 
@@ -119,45 +123,6 @@
             this.group1.Items.Add(this.box4);
             this.group1.Label = "Emails";
             this.group1.Name = "group1";
-            // 
-            // group2
-            // 
-            this.group2.Items.Add(this.box1);
-            this.group2.Items.Add(this.box5);
-            this.group2.Items.Add(this.box6);
-            this.group2.Label = "Tasks";
-            this.group2.Name = "group2";
-            // 
-            // chart1
-            // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(0, 0);
-            this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(300, 300);
-            this.chart1.TabIndex = 0;
-            this.chart1.Text = "chart1";
-            // 
-            // tab2
-            // 
-            this.tab2.ControlId.ControlIdType = Microsoft.Office.Tools.Ribbon.RibbonControlIdType.Office;
-            this.tab2.ControlId.OfficeId = "TabTasks";
-            this.tab2.Groups.Add(this.group3);
-            this.tab2.Groups.Add(this.group4);
-            this.tab2.Label = "TabTasks";
-            this.tab2.Name = "tab2";
-            // 
-            // imageList1
-            // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // box2
             // 
@@ -216,23 +181,19 @@
             this.lblProcessedCounter.Label = "0";
             this.lblProcessedCounter.Name = "lblProcessedCounter";
             // 
+            // group2
+            // 
+            this.group2.Items.Add(this.box1);
+            this.group2.Items.Add(this.box5);
+            this.group2.Items.Add(this.box6);
+            this.group2.Label = "Tasks";
+            this.group2.Name = "group2";
+            // 
             // box1
             // 
             this.box1.Items.Add(this.button1);
             this.box1.Items.Add(this.lblTaskAdd);
             this.box1.Name = "box1";
-            // 
-            // box5
-            // 
-            this.box5.Items.Add(this.button5);
-            this.box5.Items.Add(this.lblTaskRemoved);
-            this.box5.Name = "box5";
-            // 
-            // box6
-            // 
-            this.box6.Items.Add(this.button6);
-            this.box6.Items.Add(this.lblTaskFinished);
-            this.box6.Name = "box6";
             // 
             // button1
             // 
@@ -242,6 +203,17 @@
             this.button1.ShowImage = true;
             this.button1.ShowLabel = false;
             // 
+            // lblTaskAdd
+            // 
+            this.lblTaskAdd.Label = "0";
+            this.lblTaskAdd.Name = "lblTaskAdd";
+            // 
+            // box5
+            // 
+            this.box5.Items.Add(this.button5);
+            this.box5.Items.Add(this.lblTaskRemoved);
+            this.box5.Name = "box5";
+            // 
             // button5
             // 
             this.button5.Image = global::CalculateEmails.Properties.Resources.TaskDeleted;
@@ -249,6 +221,17 @@
             this.button5.Name = "button5";
             this.button5.ShowImage = true;
             this.button5.ShowLabel = false;
+            // 
+            // lblTaskRemoved
+            // 
+            this.lblTaskRemoved.Label = "0";
+            this.lblTaskRemoved.Name = "lblTaskRemoved";
+            // 
+            // box6
+            // 
+            this.box6.Items.Add(this.button6);
+            this.box6.Items.Add(this.lblTaskFinished);
+            this.box6.Name = "box6";
             // 
             // button6
             // 
@@ -258,20 +241,35 @@
             this.button6.ShowImage = true;
             this.button6.ShowLabel = false;
             // 
-            // lblTaskAdd
-            // 
-            this.lblTaskAdd.Label = "0";
-            this.lblTaskAdd.Name = "lblTaskAdd";
-            // 
-            // lblTaskRemoved
-            // 
-            this.lblTaskRemoved.Label = "0";
-            this.lblTaskRemoved.Name = "lblTaskRemoved";
-            // 
             // lblTaskFinished
             // 
             this.lblTaskFinished.Label = "0";
             this.lblTaskFinished.Name = "lblTaskFinished";
+            // 
+            // chart1
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(0, 0);
+            this.chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(300, 300);
+            this.chart1.TabIndex = 0;
+            this.chart1.Text = "chart1";
+            // 
+            // tab2
+            // 
+            this.tab2.ControlId.ControlIdType = Microsoft.Office.Tools.Ribbon.RibbonControlIdType.Office;
+            this.tab2.ControlId.OfficeId = "TabTasks";
+            this.tab2.Groups.Add(this.group3);
+            this.tab2.Groups.Add(this.group4);
+            this.tab2.Label = "TabTasks";
+            this.tab2.Name = "tab2";
             // 
             // group3
             // 
@@ -403,6 +401,23 @@
             this.lblTaskFinished2.Label = "0";
             this.lblTaskFinished2.Name = "lblTaskFinished2";
             // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // group5
+            // 
+            this.group5.Items.Add(this.chHeartBeat);
+            this.group5.Label = "Manage";
+            this.group5.Name = "group5";
+            // 
+            // chHeartBeat
+            // 
+            this.chHeartBeat.Label = "Online";
+            this.chHeartBeat.Name = "chHeartBeat";
+            // 
             // CalculateEmails
             // 
             this.Name = "CalculateEmails";
@@ -415,23 +430,23 @@
             this.tab1.PerformLayout();
             this.group1.ResumeLayout(false);
             this.group1.PerformLayout();
-            this.group2.ResumeLayout(false);
-            this.group2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
-            this.tab2.ResumeLayout(false);
-            this.tab2.PerformLayout();
             this.box2.ResumeLayout(false);
             this.box2.PerformLayout();
             this.box3.ResumeLayout(false);
             this.box3.PerformLayout();
             this.box4.ResumeLayout(false);
             this.box4.PerformLayout();
+            this.group2.ResumeLayout(false);
+            this.group2.PerformLayout();
             this.box1.ResumeLayout(false);
             this.box1.PerformLayout();
             this.box5.ResumeLayout(false);
             this.box5.PerformLayout();
             this.box6.ResumeLayout(false);
             this.box6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.tab2.ResumeLayout(false);
+            this.tab2.PerformLayout();
             this.group3.ResumeLayout(false);
             this.group3.PerformLayout();
             this.box7.ResumeLayout(false);
@@ -448,6 +463,8 @@
             this.box11.PerformLayout();
             this.box12.ResumeLayout(false);
             this.box12.PerformLayout();
+            this.group5.ResumeLayout(false);
+            this.group5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -498,6 +515,8 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonBox box12;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button12;
         internal Microsoft.Office.Tools.Ribbon.RibbonLabel lblTaskFinished2;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup group5;
+        internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox chHeartBeat;
     }
 
     partial class ThisRibbonCollection
