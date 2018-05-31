@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using CalculateEmails.Contract.DataContract;
 using System.Threading;
+using System.Diagnostics;
 
 namespace CalculateEmails
 {
@@ -17,7 +18,7 @@ namespace CalculateEmails
         const string MainInboxName = "Inbox";
         const string CalculateEmails = "CalculateEmails";
 
-        private static bool ServiceIsWorking;
+        public static bool ServiceIsWorking;
 
 
         //BLManager emailManager;
@@ -33,7 +34,7 @@ namespace CalculateEmails
 
 
             Thread t = new Thread(new ThreadStart(HeartBeatChecker));
-            t.Start();
+          //  t.Start();
 
             this.InboxFolders = new List<Outlook.Folder>();
             this.listOfItems = new List<Outlook.Items>();
@@ -56,19 +57,51 @@ namespace CalculateEmails
 
         }
 
+        private void WriteToLog(string message)
+        {
+            string sSource;
+            string sLog;
+            string sEvent;
+
+            string applicationName = "CalculateEmails";
+            sSource = "HeartBeat";
+            sLog = "Application";
+            sEvent = "Sample Event";
+
+            
+
+            if (!EventLog.SourceExists(applicationName))
+            {
+                EventLog.CreateEventSource(sSource, applicationName);
+            }
+
+            EventLog.WriteEntry(sSource, sEvent);
+            EventLog.WriteEntry(sSource, sEvent,
+            EventLogEntryType.Warning, 234);
+
+
+            string source = "DemoTestApplication";
+            string log = "DemoEventLog";
+            EventLog demoLog = new EventLog(log);
+            demoLog.Source = source;
+            demoLog.WriteEntry("This is the first message to the log", EventLogEntryType.Information);
+        }
+
         public void HeartBeatChecker()
         {
             bool result = true;
-            for (int i = 0; i < 10; i++)
+            while(true)
             {
                 try
                 {
                     new ServiceClient().HeartBeat();
                     ServiceIsWorking = true;
+                    WriteToLog("Outlook calculate emails service working correctly. HeartBeat OK.");
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     ServiceIsWorking = false;
+                    WriteToLog("Outlook calculate emails service not working. Dead.");
                 }
 
                 Globals.Ribbons.CalculateEmails.chHeartBeat.Checked = ServiceIsWorking;
@@ -148,21 +181,21 @@ namespace CalculateEmails
 
         private void UpdateLabel(CalculationDay calculationDay)
         {
-            Globals.Ribbons.CalculateEmails.lblInCounter.Label = calculationDay.MailCountAdd.ToString(); ;
-            Globals.Ribbons.CalculateEmails.lblOutCouter.Label = calculationDay.MailCountSent.ToString(); ;
-            Globals.Ribbons.CalculateEmails.lblProcessedCounter.Label = calculationDay.MailCountProcessed.ToString(); ;
+                Globals.Ribbons.CalculateEmails.lblInCounter.Label = calculationDay.MailCountAdd.ToString(); ;
+                Globals.Ribbons.CalculateEmails.lblOutCouter.Label = calculationDay.MailCountSent.ToString(); ;
+                Globals.Ribbons.CalculateEmails.lblProcessedCounter.Label = calculationDay.MailCountProcessed.ToString(); ;
 
-            Globals.Ribbons.CalculateEmails.lblTaskAdd.Label = calculationDay.TaskCountAdded.ToString(); ;
-            Globals.Ribbons.CalculateEmails.lblTaskRemoved.Label = calculationDay.TaskCountRemoved.ToString(); ;
-            Globals.Ribbons.CalculateEmails.lblTaskFinished.Label = calculationDay.TaskCountFinished.ToString(); ;
+                Globals.Ribbons.CalculateEmails.lblTaskAdd.Label = calculationDay.TaskCountAdded.ToString(); ;
+                Globals.Ribbons.CalculateEmails.lblTaskRemoved.Label = calculationDay.TaskCountRemoved.ToString(); ;
+                Globals.Ribbons.CalculateEmails.lblTaskFinished.Label = calculationDay.TaskCountFinished.ToString(); ;
 
-            Globals.Ribbons.CalculateEmails.lblInCounter2.Label = calculationDay.MailCountAdd.ToString(); ;
-            Globals.Ribbons.CalculateEmails.lblOutCouter2.Label = calculationDay.MailCountSent.ToString(); ;
-            Globals.Ribbons.CalculateEmails.lblProcessedCounter2.Label = calculationDay.MailCountProcessed.ToString(); ;
+                Globals.Ribbons.CalculateEmails.lblInCounter2.Label = calculationDay.MailCountAdd.ToString(); ;
+                Globals.Ribbons.CalculateEmails.lblOutCouter2.Label = calculationDay.MailCountSent.ToString(); ;
+                Globals.Ribbons.CalculateEmails.lblProcessedCounter2.Label = calculationDay.MailCountProcessed.ToString(); ;
 
-            Globals.Ribbons.CalculateEmails.lblTaskAdd2.Label = calculationDay.TaskCountAdded.ToString(); ;
-            Globals.Ribbons.CalculateEmails.lblTaskRemoved2.Label = calculationDay.TaskCountRemoved.ToString(); ;
-            Globals.Ribbons.CalculateEmails.lblTaskFinished2.Label = calculationDay.TaskCountFinished.ToString(); ;
+                Globals.Ribbons.CalculateEmails.lblTaskAdd2.Label = calculationDay.TaskCountAdded.ToString(); ;
+                Globals.Ribbons.CalculateEmails.lblTaskRemoved2.Label = calculationDay.TaskCountRemoved.ToString(); ;
+                Globals.Ribbons.CalculateEmails.lblTaskFinished2.Label = calculationDay.TaskCountFinished.ToString(); ;
         }
 
 

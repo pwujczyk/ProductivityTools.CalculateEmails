@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using System.ServiceModel.Description;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,27 +13,31 @@ namespace CalculateEmails
 {
     class ServiceClient
     {
-        protected ICalculateEmailsWCFService  Client
+        protected ICalculateEmailsWCFMQService Client
         {
             get
             {
-                string address = MasterConfiguration.MConfiguration.Configuration["Address"];
-                NetTcpBinding netTcpBinding = new NetTcpBinding();
-                netTcpBinding.CloseTimeout = TimeSpan.FromMinutes(20);
-                ChannelFactory<ICalculateEmailsWCFService> factory = new ChannelFactory<ICalculateEmailsWCFService>(netTcpBinding, new EndpointAddress(address));
+                string address = Configuration.Config.Address;
+                NetMsmqBinding mqbinding = new NetMsmqBinding(securityMode: NetMsmqSecurityMode.None);
+                mqbinding.CloseTimeout = TimeSpan.FromMinutes(20);
+                ChannelFactory<ICalculateEmailsWCFMQService> factory = new ChannelFactory<ICalculateEmailsWCFMQService>(mqbinding, new EndpointAddress(address));
 
-                ICalculateEmailsWCFService proxy = factory.CreateChannel();
+                //factory.Endpoint.EndpointBehaviors.Add(new HeartBeatCheckEndpointAttribute());
+
+
+                ICalculateEmailsWCFMQService proxy = factory.CreateChannel();
 
                 return proxy;
             }
         }
 
 
-   
-        public async Task<CalculationDay> ProcessOutlookMail(InboxType inboxType, EmailActionType actionType)
+
+        public void ProcessOutlookMail(InboxType inboxType, EmailActionType actionType)
         {
-            var x = await this.Client.ProcessMail(inboxType, actionType);
-            return x;
+
+            this.Client.ProcessMail(inboxType, actionType);
+
         }
 
         public CalculationDay ProcesOutlookTask(TaskActionType taskActionType)
@@ -40,9 +45,10 @@ namespace CalculateEmails
             return new CalculationDay();
         }
 
-        public bool HeartBeat()
+        public void HeartBeat()
         {
-            return this.Client.HeartBeat();
+            //todo:remove
+             this.Client.HeartBeat();
         }
     }
 }

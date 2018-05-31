@@ -158,8 +158,9 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="HeartBeatCheck.cs" />
-    <Compile Include="HeartBeatChecker.cs" />
+    <Compile Include="HeartBeat\HeartBeatCheckEndpointBehavior.cs" />
+    <Compile Include="HeartBeat\HeartBeatCheckOperationBehavior.cs" />
+    <Compile Include="HeartBeat\HeartBeatOperationInvoker.cs" />
     <Compile Include="ThisAddInMails.cs" />
     <Compile Include="ThisAddInTasks.cs" />
     <Compile Include="CalculateEmails.cs">

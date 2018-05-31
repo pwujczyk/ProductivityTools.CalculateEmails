@@ -3,6 +3,7 @@ using CalculateEmails.Contract.DataContract;
 using DALContracts;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ namespace CalculateEmails.WCFService.Application
 {
     class BaseManager
     {
+
+        private DateTime Now { get { return DateTime.Now; } }
         private IDBManager DBManager { get; set; }
         public CalculationDayDB TodayCalculationDetails { get; set; }
 
@@ -24,13 +27,41 @@ namespace CalculateEmails.WCFService.Application
 
             
             //or
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<CalculationDayDB, CalculationDay>());
+        
         }
+
+        protected void WriteToLog(string message)
+        {
+            Console.WriteLine(message);
+            string sSource;
+            //string sLog;
+            //string sEvent;
+
+            string applicationName = "CalculateEmails";
+            sSource = "MailManager";
+            //sLog = "Application";
+            //sEvent = "Sample Event";
+
+            message = message + " " + DateTime.Now.ToLongTimeString();
+
+            if (!EventLog.SourceExists(applicationName))
+            {
+                EventLog.CreateEventSource(sSource, applicationName);
+            }
+
+            EventLog.WriteEntry(sSource, message);
+            //EventLog.WriteEntry(sSource, message, EventLogEntryType.Warning, 234);
+
+
+        }
+
 
         protected void PerformChange(Action a)
         {
             FillTodaysCalculationDetails();
+            WriteToLog($"PerformChange Over A= TodayCalculationDetails.MailCountAdd: {TodayCalculationDetails.MailCountAdd}");
             a();
+            WriteToLog($"PerformChange Under A= TodayCalculationDetails.MailCountAdd: {TodayCalculationDetails.MailCountAdd}");
             SaveDetailList();
             // UpdateLabel();
         }
@@ -38,7 +69,10 @@ namespace CalculateEmails.WCFService.Application
         private void FillTodaysCalculationDetails()
         {
             //pw:to change
-            this.TodayCalculationDetails = DBManager.GetLastCalculationDay(DateTime.Now);
+            lock (padloc)
+            {
+                this.TodayCalculationDetails = DBManager.GetLastCalculationDay(Now);
+            }
         }
 
         //private void FillDetailList()
@@ -64,9 +98,16 @@ namespace CalculateEmails.WCFService.Application
         //    noteItem.Body = CalculateEmails + Environment.NewLine + Details.Serialize();
         //    noteItem.Save();
         //}
+
+        private static readonly object padloc = new object();
+
         private void SaveDetailList()
         {
-            DBManager.SaveTodayCalculationDay(TodayCalculationDetails);
+            lock (padloc)
+            {
+                WriteToLog($"TodayCalculationDetails.MailCountAdd: {TodayCalculationDetails.MailCountAdd}");
+                DBManager.SaveTodayCalculationDay(TodayCalculationDetails);
+            }
         }
 
     }

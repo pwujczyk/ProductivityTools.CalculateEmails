@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CalculateEmails
 {
-    public class HeartBeatCheck : Attribute, IOperationBehavior
+    public class HeartBeatCheckAttribute : Attribute, IOperationBehavior
     {
         public void AddBindingParameters(OperationDescription operationDescription, BindingParameterCollection bindingParameters)
         {
@@ -19,7 +19,7 @@ namespace CalculateEmails
 
         public void ApplyClientBehavior(OperationDescription operationDescription, ClientOperation clientOperation)
         {
-
+           // clientOperation.BeginMethod 
         }
 
         public void ApplyDispatchBehavior(OperationDescription operationDescription, DispatchOperation dispatchOperation)

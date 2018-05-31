@@ -11,19 +11,16 @@ namespace CalculateEmails.Contract.ServiceContract
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
     [ServiceContract]
-    public interface ICalculateEmailsWCFService
+    public interface ICalculateEmailsWCFMQService
     {
-        [OperationContract]
-        [HeartBeatCheck]
-        Task<CalculationDay> ProcessMail(InboxType inboxType, EmailActionType actionType);
+        [OperationContract(IsOneWay =true)]
+        void ProcessMail(InboxType inboxType, EmailActionType actionType);
 
-        [OperationContract]
-        [HeartBeatCheck]
-        CalculationDay ProcessTask(TaskActionType taskActionType);
+        [OperationContract(IsOneWay =true)]
+        void ProcessTask(TaskActionType taskActionType);
 
-        [OperationContract]
-        [HeartBeatCheck]
-        bool HeartBeat();
+        [OperationContract(IsOneWay =true)]
+        void HeartBeat();
     }
 }
 

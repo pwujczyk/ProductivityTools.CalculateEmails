@@ -55,14 +55,15 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Arch\HeartBeatOperationInvoker.cs" />
     <Compile Include="DataContract\EmailActionType.cs" />
     <Compile Include="DataContract\CalculationDay.cs" />
-    <Compile Include="Arch\HeartBeatCheck.cs" />
     <Compile Include="DataContract\TaskActionType.cs" />
     <Compile Include="ServiceContract\ICalculateEmailsWCFService.cs" />
     <Compile Include="DataContract\InboxType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Arch\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

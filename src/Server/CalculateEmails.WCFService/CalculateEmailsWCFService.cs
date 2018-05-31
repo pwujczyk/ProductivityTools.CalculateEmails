@@ -1,6 +1,9 @@
-﻿using CalculateEmails.Contract;
+﻿using AutoMapper;
+using CalculateEmails.Contract;
 using CalculateEmails.Contract.DataContract;
 using CalculateEmails.Contract.ServiceContract;
+using CalculateEmails.WCFService.Application;
+using DALContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,31 +15,34 @@ using System.Threading.Tasks;
 
 namespace CalculateEmails.WCFService
 {
-    public class CalculateEmailsWCFService : ICalculateEmailsWCFService
+    public class CalculateEmailsWCFService : ICalculateEmailsWCFMQService
     {
         public CalculateEmailsWCFService()
         {
         }
 
-        public Task<CalculationDay> ProcessMail(InboxType inboxType, EmailActionType actionType)
+        public void ProcessMail(InboxType inboxType, EmailActionType actionType)
         {
-            return Task.Run(() => PerformOperation());
+            PerformOperation(inboxType, actionType);
         }
 
-        private CalculationDay PerformOperation()
+        private void PerformOperation(InboxType inboxType, EmailActionType actionType)
         {
-            Thread.Sleep(20000);
-            return new CalculationDay { MailCountAdd = 1 };
+            BLManager bLManager = new BLManager();
+            bLManager.Process(actionType, inboxType);
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<CalculationDayDB, CalculationDay>());
+            IMapper iMapper = config.CreateMapper();
+            var x = iMapper.Map<CalculationDayDB, CalculationDay>(bLManager.TodayCalculationDetails);
         }
 
-        public CalculationDay ProcessTask(TaskActionType taskActionType)
+        public void ProcessTask(TaskActionType taskActionType)
         {
-            return new CalculationDay();
+            //return new CalculationDay();
         }
 
-        public bool HeartBeat()
+        public void HeartBeat()
         {
-            return true;
+            //return true;
         }
     }
 }

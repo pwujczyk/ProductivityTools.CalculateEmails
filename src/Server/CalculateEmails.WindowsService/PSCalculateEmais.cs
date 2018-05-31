@@ -1,6 +1,7 @@
 ﻿using CalculateEmails.Contract;
 using CalculateEmails.Contract.ServiceContract;
 using CalculateEmails.WCFService;
+using Configuration;
 using MasterConfiguration;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
+using System.Messaging;
 using System.ServiceModel;
 using System.ServiceProcess;
 using System.Text;
@@ -41,11 +43,19 @@ namespace CalculateEmails.WindowsService
 
         private void StartServer()
         {
-            var binding = new NetTcpBinding();
-            var address = MConfiguration.Configuration["Address"];
+            var binding = new NetMsmqBinding(NetMsmqSecurityMode.None);
+
+
+            string queneAddress = $".\\private$\\{MConfiguration.Configuration["QueneName"]}";
+            if (MessageQueue.Exists(queneAddress) == false)
+            {
+                MessageQueue.Create(queneAddress, true);
+            }
+
+            string address = Config.Address;
 
             host = new ServiceHost(typeof(CalculateEmailsWCFService));
-            host.AddServiceEndpoint(typeof(ICalculateEmailsWCFService), binding, address);
+            host.AddServiceEndpoint(typeof(ICalculateEmailsWCFMQService), binding, address);
 
             host.Open();
         }

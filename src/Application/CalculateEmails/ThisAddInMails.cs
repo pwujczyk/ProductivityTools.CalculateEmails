@@ -21,6 +21,7 @@ namespace CalculateEmails
             FindAllInboxFolders();
             RegisterSubInboxHandlers();
             RegisterSentItemsHanlder();
+            ServiceIsWorking = true;
         }
 
         private void RegisterMainInboxHandlers()
@@ -71,32 +72,47 @@ namespace CalculateEmails
 
         private async void MainInboxAdded(object Item)
         {
-            var x = await new ServiceClient().ProcessOutlookMail(InboxType.Main, EmailActionType.Added);
-            UpdateLabel();
+            if (ThisAddIn.ServiceIsWorking)
+            {
+               new ServiceClient().ProcessOutlookMail(InboxType.Main, EmailActionType.Added);
+                //UpdateLabel(x);
+            }
         }
 
         private async void SubInboxAdded(object Item)
         {
-            var x = await new ServiceClient().ProcessOutlookMail(InboxType.Subinbox, EmailActionType.Added);
-            UpdateLabel(x);
+            if (ThisAddIn.ServiceIsWorking)
+            {
+               new ServiceClient().ProcessOutlookMail(InboxType.Subinbox, EmailActionType.Added);
+                //UpdateLabel(x);
+            }
         }
 
         private async void MainInboxRemoved()
         {
-            var x = await new ServiceClient().ProcessOutlookMail(InboxType.Main, EmailActionType.Removed);
-            UpdateLabel(x);
+            if (ThisAddIn.ServiceIsWorking)
+            {
+                 new ServiceClient().ProcessOutlookMail(InboxType.Main, EmailActionType.Removed);
+                //UpdateLabel(x);
+            }
         }
 
         private async void SubInboxRemoved()
         {
-            var x = await new ServiceClient().ProcessOutlookMail(InboxType.Subinbox, EmailActionType.Removed);
-            UpdateLabel(x);
+            if (ThisAddIn.ServiceIsWorking)
+            {
+                 new ServiceClient().ProcessOutlookMail(InboxType.Subinbox, EmailActionType.Removed);
+                //UpdateLabel(x);
+            }
         }
 
         private async void SentItems_ItemAdd(object Item)
         {
-            var x = await new ServiceClient().ProcessOutlookMail(InboxType.Sent, EmailActionType.Added);
-            UpdateLabel(x);
+            if (ThisAddIn.ServiceIsWorking)
+            {
+                 new ServiceClient().ProcessOutlookMail(InboxType.Sent, EmailActionType.Added);
+               // UpdateLabel(x);
+            }
         }
 
         private void MainInboxChanged(object Item)
