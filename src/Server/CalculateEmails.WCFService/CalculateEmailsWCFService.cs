@@ -15,10 +15,18 @@ using System.Threading.Tasks;
 
 namespace CalculateEmails.WCFService
 {
+    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Single,InstanceContextMode = InstanceContextMode.Single)]
     public class CalculateEmailsWCFService : ICalculateEmailsWCFMQService
     {
+        static CalculateEmailsWCFService()
+        {
+            IDBManager DBManager = IoCManager.IoCManager.GetSinglenstance<IDBManager>();
+            DBManager.PerformDatabaseupdate();
+        }
+
         public CalculateEmailsWCFService()
         {
+            
         }
 
         public void ProcessMail(InboxType inboxType, EmailActionType actionType)
@@ -31,8 +39,8 @@ namespace CalculateEmails.WCFService
             BLManager bLManager = new BLManager();
             bLManager.Process(actionType, inboxType);
             var config = new MapperConfiguration(cfg => cfg.CreateMap<CalculationDayDB, CalculationDay>());
-            IMapper iMapper = config.CreateMapper();
-            var x = iMapper.Map<CalculationDayDB, CalculationDay>(bLManager.TodayCalculationDetails);
+            // IMapper iMapper = config.CreateMapper();
+            //   var x = iMapper.Map<CalculationDayDB, CalculationDay>(bLManager.TodayCalculationDetails);
         }
 
         public void ProcessTask(TaskActionType taskActionType)

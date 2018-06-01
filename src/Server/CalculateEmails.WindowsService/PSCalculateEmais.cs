@@ -43,6 +43,8 @@ namespace CalculateEmails.WindowsService
 
         private void StartServer()
         {
+
+
             var binding = new NetMsmqBinding(NetMsmqSecurityMode.None);
 
 

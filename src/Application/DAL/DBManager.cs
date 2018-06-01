@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using DALContracts;
 using ConfigurationServiceClient;
+using System.Data.Common;
 
 namespace DAL
 {
@@ -18,6 +19,78 @@ namespace DAL
             {
                 ConfigurationClient client = new ConfigurationClient();
                 return client.GetSqlServerConnectionString();
+            }
+        }
+
+        private void Read(SqlConnection connection, SqlTransaction transaction, CalculationDayDB result, DateTime date)
+        {
+            SqlCommand command = new SqlCommand("[outlook].[GetLastCalculationDay]");
+            command.Connection = connection;
+            command.Transaction = transaction;
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.Parameters.Add(new SqlParameter("Date", date));
+
+
+            SqlDataReader sqlDataReader = command.ExecuteReader();
+            if (sqlDataReader.Read())
+            {
+                result.CalculateEmailsId = (int)sqlDataReader["CalculateEmailsId"];
+                result.Date = (DateTime)sqlDataReader["Date"];
+                result.MailCountAdd = (int)sqlDataReader["MailCountAdd"];
+                result.MailCountSent = (int)sqlDataReader["MailCountSent"];
+                result.MailCountProcessed = (int)sqlDataReader["MailCountProcessed"];
+                result.TaskCountAdded = (int)sqlDataReader["TaskCountAdded"];
+                result.TaskCountRemoved = (int)sqlDataReader["TaskCountRemoved"];
+                result.TaskCountFinished = (int)sqlDataReader["TaskCountFinished"];
+                sqlDataReader.Close();
+            }
+            else
+            {
+                throw new Exception("No record retrieved");
+            }
+        }
+
+        private void Write(SqlConnection connection, SqlTransaction transaction, CalculationDayDB calcualtionDay)
+        {
+            SqlCommand command = new SqlCommand("[outlook].[UpdateLastCalculationDay]");
+            command.Connection = connection;
+            command.Transaction = transaction;
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.Parameters.Add(new SqlParameter("@calculateEmailsId", calcualtionDay.CalculateEmailsId));
+            command.Parameters.Add(new SqlParameter("@MailCountAdd", calcualtionDay.MailCountAdd));
+            command.Parameters.Add(new SqlParameter("@MailCountSent", calcualtionDay.MailCountSent));
+            command.Parameters.Add(new SqlParameter("@MailCountProcessed", calcualtionDay.MailCountProcessed));
+            command.Parameters.Add(new SqlParameter("@TaskCountAdded", calcualtionDay.TaskCountAdded));
+            command.Parameters.Add(new SqlParameter("@TaskCountRemoved", calcualtionDay.TaskCountRemoved));
+            command.Parameters.Add(new SqlParameter("@TaskCountFinished", calcualtionDay.TaskCountFinished));
+            var recordAffected = command.ExecuteNonQuery();
+            if (recordAffected != 1)
+            {
+                throw new Exception("No record updated");
+            }
+        }
+
+        public void UpdateCalculationDay(Action<CalculationDayDB> updateAction, DateTime date)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlTransaction transaction = connection.BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                try
+                {
+                    CalculationDayDB result = new CalculationDayDB();
+                    Read(connection, transaction, result, date);
+                    updateAction(result);
+                    Write(connection, transaction, result);
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+
+
             }
         }
 

@@ -10,17 +10,17 @@ namespace CalculateEmails.WCFService.Application
     {
         public void TaskItems_ItemRemove()
         {
-            PerformChange(() => this.TodayCalculationDetails.TaskCountRemoved++);
+            PerformChange((calculationDayDB) => calculationDayDB.TaskCountRemoved++);
         }
 
         public void TaskItems_ItemAdd()
         {
-            PerformChange(() => this.TodayCalculationDetails.TaskCountAdded++);
+            PerformChange((calculationDayDB) => calculationDayDB.TaskCountAdded++);
         }
 
         public void TaskItems_ItemChange()
         {
-            PerformChange(() => this.TodayCalculationDetails.TaskCountFinished++);
+            PerformChange((calculationDayDB) => calculationDayDB.TaskCountFinished++);
         }
     }
 }

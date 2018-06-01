@@ -8,6 +8,7 @@ namespace DALContracts
 {
     public interface IDBManager
     {
+        //void UpdateCalculationDay(Action<CalculationDayDB> updateAction, DateTime date);
         CalculationDayDB GetLastCalculationDay(DateTime date);
         void SaveTodayCalculationDay(CalculationDayDB calcualtionDay);
         void PerformDatabaseupdate();
