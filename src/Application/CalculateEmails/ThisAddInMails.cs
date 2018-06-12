@@ -8,6 +8,7 @@ using Office = Microsoft.Office.Core;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using CalculateEmails.Contract.DataContract;
+using CalculateEmails.ServiceClient;
 
 namespace CalculateEmails
 {
@@ -74,7 +75,7 @@ namespace CalculateEmails
         {
             if (ThisAddIn.ServiceIsWorking)
             {
-               new ServiceClient().ProcessOutlookMail(InboxType.Main, EmailActionType.Added);
+               new WcfClient().ProcessOutlookMail(InboxType.Main, EmailActionType.Added);
                 //UpdateLabel(x);
             }
         }
@@ -83,7 +84,7 @@ namespace CalculateEmails
         {
             if (ThisAddIn.ServiceIsWorking)
             {
-               new ServiceClient().ProcessOutlookMail(InboxType.Subinbox, EmailActionType.Added);
+               new WcfClient().ProcessOutlookMail(InboxType.Subinbox, EmailActionType.Added);
                 //UpdateLabel(x);
             }
         }
@@ -92,7 +93,7 @@ namespace CalculateEmails
         {
             if (ThisAddIn.ServiceIsWorking)
             {
-                 new ServiceClient().ProcessOutlookMail(InboxType.Main, EmailActionType.Removed);
+                 new WcfClient().ProcessOutlookMail(InboxType.Main, EmailActionType.Removed);
                 //UpdateLabel(x);
             }
         }
@@ -101,7 +102,7 @@ namespace CalculateEmails
         {
             if (ThisAddIn.ServiceIsWorking)
             {
-                 new ServiceClient().ProcessOutlookMail(InboxType.Subinbox, EmailActionType.Removed);
+                 new WcfClient().ProcessOutlookMail(InboxType.Subinbox, EmailActionType.Removed);
                 //UpdateLabel(x);
             }
         }
@@ -110,7 +111,7 @@ namespace CalculateEmails
         {
             if (ThisAddIn.ServiceIsWorking)
             {
-                 new ServiceClient().ProcessOutlookMail(InboxType.Sent, EmailActionType.Added);
+                 new WcfClient().ProcessOutlookMail(InboxType.Sent, EmailActionType.Added);
                // UpdateLabel(x);
             }
         }

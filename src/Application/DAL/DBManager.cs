@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using DALContracts;
-using ConfigurationServiceClient;
 using System.Data.Common;
+using CalculateEmails.Configuration.Contract;
 
 namespace DAL
 {
@@ -17,8 +17,17 @@ namespace DAL
         {
             get
             {
-                ConfigurationClient client = new ConfigurationClient();
+                IConfigurationClient client = IoCManager.IoCManager.GetSinglenstance<IConfigurationClient>();
                 return client.GetSqlServerConnectionString();
+            }
+        }
+
+        private string connectionStringServer
+        {
+            get
+            {
+                IConfigurationClient client = IoCManager.IoCManager.GetSinglenstance<IConfigurationClient>();
+                return client.GetDataSourceConnectionString();
             }
         }
 
@@ -43,6 +52,7 @@ namespace DAL
                 result.TaskCountRemoved = (int)sqlDataReader["TaskCountRemoved"];
                 result.TaskCountFinished = (int)sqlDataReader["TaskCountFinished"];
                 sqlDataReader.Close();
+                connection.Close();
             }
             else
             {
@@ -89,6 +99,10 @@ namespace DAL
                     transaction.Rollback();
                     throw;
                 }
+                finally
+                {
+                    connection.Close();
+                }
 
 
             }
@@ -121,6 +135,7 @@ namespace DAL
                 {
                     throw new Exception("No record retrieved");
                 }
+                connection.Close();
             }
 
             return result;
@@ -153,8 +168,64 @@ namespace DAL
                 {
                     throw new Exception("No record updated");
                 }
+                connection.Close();
 
             }
+        }
+
+        //todo:it cannot be here
+        public void TruncateTable()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+
+                SqlCommand command = new SqlCommand("TRUNCATE TABLE [outlook].[CalculateEmails]");
+                command.Connection = connection;
+                command.CommandType = System.Data.CommandType.Text;
+                connection.Open();
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
+        //todo:it cannot be here
+        public void DropDatabase()
+        {
+
+            using (SqlConnection con = new SqlConnection(connectionStringServer))
+            {
+                con.Open();
+                String sqlCommandText = @"
+        ALTER DATABASE EcoVadisPTTest SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+        DROP DATABASE [EcoVadisPTTest]";
+                SqlCommand sqlCommand = new SqlCommand(sqlCommandText, con);
+                sqlCommand.ExecuteNonQuery();
+            }
+            
+
+            //using (SqlConnection connection = new SqlConnection(connectionString))
+            //{
+
+            //    SqlCommand command = new SqlCommand(@"EXEC msdb.dbo.sp_delete_database_backuphistory @database_name = N'EcoVadisPTTest'");
+            //    command.Connection = connection;
+            //    command.CommandType = System.Data.CommandType.Text;
+            //    connection.Open();
+            //    command.ExecuteNonQuery();
+            //    connection.Close();
+            //}
+
+            //using (SqlConnection connection = new SqlConnection(connectionStringServer))
+            //{
+
+            //    SqlCommand command = new SqlCommand(@"DROP DATABASE[EcoVadisPTTest]");
+
+            //    command.Connection = connection;
+            //    connection.exe
+            //    command.CommandType = System.Data.CommandType.Text;
+            //    connection.Open();
+            //    command.ExecuteNonQuery();
+            //    connection.Close();
+            //}
         }
     }
 }

@@ -4,6 +4,7 @@ using DALContracts;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace CalculateEmails.WCFService.Application
 {
-    class BaseManager
+    public class BaseManager
     {
 
         private DateTime Now { get { return DateTime.Now; } }
@@ -30,14 +31,11 @@ namespace CalculateEmails.WCFService.Application
 
         }
 
-        protected void WriteToLog(string message)
+        private void WriteToEventLog(string message)
         {
-            int x=Thread.CurrentThread.ManagedThreadId;
-            Console.WriteLine($"Thread:{x}; {message}");
             string sSource;
             //string sLog;
             //string sEvent;
-
             string applicationName = "CalculateEmails";
             sSource = "MailManager";
             //sLog = "Application";
@@ -52,8 +50,16 @@ namespace CalculateEmails.WCFService.Application
 
             EventLog.WriteEntry(sSource, message);
             //EventLog.WriteEntry(sSource, message, EventLogEntryType.Warning, 234);
+        }
 
-
+        public static void WriteToLog(string message)
+        {
+            int x = Thread.CurrentThread.ManagedThreadId;
+            string messagec = $"Thread:{x}; {message}";
+            
+            Debug.WriteLine(messagec);
+            Console.WriteLine(messagec);
+            File.AppendAllText("D:\\perls.txt", messagec + Environment.NewLine);
         }
 
         private static readonly object padlock = new object();
@@ -72,11 +78,16 @@ namespace CalculateEmails.WCFService.Application
             }
         }
 
+        public CalculationDayDB GetLastCalculationDay()
+        {
+            return FillTodaysCalculationDetails();
+        }
+
         private CalculationDayDB FillTodaysCalculationDetails()
         {
-       
-                return DBManager.GetLastCalculationDay(Now);
-            
+
+            return DBManager.GetLastCalculationDay(Now);
+
         }
 
         //private void FillDetailList()

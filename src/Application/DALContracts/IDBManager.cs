@@ -12,5 +12,8 @@ namespace DALContracts
         CalculationDayDB GetLastCalculationDay(DateTime date);
         void SaveTodayCalculationDay(CalculationDayDB calcualtionDay);
         void PerformDatabaseupdate();
+
+        void TruncateTable();
+        void DropDatabase();
     }
 }

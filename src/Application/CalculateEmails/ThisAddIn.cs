@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using CalculateEmails.Contract.DataContract;
 using System.Threading;
 using System.Diagnostics;
+using CalculateEmails.ServiceClient;
 
 namespace CalculateEmails
 {
@@ -94,7 +95,7 @@ namespace CalculateEmails
             {
                 try
                 {
-                    new ServiceClient().HeartBeat();
+                    new WcfClient().HeartBeat();
                     ServiceIsWorking = true;
                     WriteToLog("Outlook calculate emails service working correctly. HeartBeat OK.");
                 }

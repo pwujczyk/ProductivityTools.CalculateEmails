@@ -11,90 +11,87 @@ namespace CalculateEmails.WCFService.Application
 {
     delegate void MailAction();
 
-    class BLManager : BaseManager
+    public class BLManager : BaseManager
     {
 
 
 
 
-        private int secondsdelay = 200000;
+        private int milisecondsDelay = 100;
         private static ConcurrentDictionary<Guid, MailElement> mailElements = new ConcurrentDictionary<Guid, MailElement>();
-        private ConcurrentBag<ActionItem> list = new ConcurrentBag<ActionItem>();
+        private ConcurrentBag<ActionItem> actionList = new ConcurrentBag<ActionItem>();
+
+        public BLManager()
+        {
+            this.actionList.Add(new ActionItem() { Id = 11, DoneIn = InboxType.Main, Action = EmailActionType.Added, AndPreviousAction = EmailActionType.None, PreviousDoneIn = InboxType.None, ThenPerform = IncreaseMailCount });
+
+            this.actionList.Add(new ActionItem() { Id = 12, DoneIn = InboxType.Main, Action = EmailActionType.Added, AndPreviousAction = EmailActionType.Removed, PreviousDoneIn = InboxType.Subinbox, ThenPerform = DecreaseProcessed });
+            this.actionList.Add(new ActionItem() { Id = 13, DoneIn = InboxType.Main, Action = EmailActionType.Removed, AndPreviousAction = EmailActionType.None, PreviousDoneIn = InboxType.None, ThenPerform = IncreaseProcessed });
+            this.actionList.Add(new ActionItem() { Id = 14, DoneIn = InboxType.Main, Action = EmailActionType.Removed, AndPreviousAction = EmailActionType.Added, PreviousDoneIn = InboxType.Subinbox, ThenPerform = IncreaseProcessed});
+
+            this.actionList.Add(new ActionItem() { Id = 21, DoneIn = InboxType.Subinbox, Action = EmailActionType.Added, AndPreviousAction = EmailActionType.None, PreviousDoneIn = InboxType.None, ThenPerform = DecreaseProcessed });
+            this.actionList.Add(new ActionItem() { Id = 22, DoneIn = InboxType.Subinbox, Action = EmailActionType.Added, AndPreviousAction = EmailActionType.Removed, PreviousDoneIn = InboxType.Main, ThenPerform = DecreaseProcessed });
+            this.actionList.Add(new ActionItem() { Id = 23, DoneIn = InboxType.Subinbox, Action = EmailActionType.Removed, AndPreviousAction = EmailActionType.Added, PreviousDoneIn = InboxType.Main, ThenPerform = DecreaseMailCount });
+            this.actionList.Add(new ActionItem() { Id = 24, DoneIn = InboxType.Subinbox, Action = EmailActionType.Removed, AndPreviousAction = EmailActionType.None, PreviousDoneIn = InboxType.None, ThenPerform = IncreaseProcessed });
+
+
+            this.actionList.Add(new ActionItem() { Id = 31, DoneIn = InboxType.Sent, Action = EmailActionType.Added, AndPreviousAction = EmailActionType.None, PreviousDoneIn = InboxType.None, ThenPerform = IncreaseSentItem });
+
+
+        }
 
         public void Process(EmailActionType processingType, InboxType doneIn)
         {
-            WriteToLog($"[Process Start] ");
+            WriteToLog($"[Process Start]");
             PrintMailElements(mailElements);
             WriteToLog($"{processingType} {doneIn} ");
-     
 
 
-
-            this.list.Add(new ActionItem() { Id = 11, DoneIn = InboxType.Main, Action = EmailActionType.Added, AndPreviousAction = EmailActionType.None, PreviousDoneIn = InboxType.None, ThenPerform = IncreaseMailCount });
-            this.list.Add(new ActionItem() { Id = 12, DoneIn = InboxType.Main, Action = EmailActionType.Added, AndPreviousAction = EmailActionType.Removed, PreviousDoneIn = InboxType.Subinbox, ThenPerform = DecreaseProcessed });
-            this.list.Add(new ActionItem() { Id = 13, DoneIn = InboxType.Main, Action = EmailActionType.Removed, AndPreviousAction = EmailActionType.None, PreviousDoneIn = InboxType.None, ThenPerform = IncreaseProcessed });
-
-            this.list.Add(new ActionItem() { Id = 21, DoneIn = InboxType.Subinbox, Action = EmailActionType.Added, AndPreviousAction = EmailActionType.None, PreviousDoneIn = InboxType.None, ThenPerform = DecreaseProcessed });
-            this.list.Add(new ActionItem() { Id = 22, DoneIn = InboxType.Subinbox, Action = EmailActionType.Added, AndPreviousAction = EmailActionType.Removed, PreviousDoneIn = InboxType.Main, ThenPerform = DecreaseProcessed });
-            this.list.Add(new ActionItem() { Id = 23, DoneIn = InboxType.Subinbox, Action = EmailActionType.Removed, AndPreviousAction = EmailActionType.Added, PreviousDoneIn = InboxType.Main, ThenPerform = DecreaseMailCount });
-            this.list.Add(new ActionItem() { Id = 24, DoneIn = InboxType.Subinbox, Action = EmailActionType.Removed, AndPreviousAction = EmailActionType.None, PreviousDoneIn = InboxType.None, ThenPerform = IncreaseProcessed });
-
-
-            this.list.Add(new ActionItem() { Id = 31, DoneIn = InboxType.Sent, Action = EmailActionType.Added, AndPreviousAction = EmailActionType.None, PreviousDoneIn = InboxType.None, ThenPerform = IncreaseSentItem });
-
-            
-            
-
-
+            var actionListScoped = this.actionList.Where(x => x.DoneIn == doneIn && x.Action == processingType).ToList();
+            var withPrevious = actionListScoped.Where(x => x.AndPreviousAction != EmailActionType.None);
 
             //List<ActionItem> withoutHistoryList = this.list.Where(x => x.AndPreviousAction == EmailActionType.None).ToList();
             //List<ActionItem> withtHistoryList = this.list.Where(x => x.AndPreviousAction != EmailActionType.None).ToList();
 
 
-            foreach (var item in list)
+            foreach (var currentAction in withPrevious)
             {
-                if (item.Action == processingType && item.DoneIn == doneIn)
+                var element = mailElements.FirstOrDefault(x =>
+                                x.Value.PreviousAction == currentAction.AndPreviousAction
+                                && x.Value.PreviousDoneIn == currentAction.PreviousDoneIn
+                                && x.Value.AddedDate.AddMilliseconds(milisecondsDelay) > DateTime.Now
+                                );
+
+                if (element.Value != null)
                 {
-
-                    var element = mailElements.FirstOrDefault(x =>
-                                    x.Value.PreviousAction == item.AndPreviousAction
-                                    && x.Value.PreviousDoneIn == item.PreviousDoneIn
-                                    //&& x.AddedDate.AddSeconds(secondsdelay) > DateTime.Now
-                                    );
-
-                    // WriteToLog($"Found item {item.Id}");
-
-
-                    if (element.Value == null && item.AndPreviousAction == EmailActionType.None)
-                    {
-                        WriteToLog($"Perform action: {item.Id}");
-                        item.ThenPerform();
-      
-                    }
-                    if (element.Value != null && item.AndPreviousAction != EmailActionType.None)
-                    {
-                        WriteToLog($"Perform action: {item.Id}");
-                        MailElement x;
-                        mailElements.TryRemove(element.Key, out x);
-                        item.ThenPerform();
-             
-                    }
+                    WriteToLog($"Perform action: {currentAction.Id}");
+                    MailElement x;
+                    mailElements.TryRemove(element.Key, out x);
+                    currentAction.ThenPerform();
+                    mailElements.TryAdd(Guid.NewGuid(), new MailElement(processingType, doneIn));
+                    return;
                 }
             }
 
+            var withoutPrevious = actionListScoped.Single(x => x.AndPreviousAction == EmailActionType.None);
+
+            WriteToLog($"Perform action: {withoutPrevious.Id}");
+            withoutPrevious.ThenPerform();
             mailElements.TryAdd(Guid.NewGuid(), new MailElement(processingType, doneIn));
-            PrintMailElements(mailElements);
-            WriteToLog($"[Process End]");
+            return;
+
+
+
         }
 
         private void PrintMailElements(ConcurrentDictionary<Guid, MailElement> mailElements)
         {
-            WriteToLog("    [MailElementList]");
+            WriteToLog("[MailElementList-Begin]");
             foreach (var item in mailElements)
             {
                 WriteToLog($"   {item.Value.PreviousAction} {item.Value.PreviousDoneIn} {item.Value.AddedDate}");
             }
-            WriteToLog("    [MailElementList]");
+            WriteToLog("[MailElementList-End]");
         }
 
         //private bool CheckIfElementExist(EmailActionType type, InboxType subinbox)

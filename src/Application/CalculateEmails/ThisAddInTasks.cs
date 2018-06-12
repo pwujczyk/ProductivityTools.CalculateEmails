@@ -8,6 +8,7 @@ using Office = Microsoft.Office.Core;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using CalculateEmails.Contract.DataContract;
+using CalculateEmails.ServiceClient;
 
 namespace CalculateEmails
 {
@@ -31,8 +32,9 @@ namespace CalculateEmails
             {
                 var x = element.FlagStatus;
                 if (element.FlagStatus == Microsoft.Office.Interop.Outlook.OlFlagStatus.olFlagComplete)
-                {
-                    UpdateLabel(new ServiceClient().ProcesOutlookTask(TaskActionType.Changed));
+                { 
+                    
+                    UpdateLabel(new WcfClient().ProcesOutlookTask(TaskActionType.Changed));
                     //manager.TaskItems_ItemChange(Item);       
                 }
             }
@@ -40,12 +42,12 @@ namespace CalculateEmails
 
         private void TaskItems_ItemRemove()
         {
-            UpdateLabel(new ServiceClient().ProcesOutlookTask(TaskActionType.Removed));
+            UpdateLabel(new WcfClient().ProcesOutlookTask(TaskActionType.Removed));
         }
 
         private void TaskItems_ItemAdd(object Item)
         {
-            UpdateLabel(new ServiceClient().ProcesOutlookTask(TaskActionType.Added));
+            UpdateLabel(new WcfClient().ProcesOutlookTask(TaskActionType.Added));
         }
     }
 }
