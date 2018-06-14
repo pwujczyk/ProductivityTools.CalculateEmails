@@ -1,5 +1,9 @@
 ﻿using System;
+using Autofac;
+using CalculateEmails.Autofac;
+using CalculateEmails.Configuration.Contract;
 using CalculateEmails.Contract.DataContract;
+using CalculateEmails.WCFService;
 using CalculateEmails.WCFService.Application;
 using DALContracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,7 +16,14 @@ namespace BLTests
         [AssemblyInitialize()]
         public static void AssemblyInit(TestContext context)
         {
-            IDBManager DBManager = IoCManager.IoCManager.GetSinglenstance<IDBManager>();
+
+            var builder = new ContainerBuilder();
+            builder.RegisterModule<AutofacModuleWCFService>();
+            builder.RegisterType<Configuration>().As<IConfigurationClient>();
+
+            AutofacContainer.Container = builder.Build();
+
+            IDBManager DBManager = AutofacContainer.Container.Resolve<IDBManager>();
             DBManager.PerformDatabaseupdate();
         }
 
@@ -30,14 +41,14 @@ namespace BLTests
         [TestCleanup()]
         public void Cleanup()
         {
-            IDBManager DBManager = IoCManager.IoCManager.GetSinglenstance<IDBManager>();
+            IDBManager DBManager = AutofacContainer.Container.Resolve<IDBManager>();
             DBManager.TruncateTable();
         }
 
         [ClassCleanup()]
         public static void ClassCleanup()
         {
-            IDBManager DBManager = IoCManager.IoCManager.GetSinglenstance<IDBManager>();
+            IDBManager DBManager = AutofacContainer.Container.Resolve<IDBManager>();
             DBManager.DropDatabase();
         }
 

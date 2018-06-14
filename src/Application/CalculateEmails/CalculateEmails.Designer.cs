@@ -59,6 +59,10 @@
             this.box6 = this.Factory.CreateRibbonBox();
             this.button6 = this.Factory.CreateRibbonButton();
             this.lblTaskFinished = this.Factory.CreateRibbonLabel();
+            this.group5 = this.Factory.CreateRibbonGroup();
+            this.chHeartBeat = this.Factory.CreateRibbonCheckBox();
+            this.chCalculateEmailsEnabled = this.Factory.CreateRibbonCheckBox();
+            this.btnClearInvitation = this.Factory.CreateRibbonButton();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tab2 = this.Factory.CreateRibbonTab();
             this.group3 = this.Factory.CreateRibbonGroup();
@@ -82,8 +86,6 @@
             this.button12 = this.Factory.CreateRibbonButton();
             this.lblTaskFinished2 = this.Factory.CreateRibbonLabel();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.group5 = this.Factory.CreateRibbonGroup();
-            this.chHeartBeat = this.Factory.CreateRibbonCheckBox();
             this.tab1.SuspendLayout();
             this.group1.SuspendLayout();
             this.box2.SuspendLayout();
@@ -93,6 +95,7 @@
             this.box1.SuspendLayout();
             this.box5.SuspendLayout();
             this.box6.SuspendLayout();
+            this.group5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.tab2.SuspendLayout();
             this.group3.SuspendLayout();
@@ -103,7 +106,6 @@
             this.box10.SuspendLayout();
             this.box11.SuspendLayout();
             this.box12.SuspendLayout();
-            this.group5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab1
@@ -245,6 +247,29 @@
             // 
             this.lblTaskFinished.Label = "0";
             this.lblTaskFinished.Name = "lblTaskFinished";
+            // 
+            // group5
+            // 
+            this.group5.Items.Add(this.chHeartBeat);
+            this.group5.Items.Add(this.chCalculateEmailsEnabled);
+            this.group5.Items.Add(this.btnClearInvitation);
+            this.group5.Label = "Manage";
+            this.group5.Name = "group5";
+            // 
+            // chHeartBeat
+            // 
+            this.chHeartBeat.Label = "Online";
+            this.chHeartBeat.Name = "chHeartBeat";
+            // 
+            // chCalculateEmailsEnabled
+            // 
+            this.chCalculateEmailsEnabled.Label = "Enabled";
+            this.chCalculateEmailsEnabled.Name = "chCalculateEmailsEnabled";
+            // 
+            // btnClearInvitation
+            // 
+            this.btnClearInvitation.Label = "Clear invitations";
+            this.btnClearInvitation.Name = "btnClearInvitation";
             // 
             // chart1
             // 
@@ -407,17 +432,6 @@
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // group5
-            // 
-            this.group5.Items.Add(this.chHeartBeat);
-            this.group5.Label = "Manage";
-            this.group5.Name = "group5";
-            // 
-            // chHeartBeat
-            // 
-            this.chHeartBeat.Label = "Online";
-            this.chHeartBeat.Name = "chHeartBeat";
-            // 
             // CalculateEmails
             // 
             this.Name = "CalculateEmails";
@@ -444,6 +458,8 @@
             this.box5.PerformLayout();
             this.box6.ResumeLayout(false);
             this.box6.PerformLayout();
+            this.group5.ResumeLayout(false);
+            this.group5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.tab2.ResumeLayout(false);
             this.tab2.PerformLayout();
@@ -463,8 +479,6 @@
             this.box11.PerformLayout();
             this.box12.ResumeLayout(false);
             this.box12.PerformLayout();
-            this.group5.ResumeLayout(false);
-            this.group5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -517,6 +531,8 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonLabel lblTaskFinished2;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group5;
         internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox chHeartBeat;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnClearInvitation;
+        internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox chCalculateEmailsEnabled;
     }
 
     partial class ThisRibbonCollection

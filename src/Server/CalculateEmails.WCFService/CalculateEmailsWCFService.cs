@@ -1,8 +1,12 @@
-﻿using AutoMapper;
+﻿using Autofac;
+using AutoMapper;
+using CalculateEmails.Autofac;
+using CalculateEmails.Configuration.Contract;
 using CalculateEmails.Contract;
 using CalculateEmails.Contract.DataContract;
 using CalculateEmails.Contract.ServiceContract;
 using CalculateEmails.WCFService.Application;
+using ConfigurationServiceClient;
 using DALContracts;
 using System;
 using System.Collections.Generic;
@@ -20,8 +24,18 @@ namespace CalculateEmails.WCFService
     {
         static CalculateEmailsWCFService()
         {
-            IDBManager DBManager = IoCManager.IoCManager.GetSinglenstance<IDBManager>();
+
+            //IDBManager DBManager = IoCManager.IoCManager.GetSinglenstance<IDBManager>();
+            //DBManager.PerformDatabaseupdate();
+
+
+            var builder = new ContainerBuilder();
+            builder.RegisterModule<AutofacModuleWCFService>();
+            AutofacContainer.Container = builder.Build();
+
+            IDBManager DBManager = AutofacContainer.Container.Resolve<IDBManager>();
             DBManager.PerformDatabaseupdate();
+
         }
 
         public CalculateEmailsWCFService()

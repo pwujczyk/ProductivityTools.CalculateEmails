@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using Autofac;
+using AutoMapper;
+using CalculateEmails.Autofac;
 using CalculateEmails.Contract.DataContract;
 using DALContracts;
 using System;
@@ -26,7 +28,7 @@ namespace CalculateEmails.WCFService.Application
 
             //FillTodaysCalculationDetails();
 
-            DBManager = IoCManager.IoCManager.GetSinglenstance<IDBManager>();
+            DBManager = AutofacContainer.Container.Resolve<IDBManager>();
             //or
 
         }
@@ -56,7 +58,7 @@ namespace CalculateEmails.WCFService.Application
         {
             int x = Thread.CurrentThread.ManagedThreadId;
             string messagec = $"Thread:{x}; {message}";
-            
+
             Debug.WriteLine(messagec);
             Console.WriteLine(messagec);
             File.AppendAllText("D:\\perls.txt", messagec + Environment.NewLine);

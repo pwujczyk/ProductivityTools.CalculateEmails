@@ -7,6 +7,8 @@ using System.Data.SqlClient;
 using DALContracts;
 using System.Data.Common;
 using CalculateEmails.Configuration.Contract;
+using CalculateEmails.Autofac;
+using Autofac;
 
 namespace DAL
 {
@@ -17,7 +19,8 @@ namespace DAL
         {
             get
             {
-                IConfigurationClient client = IoCManager.IoCManager.GetSinglenstance<IConfigurationClient>();
+                IConfigurationClient client = AutofacContainer.Container.Resolve<IConfigurationClient>();
+                //   IConfigurationClient client = IoCManager.IoCManager.GetSinglenstance<IConfigurationClient>();
                 return client.GetSqlServerConnectionString();
             }
         }
@@ -26,7 +29,7 @@ namespace DAL
         {
             get
             {
-                IConfigurationClient client = IoCManager.IoCManager.GetSinglenstance<IConfigurationClient>();
+                IConfigurationClient client = AutofacContainer.Container.Resolve<IConfigurationClient>();
                 return client.GetDataSourceConnectionString();
             }
         }
@@ -201,7 +204,7 @@ namespace DAL
                 SqlCommand sqlCommand = new SqlCommand(sqlCommandText, con);
                 sqlCommand.ExecuteNonQuery();
             }
-            
+
 
             //using (SqlConnection connection = new SqlConnection(connectionString))
             //{

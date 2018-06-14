@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="ConnectionStringLightPT, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\packages\ConnectionStringLightPT.0.0.2\lib\v4.6.1\ConnectionStringLightPT.dll</HintPath>
@@ -76,6 +79,10 @@
     <ProjectReference Include="..\..\..\..\WPFMeetings\Nugets\IoCManager\IoCManager.csproj">
       <Project>{b12661af-45a4-43c6-b569-b2dd5ba2b682}</Project>
       <Name>IoCManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\CalculateEmails.Autofac\CalculateEmails.Autofac.csproj">
+      <Project>{6798c3b1-667e-4f86-88ae-eb271302d528}</Project>
+      <Name>CalculateEmails.Autofac</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Common\CalculateEmails.Configuration.Contract\CalculateEmails.Configuration.Contract.csproj">
       <Project>{f31adce8-a64c-4ef0-8e81-b1b71fbe3b76}</Project>

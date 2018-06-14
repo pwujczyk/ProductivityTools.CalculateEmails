@@ -1,4 +1,7 @@
-﻿using CalculateEmails.Configuration.Contract;
+﻿
+using Autofac;
+using CalculateEmails.Autofac;
+using CalculateEmails.Configuration.Contract;
 using ConfigurationServiceClient;
 using DBUpPT;
 using System;
@@ -14,7 +17,8 @@ namespace DBScripts
     {
         public void DatabaseUpdatePerform()
         {
-            IConfigurationClient client = IoCManager.IoCManager.GetSinglenstance<IConfigurationClient>();;
+            //IConfigurationClient client = IoCManager.IoCManager.GetSinglenstance<IConfigurationClient>();;
+            IConfigurationClient client = AutofacContainer.Container.Resolve<IConfigurationClient>();
             string serverName = client.GetSqlDataSource();
             string dbName = client.GetSqlServerDataBaseName();
 
