@@ -1,5 +1,8 @@
-﻿using CalculateEmails.Contract.DataContract;
+﻿using Autofac;
+using CalculateEmails.Autofac;
+using CalculateEmails.Contract.DataContract;
 using CalculateEmails.Contract.ServiceContract;
+using Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +18,9 @@ namespace CalculateEmails.ServiceClient
         {
             get
             {
-                string address = Configuration.Config.Address;
+
+                IConfig client = AutofacContainer.Container.Resolve<IConfig>();
+                string address = client.Address;
                 NetMsmqBinding mqbinding = new NetMsmqBinding(securityMode: NetMsmqSecurityMode.None);
                 mqbinding.CloseTimeout = TimeSpan.FromMinutes(20);
                 ChannelFactory<ICalculateEmailsWCFMQService> factory = new ChannelFactory<ICalculateEmailsWCFMQService>(mqbinding, new EndpointAddress(address));

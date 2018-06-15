@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace CalculateEmails.Configuration.Contract
 {
-    public interface IConfigurationClient
-    {
-        string GetSqlDataSource();
-        string GetSqlServerConnectionString();
-        string GetSqlServerDataBaseName();
-        string GetDataSourceConnectionString();
-    }
+    //public interface IConfigurationClient
+    //{
+    //    string GetSqlDataSource();
+    //    string GetSqlServerConnectionString();
+    //    string GetSqlServerDataBaseName();
+    //    string GetDataSourceConnectionString();
+    //}
 }

@@ -1,4 +1,4 @@
-﻿using CalculateEmails.Configuration.Contract;
+﻿using Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace BLTests
 {
-    public class Configuration : IConfigurationClient
+    public class Configuration : IConfig
     {
+        public string Address => throw new NotImplementedException();
+
         public string GetSqlServerConnectionString()
         {
             return ConnectionStringLightPT.ConnectionStringLight.GetSqlServerConnectionString(GetSqlDataSource(), GetSqlServerDataBaseName());

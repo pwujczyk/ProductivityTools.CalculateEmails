@@ -1,4 +1,6 @@
-﻿using CalculateEmails.Contract;
+﻿using Autofac;
+using CalculateEmails.Autofac;
+using CalculateEmails.Contract;
 using CalculateEmails.Contract.ServiceContract;
 using CalculateEmails.WCFService;
 using Configuration;
@@ -44,7 +46,7 @@ namespace CalculateEmails.WindowsService
         private void StartServer()
         {
 
-
+            IConfig client = AutofacContainer.Container.Resolve<IConfig>();
             var binding = new NetMsmqBinding(NetMsmqSecurityMode.None);
 
 
@@ -54,7 +56,7 @@ namespace CalculateEmails.WindowsService
                 MessageQueue.Create(queneAddress, true);
             }
 
-            string address = Config.Address;
+            string address = client.Address;
 
             host = new ServiceHost(typeof(CalculateEmailsWCFService));
             host.AddServiceEndpoint(typeof(ICalculateEmailsWCFMQService), binding, address);

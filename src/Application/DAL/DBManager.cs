@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using DALContracts;
 using System.Data.Common;
-using CalculateEmails.Configuration.Contract;
 using CalculateEmails.Autofac;
 using Autofac;
+using Configuration;
 
 namespace DAL
 {
@@ -19,7 +19,7 @@ namespace DAL
         {
             get
             {
-                IConfigurationClient client = AutofacContainer.Container.Resolve<IConfigurationClient>();
+                IConfig client = AutofacContainer.Container.Resolve<IConfig>();
                 //   IConfigurationClient client = IoCManager.IoCManager.GetSinglenstance<IConfigurationClient>();
                 return client.GetSqlServerConnectionString();
             }
@@ -29,7 +29,7 @@ namespace DAL
         {
             get
             {
-                IConfigurationClient client = AutofacContainer.Container.Resolve<IConfigurationClient>();
+                IConfig client = AutofacContainer.Container.Resolve<IConfig>();
                 return client.GetDataSourceConnectionString();
             }
         }
@@ -176,59 +176,6 @@ namespace DAL
             }
         }
 
-        //todo:it cannot be here
-        public void TruncateTable()
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-
-                SqlCommand command = new SqlCommand("TRUNCATE TABLE [outlook].[CalculateEmails]");
-                command.Connection = connection;
-                command.CommandType = System.Data.CommandType.Text;
-                connection.Open();
-                command.ExecuteNonQuery();
-                connection.Close();
-            }
-        }
-
-        //todo:it cannot be here
-        public void DropDatabase()
-        {
-
-            using (SqlConnection con = new SqlConnection(connectionStringServer))
-            {
-                con.Open();
-                String sqlCommandText = @"
-        ALTER DATABASE EcoVadisPTTest SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-        DROP DATABASE [EcoVadisPTTest]";
-                SqlCommand sqlCommand = new SqlCommand(sqlCommandText, con);
-                sqlCommand.ExecuteNonQuery();
-            }
-
-
-            //using (SqlConnection connection = new SqlConnection(connectionString))
-            //{
-
-            //    SqlCommand command = new SqlCommand(@"EXEC msdb.dbo.sp_delete_database_backuphistory @database_name = N'EcoVadisPTTest'");
-            //    command.Connection = connection;
-            //    command.CommandType = System.Data.CommandType.Text;
-            //    connection.Open();
-            //    command.ExecuteNonQuery();
-            //    connection.Close();
-            //}
-
-            //using (SqlConnection connection = new SqlConnection(connectionStringServer))
-            //{
-
-            //    SqlCommand command = new SqlCommand(@"DROP DATABASE[EcoVadisPTTest]");
-
-            //    command.Connection = connection;
-            //    connection.exe
-            //    command.CommandType = System.Data.CommandType.Text;
-            //    connection.Open();
-            //    command.ExecuteNonQuery();
-            //    connection.Close();
-            //}
-        }
+       
     }
 }

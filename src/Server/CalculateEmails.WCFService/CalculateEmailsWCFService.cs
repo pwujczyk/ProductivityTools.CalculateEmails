@@ -1,12 +1,10 @@
 ﻿using Autofac;
 using AutoMapper;
 using CalculateEmails.Autofac;
-using CalculateEmails.Configuration.Contract;
 using CalculateEmails.Contract;
 using CalculateEmails.Contract.DataContract;
 using CalculateEmails.Contract.ServiceContract;
 using CalculateEmails.WCFService.Application;
-using ConfigurationServiceClient;
 using DALContracts;
 using System;
 using System.Collections.Generic;

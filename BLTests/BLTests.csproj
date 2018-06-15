@@ -50,9 +50,11 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration.cs" />
+    <Compile Include="DBSetup.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -76,13 +78,13 @@
       <Project>{f32f9300-1029-4366-b7ff-0d1080671019}</Project>
       <Name>DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\src\Common\CalculateEmails.Configuration.Contract\CalculateEmails.Configuration.Contract.csproj">
-      <Project>{f31adce8-a64c-4ef0-8e81-b1b71fbe3b76}</Project>
-      <Name>CalculateEmails.Configuration.Contract</Name>
-    </ProjectReference>
     <ProjectReference Include="..\src\Common\CalculateEmails.Contract\CalculateEmails.Contract.csproj">
       <Project>{2ba5b1bc-4720-444e-954f-50a95fbac076}</Project>
       <Name>CalculateEmails.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Common\Configuration\Configuration.csproj">
+      <Project>{8060356b-3757-4eda-8e6a-2fc0da6feaa3}</Project>
+      <Name>Configuration</Name>
     </ProjectReference>
     <ProjectReference Include="..\src\Server\CalculateEmails.WCFService\CalculateEmails.WCFService.csproj">
       <Project>{2ffd0e87-f59f-4e00-b6fb-95ad7d878586}</Project>

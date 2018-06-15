@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
-using CalculateEmails.Configuration.Contract;
-using ConfigurationServiceClient;
+using Configuration;
 
 namespace DAL
 {
@@ -13,7 +12,7 @@ namespace DAL
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ConfigurationClient>().As<IConfigurationClient>();
+            builder.RegisterType<Config>().As<IConfig>();
             base.Load(builder);
         }
     }
