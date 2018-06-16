@@ -51,6 +51,9 @@
     <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -74,6 +77,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -81,21 +87,21 @@
       <Project>{b12661af-45a4-43c6-b569-b2dd5ba2b682}</Project>
       <Name>IoCManager</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\CalculateEmails.Autofac\CalculateEmails.Autofac.csproj">
-      <Project>{6798c3b1-667e-4f86-88ae-eb271302d528}</Project>
+    <ProjectReference Include="..\..\Common\CalculateEmails.Autofac\CalculateEmails.Autofac.csproj">
+      <Project>{0f0c73a9-8fdf-4d49-bd5e-b00e2c12bcb5}</Project>
       <Name>CalculateEmails.Autofac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Application\DALContracts\DALContracts.csproj">
-      <Project>{9cf64e20-4550-4cda-a2e7-a2f9efac7905}</Project>
-      <Name>DALContracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Application\DAL\DAL.csproj">
-      <Project>{f32f9300-1029-4366-b7ff-0d1080671019}</Project>
-      <Name>DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Common\CalculateEmails.Contract\CalculateEmails.Contract.csproj">
       <Project>{2ba5b1bc-4720-444e-954f-50a95fbac076}</Project>
       <Name>CalculateEmails.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CalculateEmails.DALContracts\CalculateEmails.DALContracts.csproj">
+      <Project>{a356905e-d585-45e0-9e3e-3119b41fada1}</Project>
+      <Name>CalculateEmails.DALContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CalculateEmails.DAL\CalculateEmails.DAL.csproj">
+      <Project>{f32f9300-1029-4366-b7ff-0d1080671019}</Project>
+      <Name>CalculateEmails.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

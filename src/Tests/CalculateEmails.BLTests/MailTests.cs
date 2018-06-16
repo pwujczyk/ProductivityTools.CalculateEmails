@@ -11,7 +11,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace BLTests
 {
     [TestClass]
-    public class UnitTest1
+    public class MailTests
     {
         string MailCountAdd = "MailCountAdd";
         string MailCountProcessed = "MailCountProcessed";

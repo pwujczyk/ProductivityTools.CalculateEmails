@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9CF64E20-4550-4CDA-A2E7-A2F9EFAC7905}</ProjectGuid>
+    <ProjectGuid>{F32F9300-1029-4366-B7FF-0D1080671019}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DALContracts</RootNamespace>
-    <AssemblyName>DALContracts</AssemblyName>
+    <RootNamespace>DAL</RootNamespace>
+    <AssemblyName>DAL</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,6 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="ConnectionStringHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\ConnectionStringLightHelperPT.0.0.1\lib\v4.6.1\ConnectionStringHelper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,9 +46,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CalculationDay.cs" />
-    <Compile Include="IDBManager.cs" />
+    <Compile Include="AutofacModuleDal.cs" />
+    <Compile Include="DBManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\CalculateEmails.Autofac\CalculateEmails.Autofac.csproj">
+      <Project>{0f0c73a9-8fdf-4d49-bd5e-b00e2c12bcb5}</Project>
+      <Name>CalculateEmails.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\CalculateEmails.Configuration\CalculateEmails.Configuration.csproj">
+      <Project>{8060356b-3757-4eda-8e6a-2fc0da6feaa3}</Project>
+      <Name>CalculateEmails.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CalculateEmails.DALContracts\CalculateEmails.DALContracts.csproj">
+      <Project>{a356905e-d585-45e0-9e3e-3119b41fada1}</Project>
+      <Name>CalculateEmails.DALContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CalculateEmails.DBScripts\CalculateEmails.DBScripts.csproj">
+      <Project>{82cdb431-6cfb-4f71-b292-843741eafd03}</Project>
+      <Name>CalculateEmails.DBScripts</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

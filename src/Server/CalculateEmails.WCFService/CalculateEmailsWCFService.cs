@@ -20,13 +20,10 @@ namespace CalculateEmails.WCFService
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Single,InstanceContextMode = InstanceContextMode.Single)]
     public class CalculateEmailsWCFService : ICalculateEmailsWCFMQService
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         static CalculateEmailsWCFService()
         {
-
-            //IDBManager DBManager = IoCManager.IoCManager.GetSinglenstance<IDBManager>();
-            //DBManager.PerformDatabaseupdate();
-
-
             var builder = new ContainerBuilder();
             builder.RegisterModule<AutofacModuleWCFService>();
             AutofacContainer.Container = builder.Build();
@@ -48,11 +45,10 @@ namespace CalculateEmails.WCFService
 
         private void PerformOperation(InboxType inboxType, EmailActionType actionType)
         {
+            log.Info("Hello logging world!");
             BLManager bLManager = new BLManager();
             bLManager.Process(actionType, inboxType);
             var config = new MapperConfiguration(cfg => cfg.CreateMap<CalculationDayDB, CalculationDay>());
-            // IMapper iMapper = config.CreateMapper();
-            //   var x = iMapper.Map<CalculationDayDB, CalculationDay>(bLManager.TodayCalculationDetails);
         }
 
         public void ProcessTask(TaskActionType taskActionType)

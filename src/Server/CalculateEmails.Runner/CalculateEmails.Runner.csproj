@@ -51,21 +51,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Application\DALContracts\DALContracts.csproj">
-      <Project>{9cf64e20-4550-4cda-a2e7-a2f9efac7905}</Project>
-      <Name>DALContracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Application\DAL\DAL.csproj">
-      <Project>{f32f9300-1029-4366-b7ff-0d1080671019}</Project>
-      <Name>DAL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CalculateEmails.WindowsService\CalculateEmails.WindowsService.csproj">
       <Project>{fa4a7673-84e9-4377-b19a-f65d753337e3}</Project>
       <Name>CalculateEmails.WindowsService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Common\Configuration\Configuration.csproj">
-      <Project>{8060356b-3757-4eda-8e6a-2fc0da6feaa3}</Project>
-      <Name>Configuration</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -63,9 +63,13 @@
       <Project>{108cefcd-3617-4c60-bdf3-d1f77636fb62}</Project>
       <Name>MasterConfiguration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\CalculateEmails.Autofac\CalculateEmails.Autofac.csproj">
-      <Project>{6798c3b1-667e-4f86-88ae-eb271302d528}</Project>
+    <ProjectReference Include="..\..\Common\CalculateEmails.Autofac\CalculateEmails.Autofac.csproj">
+      <Project>{0f0c73a9-8fdf-4d49-bd5e-b00e2c12bcb5}</Project>
       <Name>CalculateEmails.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\CalculateEmails.Configuration\CalculateEmails.Configuration.csproj">
+      <Project>{8060356b-3757-4eda-8e6a-2fc0da6feaa3}</Project>
+      <Name>CalculateEmails.Configuration</Name>
     </ProjectReference>
     <ProjectReference Include="..\CalculateEmails.WCFService\CalculateEmails.WCFService.csproj">
       <Project>{2ffd0e87-f59f-4e00-b6fb-95ad7d878586}</Project>
@@ -74,10 +78,6 @@
     <ProjectReference Include="..\..\Common\CalculateEmails.Contract\CalculateEmails.Contract.csproj">
       <Project>{2ba5b1bc-4720-444e-954f-50a95fbac076}</Project>
       <Name>CalculateEmails.Contract</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Common\Configuration\Configuration.csproj">
-      <Project>{8060356b-3757-4eda-8e6a-2fc0da6feaa3}</Project>
-      <Name>Configuration</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
