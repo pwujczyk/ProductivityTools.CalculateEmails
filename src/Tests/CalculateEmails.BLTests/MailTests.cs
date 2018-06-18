@@ -21,19 +21,7 @@ namespace BLTests
         string TaskCountRemoved = "TaskCountRemoved";
 
 
-        [AssemblyInitialize()]
-        public static void AssemblyInit(TestContext context)
-        {
-
-            var builder = new ContainerBuilder();
-            builder.RegisterModule<AutofacModuleWCFService>();
-            builder.RegisterType<Configuration>().As<IConfig>();
-
-            AutofacContainer.Container = builder.Build();
-
-            IDBManager DBManager = AutofacContainer.Container.Resolve<IDBManager>();
-            DBManager.PerformDatabaseupdate();
-        }
+      
 
         [ClassInitialize()]
         public static void ClassInit(TestContext context)
@@ -65,13 +53,13 @@ namespace BLTests
 
 
         [TestMethod]
-        public void ReferenceMethod()
+        public void MailReferenceMethod()
         {
             Assert.AreEqual(true, true);
         }
 
         [TestMethod]
-        public void OneNewMail()
+        public void MailMailOneNewMail()
         {
             BLManager bLManager = new BLManager();
             bLManager.Process(EmailActionType.Added, InboxType.Main);
@@ -100,7 +88,7 @@ namespace BLTests
         }
 
         [TestMethod]
-        public void MoveMailBetweenInboxesReverseOrder()
+        public void MailMoveMailBetweenInboxesReverseOrder()
         {
             BLManager bLManager = new BLManager();
             bLManager.Process(EmailActionType.Added, InboxType.Subinbox);
@@ -115,7 +103,7 @@ namespace BLTests
         }
 
         [TestMethod]
-        public void MoveMailBetweenInboxesRightOrder()
+        public void Mail()
         {
             BLManager bLManager = new BLManager();
             bLManager.Process(EmailActionType.Removed, InboxType.Main);
@@ -130,7 +118,7 @@ namespace BLTests
         }
 
         [TestMethod]
-        public void Move4MailBetweenInboxesRightOrder()
+        public void MailMove4MailBetweenInboxesRightOrder()
         {
             BaseManager.WriteToLog("Move 4 mails between inboxes");
             BLManager bLManager = new BLManager();
@@ -150,7 +138,7 @@ namespace BLTests
         }
 
         [TestMethod]
-        public void Move6MailBetweenInboxesRightOrder()
+        public void MailMove6MailBetweenInboxesRightOrder()
         {
             BaseManager.WriteToLog("Move 4 mails between inboxes");
             BLManager bLManager = new BLManager();
@@ -172,7 +160,7 @@ namespace BLTests
         }
 
         [TestMethod]
-        public void ProcessOneMailFromMainInbox()
+        public void MailProcessOneMailFromMainInbox()
         {
             BLManager bLManager = new BLManager();
             bLManager.Process(EmailActionType.Removed, InboxType.Main);
@@ -187,7 +175,7 @@ namespace BLTests
 
 
         [TestMethod]
-        public void ProcessTwoMailFromSubInbox()
+        public void MailProcessTwoMailFromSubInbox()
         {
             BaseManager.WriteToLog("ProcessTwoMailFromSubInbox");
             BLManager bLManager = new BLManager();

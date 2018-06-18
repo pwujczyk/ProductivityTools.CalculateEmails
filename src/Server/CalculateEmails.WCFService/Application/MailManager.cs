@@ -13,10 +13,6 @@ namespace CalculateEmails.WCFService.Application
 
     public class BLManager : BaseManager
     {
-
-
-
-
         private int milisecondsDelay = 100;
         private static ConcurrentDictionary<Guid, MailElement> mailElements = new ConcurrentDictionary<Guid, MailElement>();
         private ConcurrentBag<ActionItem> actionList = new ConcurrentBag<ActionItem>();

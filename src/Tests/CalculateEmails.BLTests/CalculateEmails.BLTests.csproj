@@ -43,6 +43,7 @@
     <Compile Include="LoggerTests.cs" />
     <Compile Include="MailTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TasksTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\CalculateEmails.Autofac\CalculateEmails.Autofac.csproj">

@@ -33,10 +33,11 @@ namespace CalculateEmails
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
+            MasterConfiguration.MConfiguration.SetCurrentDomainPath(true);
             RegisterAutofac();
 
             this.CalculateEmailsEnabled = true;
-            MasterConfiguration.MConfiguration.SetCurrentDomainPath(true);
+            
             Globals.Ribbons.CalculateEmails.btnClearInvitation.Click += BtnClearInvitation_Click;
 
             Thread t = new Thread(new ThreadStart(HeartBeatChecker));
@@ -47,16 +48,6 @@ namespace CalculateEmails
 
             MailsManage();
             TodoManage();
-
-            // Outlook.MAPIFolder inbox = Application.Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderInbox);
-
-            //inboxItems = inbox.Items;
-            //inboxItems.ItemAdd += InboxFolderItemAdded;
-            //  inboxItems.ItemRemove += InboxItems_ItemRemove;
-            // inboxItems.ItemChange += InboxItems_ItemChange;
-
-
-
 
             currentExplorer = Globals.ThisAddIn.Application.ActiveExplorer();
             currentExplorer.SelectionChange += CurrentExplorer_SelectionChange;
@@ -199,13 +190,13 @@ namespace CalculateEmails
         //    return newContact;
         //}
 
-        private DateTime CurrentDay
-        {
-            get
-            {
-                return DateTime.Today;
-            }
-        }
+        //private DateTime CurrentDay
+        //{
+        //    get
+        //    {
+        //        return DateTime.Today;
+        //    }
+        //}
 
         private void UpdateLabel()
         {
