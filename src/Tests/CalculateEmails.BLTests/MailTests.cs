@@ -4,7 +4,7 @@ using CalculateEmails.Autofac;
 using CalculateEmails.Contract.DataContract;
 using CalculateEmails.WCFService;
 using CalculateEmails.WCFService.Application;
-using Configuration;
+using CalculateEmails.Configuration;
 using DALContracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

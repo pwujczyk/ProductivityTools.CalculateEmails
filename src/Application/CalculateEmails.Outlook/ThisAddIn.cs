@@ -33,10 +33,7 @@ namespace CalculateEmails
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-
-            var builder = new ContainerBuilder();
-            builder.RegisterModule<AutofacModule>();
-            AutofacContainer.Container = builder.Build();
+            RegisterAutofac();
 
             this.CalculateEmailsEnabled = true;
             MasterConfiguration.MConfiguration.SetCurrentDomainPath(true);
@@ -64,6 +61,13 @@ namespace CalculateEmails
             currentExplorer = Globals.ThisAddIn.Application.ActiveExplorer();
             currentExplorer.SelectionChange += CurrentExplorer_SelectionChange;
 
+        }
+
+        private static void RegisterAutofac()
+        {
+            var builder = new ContainerBuilder();
+            builder.RegisterModule<AutofacModule>();
+            AutofacContainer.Container = builder.Build();
         }
 
         private void BtnClearInvitation_Click(object sender, Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs e)

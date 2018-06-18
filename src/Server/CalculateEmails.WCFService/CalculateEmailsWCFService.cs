@@ -24,8 +24,6 @@ namespace CalculateEmails.WCFService
 
         static CalculateEmailsWCFService()
         {
-           
-
             IDBManager DBManager = AutofacContainer.Container.Resolve<IDBManager>();
             DBManager.PerformDatabaseupdate();
 
@@ -43,7 +41,7 @@ namespace CalculateEmails.WCFService
 
         private void PerformOperation(InboxType inboxType, EmailActionType actionType)
         {
-            log.Info("Hello logging world!");
+ //           log.Info("Hello logging world!");
             BLManager bLManager = new BLManager();
             bLManager.Process(actionType, inboxType);
             var config = new MapperConfiguration(cfg => cfg.CreateMap<CalculationDayDB, CalculationDay>());

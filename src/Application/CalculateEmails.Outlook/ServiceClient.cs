@@ -9,6 +9,7 @@
 //using System.Text;
 //using System.Threading.Tasks;
 
+//todo: remove
 //namespace CalculateEmails
 //{
 //    class ServiceClient
