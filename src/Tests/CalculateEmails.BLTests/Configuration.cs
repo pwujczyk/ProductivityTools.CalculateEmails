@@ -1,4 +1,4 @@
-﻿using Configuration;
+﻿using CalculateEmails.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;

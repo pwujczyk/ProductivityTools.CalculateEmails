@@ -24,9 +24,7 @@ namespace CalculateEmails.WCFService
 
         static CalculateEmailsWCFService()
         {
-            var builder = new ContainerBuilder();
-            builder.RegisterModule<AutofacModuleWCFService>();
-            AutofacContainer.Container = builder.Build();
+           
 
             IDBManager DBManager = AutofacContainer.Container.Resolve<IDBManager>();
             DBManager.PerformDatabaseupdate();

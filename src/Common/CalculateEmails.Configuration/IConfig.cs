@@ -1,4 +1,4 @@
-﻿namespace Configuration
+﻿namespace CalculateEmails.Configuration
 {
     public interface IConfig
     {

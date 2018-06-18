@@ -2,7 +2,7 @@
 using CalculateEmails.Autofac;
 using CalculateEmails.Contract.DataContract;
 using CalculateEmails.Contract.ServiceContract;
-using Configuration;
+using CalculateEmails.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -3,7 +3,7 @@ using CalculateEmails.Autofac;
 using CalculateEmails.Contract;
 using CalculateEmails.Contract.ServiceContract;
 using CalculateEmails.WCFService;
-using Configuration;
+using CalculateEmails.Configuration;
 using MasterConfiguration;
 using System;
 using System.Collections.Generic;
@@ -45,6 +45,10 @@ namespace CalculateEmails.WindowsService
 
         private void StartServer()
         {
+            MConfiguration.SetConfigurationName("Configuration.config");
+            var builder = new ContainerBuilder();
+            builder.RegisterModule<AutofacModuleWCFService>();
+            AutofacContainer.Container = builder.Build();
 
             IConfig client = AutofacContainer.Container.Resolve<IConfig>();
             var binding = new NetMsmqBinding(NetMsmqSecurityMode.None);

@@ -11,6 +11,8 @@ using CalculateEmails.Contract.DataContract;
 using System.Threading;
 using System.Diagnostics;
 using CalculateEmails.ServiceClient;
+using Autofac;
+using CalculateEmails.Autofac;
 
 namespace CalculateEmails
 {
@@ -31,6 +33,11 @@ namespace CalculateEmails
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
+
+            var builder = new ContainerBuilder();
+            builder.RegisterModule<AutofacModule>();
+            AutofacContainer.Container = builder.Build();
+
             this.CalculateEmailsEnabled = true;
             MasterConfiguration.MConfiguration.SetCurrentDomainPath(true);
             Globals.Ribbons.CalculateEmails.btnClearInvitation.Click += BtnClearInvitation_Click;

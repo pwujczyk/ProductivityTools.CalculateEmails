@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using CalculateEmails.Autofac;
-using Configuration;
+using CalculateEmails.Configuration;
 using DBUpPT;
 using System.Reflection;
 

@@ -8,7 +8,7 @@ using DALContracts;
 using System.Data.Common;
 using CalculateEmails.Autofac;
 using Autofac;
-using Configuration;
+using CalculateEmails.Configuration;
 
 namespace DAL
 {

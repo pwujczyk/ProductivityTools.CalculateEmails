@@ -26,7 +26,7 @@
     <OutputType>Library</OutputType>
     <NoStandardLibraries>false</NoStandardLibraries>
     <RootNamespace>CalculateEmails</RootNamespace>
-    <AssemblyName>CalculateEmails</AssemblyName>
+    <AssemblyName>CalculateEmails.Outlook</AssemblyName>
     <LoadBehavior>3</LoadBehavior>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <DefineConstants>VSTO40</DefineConstants>
@@ -107,6 +107,9 @@
   -->
   <ItemGroup>
     <Reference Include="Accessibility" />
+    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -158,6 +161,7 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="AutofacModule.cs" />
     <Compile Include="HeartBeat\HeartBeatCheckEndpointBehavior.cs" />
     <Compile Include="HeartBeat\HeartBeatCheckOperationBehavior.cs" />
     <Compile Include="HeartBeat\HeartBeatOperationInvoker.cs" />
@@ -186,6 +190,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="CalculateEmails_TemporaryKey.pfx" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -234,6 +239,10 @@
     <ProjectReference Include="..\..\..\..\WPFMeetings\Nugets\IoCManager\IoCManager.csproj">
       <Project>{b12661af-45a4-43c6-b569-b2dd5ba2b682}</Project>
       <Name>IoCManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\CalculateEmails.Autofac\CalculateEmails.Autofac.csproj">
+      <Project>{0f0c73a9-8fdf-4d49-bd5e-b00e2c12bcb5}</Project>
+      <Name>CalculateEmails.Autofac</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Common\CalculateEmails.Contract\CalculateEmails.Contract.csproj">
       <Project>{2ba5b1bc-4720-444e-954f-50a95fbac076}</Project>
