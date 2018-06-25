@@ -49,6 +49,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\DateTimePT\DateTimePT\DateTimePT.csproj">
+      <Project>{5299700d-6ae8-4ffe-aaf4-9f6381497d56}</Project>
+      <Name>DateTimePT</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\MasterConfigurationPT\MasterConfiguration\MasterConfiguration.csproj">
       <Project>{108cefcd-3617-4c60-bdf3-d1f77636fb62}</Project>
       <Name>MasterConfiguration</Name>

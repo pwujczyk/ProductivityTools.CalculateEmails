@@ -9,11 +9,25 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using DateTimePT;
 
 namespace CalculateEmails.ServiceClient
 {
     public class WcfClient
     {
+
+        DateTime Now
+        {
+            get
+            {
+                //todo: fda
+                return DateTime.Now;
+               // throw new Exception();
+                var datetime=AutofacContainer.Container.Resolve<IDateTimePT>();
+                return datetime.Now;
+            }
+        }
+
         protected ICalculateEmailsWCFMQService Client
         {
             get
@@ -39,7 +53,7 @@ namespace CalculateEmails.ServiceClient
         public void ProcessOutlookMail(InboxType inboxType, EmailActionType actionType)
         {
 
-            this.Client.ProcessMail(inboxType, actionType);
+            this.Client.ProcessMail(inboxType, actionType, Now);
 
         }
 

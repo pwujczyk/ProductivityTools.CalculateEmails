@@ -13,13 +13,13 @@ namespace CalculateEmails.Contract.ServiceContract
     [ServiceContract]
     public interface ICalculateEmailsWCFMQService
     {
-        [OperationContract(IsOneWay =true)]
-        void ProcessMail(InboxType inboxType, EmailActionType actionType);
+        [OperationContract(IsOneWay = true)]
+        void ProcessMail(InboxType inboxType, EmailActionType actionType, DateTime occured);
 
-        [OperationContract(IsOneWay =true)]
-        void ProcessTask(TaskActionType taskActionType);
+        [OperationContract(IsOneWay = true)]
+        void ProcessTask(TaskActionType taskActionType, DateTime occured);
 
-        [OperationContract(IsOneWay =true)]
+        [OperationContract(IsOneWay = true)]
         void HeartBeat();
     }
 }

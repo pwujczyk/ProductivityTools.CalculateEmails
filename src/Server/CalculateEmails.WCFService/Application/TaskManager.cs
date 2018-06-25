@@ -10,37 +10,37 @@ namespace CalculateEmails.WCFService.Application
     class TaskManager : BaseManager
     {
 
-        public void Process(TaskActionType processingType)
+        public void Process(TaskActionType processingType, DateTime date)
         {
             switch (processingType)
             {
                 case TaskActionType.Changed:
-                    TaskItems_ItemChange();
+                    TaskItems_ItemChange(date);
                     break;
                 case TaskActionType.Removed:
-                    TaskItems_ItemRemove();
+                    TaskItems_ItemRemove(date);
                     break;
                 case TaskActionType.Added:
-                    TaskItems_ItemAdd();
+                    TaskItems_ItemAdd(date);
                     break;
                 default:
                     break;
             }
         }
 
-        public void TaskItems_ItemRemove()
+        public void TaskItems_ItemRemove(DateTime date)
         {
-            PerformChange((calculationDayDB) => calculationDayDB.TaskCountRemoved++);
+            PerformChange(date, (calculationDayDB) => calculationDayDB.TaskCountRemoved++);
         }
 
-        public void TaskItems_ItemAdd()
+        public void TaskItems_ItemAdd(DateTime date)
         {
-            PerformChange((calculationDayDB) => calculationDayDB.TaskCountAdded++);
+            PerformChange(date, (calculationDayDB) => calculationDayDB.TaskCountAdded++);
         }
 
-        public void TaskItems_ItemChange()
+        public void TaskItems_ItemChange(DateTime date)
         {
-            PerformChange((calculationDayDB) => calculationDayDB.TaskCountFinished++);
+            PerformChange(date,(calculationDayDB) => calculationDayDB.TaskCountFinished++);
         }
     }
 }

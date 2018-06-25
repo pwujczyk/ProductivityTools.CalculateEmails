@@ -111,10 +111,17 @@ namespace CalculateEmails
         {
             if (CalculateEmailsEnabled)
             {
-                if (ThisAddIn.ServiceIsWorking)
+                if (InvitationsCounter > 0)
                 {
-                    new WcfClient().ProcessOutlookMail(InboxType.Main, EmailActionType.Removed);
-                    //UpdateLabel(x);
+                    InvitationsCounter--;
+                }
+                else
+                {
+                    if (ThisAddIn.ServiceIsWorking)
+                    {
+                        new WcfClient().ProcessOutlookMail(InboxType.Main, EmailActionType.Removed);
+                        //UpdateLabel(x);
+                    }
                 }
             }
         }

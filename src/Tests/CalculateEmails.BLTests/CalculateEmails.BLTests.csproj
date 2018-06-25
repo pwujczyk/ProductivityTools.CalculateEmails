@@ -42,6 +42,7 @@
     <Compile Include="DBSetup.cs" />
     <Compile Include="LoggerTests.cs" />
     <Compile Include="MailTests.cs" />
+    <Compile Include="Managment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TasksTests.cs" />
   </ItemGroup>

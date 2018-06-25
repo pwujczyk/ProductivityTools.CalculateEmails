@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CalculateEmails.WCFService.Application
 {
-    delegate void MailAction();
+    delegate void MailAction(DateTime date);
 
     public class BLManager : BaseManager
     {
@@ -23,7 +23,7 @@ namespace CalculateEmails.WCFService.Application
 
             this.actionList.Add(new ActionItem() { Id = 12, DoneIn = InboxType.Main, Action = EmailActionType.Added, AndPreviousAction = EmailActionType.Removed, PreviousDoneIn = InboxType.Subinbox, ThenPerform = DecreaseProcessed });
             this.actionList.Add(new ActionItem() { Id = 13, DoneIn = InboxType.Main, Action = EmailActionType.Removed, AndPreviousAction = EmailActionType.None, PreviousDoneIn = InboxType.None, ThenPerform = IncreaseProcessed });
-            this.actionList.Add(new ActionItem() { Id = 14, DoneIn = InboxType.Main, Action = EmailActionType.Removed, AndPreviousAction = EmailActionType.Added, PreviousDoneIn = InboxType.Subinbox, ThenPerform = IncreaseProcessed});
+            this.actionList.Add(new ActionItem() { Id = 14, DoneIn = InboxType.Main, Action = EmailActionType.Removed, AndPreviousAction = EmailActionType.Added, PreviousDoneIn = InboxType.Subinbox, ThenPerform = IncreaseProcessed });
 
             this.actionList.Add(new ActionItem() { Id = 21, DoneIn = InboxType.Subinbox, Action = EmailActionType.Added, AndPreviousAction = EmailActionType.None, PreviousDoneIn = InboxType.None, ThenPerform = DecreaseProcessed });
             this.actionList.Add(new ActionItem() { Id = 22, DoneIn = InboxType.Subinbox, Action = EmailActionType.Added, AndPreviousAction = EmailActionType.Removed, PreviousDoneIn = InboxType.Main, ThenPerform = DecreaseProcessed });
@@ -36,7 +36,7 @@ namespace CalculateEmails.WCFService.Application
 
         }
 
-        public void Process(EmailActionType processingType, InboxType doneIn)
+        public void Process(EmailActionType processingType, InboxType doneIn, DateTime date)
         {
             WriteToLog($"[Process Start]");
             PrintMailElements(mailElements);
@@ -63,7 +63,7 @@ namespace CalculateEmails.WCFService.Application
                     WriteToLog($"Perform action: {currentAction.Id}");
                     MailElement x;
                     mailElements.TryRemove(element.Key, out x);
-                    currentAction.ThenPerform();
+                    currentAction.ThenPerform(date);
                     mailElements.TryAdd(Guid.NewGuid(), new MailElement(processingType, doneIn));
                     return;
                 }
@@ -72,7 +72,7 @@ namespace CalculateEmails.WCFService.Application
             var withoutPrevious = actionListScoped.Single(x => x.AndPreviousAction == EmailActionType.None);
 
             WriteToLog($"Perform action: {withoutPrevious.Id}");
-            withoutPrevious.ThenPerform();
+            withoutPrevious.ThenPerform(date);
             mailElements.TryAdd(Guid.NewGuid(), new MailElement(processingType, doneIn));
             return;
 
@@ -167,42 +167,42 @@ namespace CalculateEmails.WCFService.Application
         //    }
         //}
 
-        public void SentItems_ItemAdd()
-        {
-            return;
-            IncreaseSentItem();
-        }
+        //public void SentItems_ItemAdd()
+        //{
+        //    return;
+        //    IncreaseSentItem();
+        //}
 
         private void DoNothing() { }
 
-        private void IncreaseMailCount()
+        private void IncreaseMailCount(DateTime date)
         {
             WriteToLog($"====Method=====IncreaseMailCount");
-            PerformChange((calculationDayDB) => calculationDayDB.MailCountAdd++);
+            PerformChange(date, (calculationDayDB) => calculationDayDB.MailCountAdd++);
         }
 
-        private void IncreaseProcessed()
+        private void IncreaseProcessed(DateTime date)
         {
             WriteToLog($"====Method=====IncreaseProcessed");
-            PerformChange((calculationDayDB) => calculationDayDB.MailCountProcessed++);
+            PerformChange(date, (calculationDayDB) => calculationDayDB.MailCountProcessed++);
         }
 
-        private void DecreaseProcessed()
+        private void DecreaseProcessed(DateTime date)
         {
             WriteToLog($"====Method=====DecreaseProcessed");
-            PerformChange((calculationDayDB) => calculationDayDB.MailCountProcessed--);
+            PerformChange(date, (calculationDayDB) => calculationDayDB.MailCountProcessed--);
         }
 
-        private void DecreaseMailCount()
+        private void DecreaseMailCount(DateTime date)
         {
             WriteToLog($"====Method=====DecreaseMailCount");
-            PerformChange((calculationDayDB) => calculationDayDB.MailCountAdd--);
+            PerformChange(date, (calculationDayDB) => calculationDayDB.MailCountAdd--);
         }
 
-        private void IncreaseSentItem()
+        private void IncreaseSentItem(DateTime date)
         {
             WriteToLog($"====Method=====IncreaseSentItem");
-            PerformChange((calculationDayDB) => calculationDayDB.MailCountSent++);
+            PerformChange(date, (calculationDayDB) => calculationDayDB.MailCountSent++);
         }
 
 

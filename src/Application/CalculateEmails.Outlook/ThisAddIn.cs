@@ -22,6 +22,7 @@ namespace CalculateEmails
         const string CalculateEmails = "CalculateEmails";
 
         public static bool ServiceIsWorking;
+        private int InvitationsCounter;
 
 
         //BLManager emailManager;
@@ -37,7 +38,7 @@ namespace CalculateEmails
             RegisterAutofac();
 
             this.CalculateEmailsEnabled = true;
-            
+
             Globals.Ribbons.CalculateEmails.btnClearInvitation.Click += BtnClearInvitation_Click;
 
             Thread t = new Thread(new ThreadStart(HeartBeatChecker));
@@ -63,7 +64,10 @@ namespace CalculateEmails
 
         private void BtnClearInvitation_Click(object sender, Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs e)
         {
-            CalculateEmailsEnabled = false;
+            Func<string, bool> f = s => s.StartsWith("Accepted: ") || s.StartsWith("Declined: ") || s.StartsWith("Tentatively Accepted: ");
+
+            InvitationsCounter = 0;
+
             Outlook.MAPIFolder inbox = Application.Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderInbox);
             foreach (var item in inbox.Items)
             {
@@ -71,15 +75,24 @@ namespace CalculateEmails
                 if (mail != null && mail.Subject != null)
                 {
                     Debug.WriteLine(mail.Subject);
-                    if (mail.Subject.StartsWith("Accepted: CAP estimation"))
+                    //todo: move it to configuration
+                    if (f(mail.Subject))
                     {
                         mail.Delete();
+                        InvitationsCounter++;
                         Console.Write("fdsa");
                     }
                 }
-
+                Outlook.MeetingItem meeting = item as Outlook.MeetingItem;
+                if (meeting != null)
+                {
+                    if (f(meeting.ConversationTopic))
+                    {
+                        meeting.Delete();
+                        InvitationsCounter++;
+                    }
+                }
             }
-            CalculateEmailsEnabled = true;
         }
 
         private void WriteToLog(string message)

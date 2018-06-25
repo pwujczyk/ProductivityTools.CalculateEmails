@@ -17,7 +17,7 @@ namespace CalculateEmails.WCFService.Application
     public class BaseManager
     {
 
-        private DateTime Now { get { return DateTime.Now; } }
+        // private DateTime Now { get { return DateTime.Now; } }
         private IDBManager DBManager { get; set; }
         // public CalculationDayDB TodayCalculationDetails { get; set; }
 
@@ -66,12 +66,12 @@ namespace CalculateEmails.WCFService.Application
 
         private static readonly object padlock = new object();
 
-        protected void PerformChange(Action<CalculationDayDB> a)
+        protected void PerformChange(DateTime date, Action<CalculationDayDB> a)
         {
             lock (padlock)
             {
                 // DBManager.UpdateCalculationDay(a, Now);
-                var CalculationDayDB = FillTodaysCalculationDetails();
+                var CalculationDayDB = FillTodaysCalculationDetails(date);
                 //WriteToLog($"PerformChange Over A= TodayCalculationDetails.MailCountAdd: {CalculationDayDB.MailCountAdd}");
                 a(CalculationDayDB);
                 //WriteToLog($"PerformChange Under A= TodayCalculationDetails.MailCountAdd: {CalculationDayDB.MailCountAdd}");
@@ -80,15 +80,15 @@ namespace CalculateEmails.WCFService.Application
             }
         }
 
-        public CalculationDayDB GetLastCalculationDay()
+        public CalculationDayDB GetLastCalculationDay(DateTime date)
         {
-            return FillTodaysCalculationDetails();
+            return FillTodaysCalculationDetails(date);
         }
 
-        private CalculationDayDB FillTodaysCalculationDetails()
+        private CalculationDayDB FillTodaysCalculationDetails(DateTime date)
         {
 
-            return DBManager.GetLastCalculationDay(Now);
+            return DBManager.GetLastCalculationDay(date);
 
         }
 

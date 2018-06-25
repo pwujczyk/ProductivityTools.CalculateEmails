@@ -14,8 +14,9 @@ namespace BLTests
         [TestMethod]
         public void Log()
         {
+            //todo:change
             CalculateEmailsWCFService c = new CalculateEmailsWCFService();
-            c.ProcessMail(CalculateEmails.Contract.DataContract.InboxType.Main, CalculateEmails.Contract.DataContract.EmailActionType.Added);
+            c.ProcessMail(CalculateEmails.Contract.DataContract.InboxType.Main, CalculateEmails.Contract.DataContract.EmailActionType.Added,DateTime.Now);
         }
     }
 }

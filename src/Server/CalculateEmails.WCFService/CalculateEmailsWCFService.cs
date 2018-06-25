@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace CalculateEmails.WCFService
 {
-    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Single,InstanceContextMode = InstanceContextMode.Single)]
+    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Single, InstanceContextMode = InstanceContextMode.Single)]
     public class CalculateEmailsWCFService : ICalculateEmailsWCFMQService
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -31,23 +31,23 @@ namespace CalculateEmails.WCFService
 
         public CalculateEmailsWCFService()
         {
-            
+
         }
 
-        public void ProcessMail(InboxType inboxType, EmailActionType actionType)
+        public void ProcessMail(InboxType inboxType, EmailActionType actionType, DateTime occured)
         {
-            PerformOperation(inboxType, actionType);
+            PerformOperation(inboxType, actionType, occured);
         }
 
-        private void PerformOperation(InboxType inboxType, EmailActionType actionType)
+        private void PerformOperation(InboxType inboxType, EmailActionType actionType, DateTime occured)
         {
- //           log.Info("Hello logging world!");
+            //           log.Info("Hello logging world!");
             BLManager bLManager = new BLManager();
-            bLManager.Process(actionType, inboxType);
+            bLManager.Process(actionType, inboxType, occured);
             var config = new MapperConfiguration(cfg => cfg.CreateMap<CalculationDayDB, CalculationDay>());
         }
 
-        public void ProcessTask(TaskActionType taskActionType)
+        public void ProcessTask(TaskActionType taskActionType, DateTime occured)
         {
             //return new CalculationDay();
         }

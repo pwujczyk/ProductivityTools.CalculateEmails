@@ -21,7 +21,11 @@ namespace BLTests
         string TaskCountRemoved = "TaskCountRemoved";
 
 
-      
+        //todo: change
+        DateTime Now
+        {
+            get { return DateTime.Now; }
+        }
 
         [ClassInitialize()]
         public static void ClassInit(TestContext context)
@@ -43,13 +47,9 @@ namespace BLTests
         [ClassCleanup()]
         public static void ClassCleanup()
         {
-            new DBSetup().DropDatabase();
+
         }
 
-        [AssemblyCleanup()]
-        public static void AssemblyCleanup()
-        {
-        }
 
 
         [TestMethod]
@@ -62,8 +62,8 @@ namespace BLTests
         public void MailMailOneNewMail()
         {
             BLManager bLManager = new BLManager();
-            bLManager.Process(EmailActionType.Added, InboxType.Main);
-            var x = bLManager.GetLastCalculationDay();
+            bLManager.Process(EmailActionType.Added, InboxType.Main, Now);
+            var x = bLManager.GetLastCalculationDay(Now);
             Assert.AreEqual(1, x.MailCountAdd, MailCountAdd);
             Assert.AreEqual(0, x.MailCountProcessed, MailCountProcessed);
             Assert.AreEqual(0, x.MailCountSent);
@@ -77,8 +77,8 @@ namespace BLTests
         public void SentOneMail()
         {
             BLManager bLManager = new BLManager();
-            bLManager.Process(EmailActionType.Added, InboxType.Sent);
-            var x = bLManager.GetLastCalculationDay();
+            bLManager.Process(EmailActionType.Added, InboxType.Sent, Now);
+            var x = bLManager.GetLastCalculationDay( Now);
             Assert.AreEqual(x.MailCountAdd, 0, MailCountAdd);
             Assert.AreEqual(x.MailCountProcessed, 0, MailCountProcessed);
             Assert.AreEqual(x.MailCountSent, 1);
@@ -91,9 +91,9 @@ namespace BLTests
         public void MailMoveMailBetweenInboxesReverseOrder()
         {
             BLManager bLManager = new BLManager();
-            bLManager.Process(EmailActionType.Added, InboxType.Subinbox);
-            bLManager.Process(EmailActionType.Removed, InboxType.Main);
-            var x = bLManager.GetLastCalculationDay();
+            bLManager.Process(EmailActionType.Added, InboxType.Subinbox, Now);
+            bLManager.Process(EmailActionType.Removed, InboxType.Main, Now);
+            var x = bLManager.GetLastCalculationDay(Now);
             Assert.AreEqual(0, x.MailCountAdd, MailCountAdd);
             Assert.AreEqual(0, x.MailCountProcessed, MailCountProcessed);
             Assert.AreEqual(0, x.MailCountSent);
@@ -106,9 +106,9 @@ namespace BLTests
         public void Mail()
         {
             BLManager bLManager = new BLManager();
-            bLManager.Process(EmailActionType.Removed, InboxType.Main);
-            bLManager.Process(EmailActionType.Added, InboxType.Subinbox);
-            var x = bLManager.GetLastCalculationDay();
+            bLManager.Process(EmailActionType.Removed, InboxType.Main, Now);
+            bLManager.Process(EmailActionType.Added, InboxType.Subinbox, Now);
+            var x = bLManager.GetLastCalculationDay(Now);
             Assert.AreEqual(0, x.MailCountAdd, MailCountAdd);
             Assert.AreEqual(0, x.MailCountProcessed, MailCountProcessed);
             Assert.AreEqual(0, x.MailCountSent);
@@ -122,13 +122,13 @@ namespace BLTests
         {
             BaseManager.WriteToLog("Move 4 mails between inboxes");
             BLManager bLManager = new BLManager();
-            bLManager.Process(EmailActionType.Removed, InboxType.Main);
-            bLManager.Process(EmailActionType.Added, InboxType.Subinbox);
-            bLManager.Process(EmailActionType.Added, InboxType.Subinbox);
-            bLManager.Process(EmailActionType.Removed, InboxType.Main);
-            bLManager.Process(EmailActionType.Removed, InboxType.Main);
-            bLManager.Process(EmailActionType.Added, InboxType.Subinbox);
-            var x = bLManager.GetLastCalculationDay();
+            bLManager.Process(EmailActionType.Removed, InboxType.Main, Now);
+            bLManager.Process(EmailActionType.Added, InboxType.Subinbox, Now);
+            bLManager.Process(EmailActionType.Added, InboxType.Subinbox, Now);
+            bLManager.Process(EmailActionType.Removed, InboxType.Main, Now);
+            bLManager.Process(EmailActionType.Removed, InboxType.Main, Now);
+            bLManager.Process(EmailActionType.Added, InboxType.Subinbox, Now);
+            var x = bLManager.GetLastCalculationDay(Now);
             Assert.AreEqual(0, x.MailCountAdd, MailCountAdd);
             Assert.AreEqual(0, x.MailCountProcessed, MailCountProcessed);
             Assert.AreEqual(0, x.MailCountSent, Sent);
@@ -142,15 +142,15 @@ namespace BLTests
         {
             BaseManager.WriteToLog("Move 4 mails between inboxes");
             BLManager bLManager = new BLManager();
-            bLManager.Process(EmailActionType.Removed, InboxType.Main);
-            bLManager.Process(EmailActionType.Removed, InboxType.Main);
-            bLManager.Process(EmailActionType.Removed, InboxType.Main);
-            bLManager.Process(EmailActionType.Added, InboxType.Subinbox);
-            bLManager.Process(EmailActionType.Added, InboxType.Subinbox);
-            bLManager.Process(EmailActionType.Added, InboxType.Subinbox);
-            bLManager.Process(EmailActionType.Added, InboxType.Subinbox);
-            bLManager.Process(EmailActionType.Removed, InboxType.Main);
-            var x = bLManager.GetLastCalculationDay();
+            bLManager.Process(EmailActionType.Removed, InboxType.Main, Now);
+            bLManager.Process(EmailActionType.Removed, InboxType.Main, Now);
+            bLManager.Process(EmailActionType.Removed, InboxType.Main, Now);
+            bLManager.Process(EmailActionType.Added, InboxType.Subinbox, Now);
+            bLManager.Process(EmailActionType.Added, InboxType.Subinbox, Now);
+            bLManager.Process(EmailActionType.Added, InboxType.Subinbox, Now);
+            bLManager.Process(EmailActionType.Added, InboxType.Subinbox, Now);
+            bLManager.Process(EmailActionType.Removed, InboxType.Main, Now);
+            var x = bLManager.GetLastCalculationDay(Now);
             Assert.AreEqual(0, x.MailCountAdd, MailCountAdd);
             Assert.AreEqual(0, x.MailCountProcessed, MailCountProcessed);
             Assert.AreEqual(0, x.MailCountSent, Sent);
@@ -163,8 +163,8 @@ namespace BLTests
         public void MailProcessOneMailFromMainInbox()
         {
             BLManager bLManager = new BLManager();
-            bLManager.Process(EmailActionType.Removed, InboxType.Main);
-            var x = bLManager.GetLastCalculationDay();
+            bLManager.Process(EmailActionType.Removed, InboxType.Main, Now);
+            var x = bLManager.GetLastCalculationDay(Now);
             Assert.AreEqual(0, x.MailCountAdd, MailCountAdd);
             Assert.AreEqual(1, x.MailCountProcessed, MailCountProcessed);
             Assert.AreEqual(0, x.MailCountSent);
@@ -179,15 +179,15 @@ namespace BLTests
         {
             BaseManager.WriteToLog("ProcessTwoMailFromSubInbox");
             BLManager bLManager = new BLManager();
-            bLManager.Process(EmailActionType.Removed, InboxType.Subinbox);
-            bLManager.Process(EmailActionType.Removed, InboxType.Subinbox);
-            var x = bLManager.GetLastCalculationDay();
-            Assert.AreEqual(0, x.MailCountAdd,MailCountAdd);
-            Assert.AreEqual(2, x.MailCountProcessed,MailCountProcessed);
-            Assert.AreEqual(0, x.MailCountSent,Sent);
-            Assert.AreEqual(0, x.TaskCountAdded,TaskCountAdded);
-            Assert.AreEqual(0, x.TaskCountFinished,TaskCountFinished);
-            Assert.AreEqual(0, x.TaskCountRemoved,TaskCountRemoved);
+            bLManager.Process(EmailActionType.Removed, InboxType.Subinbox, Now);
+            bLManager.Process(EmailActionType.Removed, InboxType.Subinbox, Now);
+            var x = bLManager.GetLastCalculationDay(Now);
+            Assert.AreEqual(0, x.MailCountAdd, MailCountAdd);
+            Assert.AreEqual(2, x.MailCountProcessed, MailCountProcessed);
+            Assert.AreEqual(0, x.MailCountSent, Sent);
+            Assert.AreEqual(0, x.TaskCountAdded, TaskCountAdded);
+            Assert.AreEqual(0, x.TaskCountFinished, TaskCountFinished);
+            Assert.AreEqual(0, x.TaskCountRemoved, TaskCountRemoved);
         }
 
     }
