@@ -8,7 +8,7 @@ namespace CalculateEmails.Contract.DataContract
 {
     public enum TaskActionType
     {
-        Changed,
+        Finished,
         Removed,
         Added
     }

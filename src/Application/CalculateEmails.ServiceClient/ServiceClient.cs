@@ -57,9 +57,9 @@ namespace CalculateEmails.ServiceClient
 
         }
 
-        public CalculationDay ProcesOutlookTask(TaskActionType taskActionType)
+        public void ProcesOutlookTask(TaskActionType taskActionType)
         {
-            return new CalculationDay();
+            this.Client.ProcessTask(taskActionType, Now);
         }
 
         public void HeartBeat()

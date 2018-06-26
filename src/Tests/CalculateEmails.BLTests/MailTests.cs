@@ -11,44 +11,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace BLTests
 {
     [TestClass]
-    public class MailTests
+    public class MailTests: BaseTestClass
     {
-        string MailCountAdd = "MailCountAdd";
-        string MailCountProcessed = "MailCountProcessed";
-        string Sent = "Sent";
-        string TaskCountAdded = "TaskCountAdded";
-        string TaskCountFinished = "TaskCountFinished";
-        string TaskCountRemoved = "TaskCountRemoved";
-
-
-        //todo: change
-        DateTime Now
-        {
-            get { return DateTime.Now; }
-        }
-
-        [ClassInitialize()]
-        public static void ClassInit(TestContext context)
-        {
-
-        }
-
-        [TestInitialize()]
-        public void Initialize()
-        {
-        }
-
-        [TestCleanup()]
-        public void Cleanup()
-        {
-            new DBSetup().TruncateTable();
-        }
-
-        [ClassCleanup()]
-        public static void ClassCleanup()
-        {
-
-        }
 
 
 

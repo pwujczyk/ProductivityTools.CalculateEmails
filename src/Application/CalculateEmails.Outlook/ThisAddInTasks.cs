@@ -9,11 +9,44 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using CalculateEmails.Contract.DataContract;
 using CalculateEmails.ServiceClient;
+using Microsoft.Office.Interop.Outlook;
 
 namespace CalculateEmails
 {
+    //todo: move it to different file
+    class TaskItem
+    {
+        private int milisecods = 200;
+        DateTime Now
+        {
+            get
+            {
+                //todo: change it
+                return DateTime.Now;
+            }
+        }
+
+        public TaskItem()
+        {
+            this.Created = Now;
+        }
+
+        private DateTime Created;
+
+        public string EntryId { get; set; }
+
+        public bool OutDated
+        {
+            get
+            {
+                return this.Created.AddMilliseconds(milisecods) > Now;
+            }
+        }
+    }
+
     public partial class ThisAddIn
     {
+
         //TaskManager manager = new TaskManager();
 
         private void TodoManage()
@@ -25,29 +58,37 @@ namespace CalculateEmails
             todoItems.ItemChange += TaskItems_ItemChange;
         }
 
+
+
+
+
+        List<TaskItem> TaskItemsList = new List<TaskItem>();
+
         private void TaskItems_ItemChange(object Item)
         {
-            Outlook.MailItem element = Item as Outlook.MailItem;
+            this.TaskItemsList.RemoveAll(x => x.OutDated);
+            MailItem element = Item as MailItem;
             if (element != null)
             {
-                var x = element.FlagStatus;
-                if (element.FlagStatus == Microsoft.Office.Interop.Outlook.OlFlagStatus.olFlagComplete)
-                { 
-                    
-                    UpdateLabel(new WcfClient().ProcesOutlookTask(TaskActionType.Changed));
-                    //manager.TaskItems_ItemChange(Item);       
+                if (element.FlagStatus == OlFlagStatus.olFlagComplete)
+                {
+                    if (this.TaskItemsList.Any(x => x.EntryId == element.EntryID) == false)
+                    {
+                        this.TaskItemsList.Add(new TaskItem { EntryId = element.EntryID });
+                        new WcfClient().ProcesOutlookTask(TaskActionType.Finished);
+                    }
                 }
             }
         }
 
         private void TaskItems_ItemRemove()
         {
-            UpdateLabel(new WcfClient().ProcesOutlookTask(TaskActionType.Removed));
+            new WcfClient().ProcesOutlookTask(TaskActionType.Removed);
         }
 
         private void TaskItems_ItemAdd(object Item)
         {
-            UpdateLabel(new WcfClient().ProcesOutlookTask(TaskActionType.Added));
+            new WcfClient().ProcesOutlookTask(TaskActionType.Added);
         }
     }
 }
