@@ -20,8 +20,6 @@ namespace BLTests
         string TaskCountFinished = "TaskCountFinished";
         string TaskCountRemoved = "TaskCountRemoved";
 
-
-        //todo: change
         DateTime Now
         {
             get { return DateTime.Now; }

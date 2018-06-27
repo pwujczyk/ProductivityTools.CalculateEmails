@@ -11,6 +11,7 @@ namespace CalculateEmails.ServiceClient
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<DateTimePT.DateTimeTools>().As<DateTimePT.IDateTimeTools>();
             builder.RegisterType<CalculateEmails.Configuration.Config>().As<Configuration.IConfig>();
             base.Load(builder);
         }

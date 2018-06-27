@@ -20,10 +20,7 @@ namespace CalculateEmails.ServiceClient
         {
             get
             {
-                //todo: fda
-                return DateTime.Now;
-               // throw new Exception();
-                var datetime=AutofacContainer.Container.Resolve<IDateTimePT>();
+                var datetime=AutofacContainer.Container.Resolve<IDateTimeTools>();
                 return datetime.Now;
             }
         }
