@@ -7,38 +7,38 @@ using System.Threading.Tasks;
 
 namespace CalculateEmails.WCFService.Application
 {
-    class TaskManager : BaseManager
+    public class TaskManager : BaseManager
     {
 
         public void Process(TaskActionType processingType, DateTime date)
         {
             switch (processingType)
             {
-                case TaskActionType.Changed:
-                    TaskItems_ItemChange(date);
+                case TaskActionType.Finished:
+                    TaskCompleted(date);
                     break;
                 case TaskActionType.Removed:
-                    TaskItems_ItemRemove(date);
+                    TaskRemoved(date);
                     break;
                 case TaskActionType.Added:
-                    TaskItems_ItemAdd(date);
+                    TaskAdded(date);
                     break;
                 default:
                     break;
             }
         }
 
-        public void TaskItems_ItemRemove(DateTime date)
+        public void TaskRemoved(DateTime date)
         {
             PerformChange(date, (calculationDayDB) => calculationDayDB.TaskCountRemoved++);
         }
 
-        public void TaskItems_ItemAdd(DateTime date)
+        public void TaskAdded(DateTime date)
         {
             PerformChange(date, (calculationDayDB) => calculationDayDB.TaskCountAdded++);
         }
 
-        public void TaskItems_ItemChange(DateTime date)
+        public void TaskCompleted(DateTime date)
         {
             PerformChange(date,(calculationDayDB) => calculationDayDB.TaskCountFinished++);
         }

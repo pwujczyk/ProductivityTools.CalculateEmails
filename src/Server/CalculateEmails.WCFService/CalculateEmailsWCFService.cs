@@ -44,12 +44,13 @@ namespace CalculateEmails.WCFService
             //           log.Info("Hello logging world!");
             BLManager bLManager = new BLManager();
             bLManager.Process(actionType, inboxType, occured);
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<CalculationDayDB, CalculationDay>());
+           // var config = new MapperConfiguration(cfg => cfg.CreateMap<CalculationDayDB, CalculationDay>());
         }
 
         public void ProcessTask(TaskActionType taskActionType, DateTime occured)
         {
-            //return new CalculationDay();
+            TaskManager taskManager = new TaskManager();
+            taskManager.Process(taskActionType, occured);
         }
 
         public void HeartBeat()
