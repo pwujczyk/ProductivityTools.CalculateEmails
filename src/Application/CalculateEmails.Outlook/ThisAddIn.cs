@@ -69,18 +69,18 @@ namespace CalculateEmails
             InvitationsCounter = 0;
 
             Outlook.MAPIFolder inbox = Application.Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderInbox);
-            foreach (var item in inbox.Items)
+            for (int i = inbox.Items.Count; i > 0; i--)
+            //foreach (var item in inbox.Items)
             {
+                var item = inbox.Items[i];
                 Outlook.MailItem mail = item as Outlook.MailItem;
                 if (mail != null && mail.Subject != null)
                 {
-                    Debug.WriteLine(mail.Subject);
                     //todo: move it to configuration
                     if (f(mail.Subject))
                     {
                         mail.Delete();
                         InvitationsCounter++;
-                        Console.Write("fdsa");
                     }
                 }
                 Outlook.MeetingItem meeting = item as Outlook.MeetingItem;
