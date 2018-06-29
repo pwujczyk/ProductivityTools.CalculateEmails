@@ -17,7 +17,9 @@ namespace BLTests
                 return address;
             }
         }
-        public string OnlineAddress => throw new NotImplementedException();
+        public string OnlineAddress => "net.tcp://localhost:6006";
+
+        public string QueneName => "CalculateEmailsTest";
 
         public string GetSqlServerConnectionString()
         {

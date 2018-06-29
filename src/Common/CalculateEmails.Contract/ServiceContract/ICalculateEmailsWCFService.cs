@@ -18,9 +18,6 @@ namespace CalculateEmails.Contract.ServiceContract
 
         [OperationContract(IsOneWay = true)]
         void ProcessTask(TaskActionType taskActionType, DateTime occured);
-
-        [OperationContract(IsOneWay = true)]
-        void HeartBeat();
     }
 }
 

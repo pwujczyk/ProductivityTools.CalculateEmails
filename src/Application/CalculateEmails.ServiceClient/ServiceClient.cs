@@ -56,10 +56,6 @@ namespace CalculateEmails.ServiceClient
             this.Client.ProcessTask(taskActionType, Now);
         }
 
-        public void HeartBeat()
-        {
-            //todo:remove
-            this.Client.HeartBeat();
-        }
+ 
     }
 }

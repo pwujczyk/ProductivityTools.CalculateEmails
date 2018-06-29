@@ -2,6 +2,7 @@
 {
     public interface IConfig
     {
+        string QueneName { get; }
         string MQAdress { get; }
 
         string OnlineAddress { get; }

@@ -9,11 +9,20 @@ namespace CalculateEmails.Configuration
 {
     public class Config :IConfig
     {
+        public string QueneName
+        {
+            get
+            {
+                return MConfiguration.Configuration["QueneName"];
+            }
+        }
         public string MQAdress
         {
             get
             {
-                var address = $"net.msmq://{MConfiguration.Configuration["ServerName"]}/private/{MConfiguration.Configuration["QueneName"]}";
+                //pw: change it
+                // var address = $"net.msmq://{MConfiguration.Configuration["ServerName"]}/private/{this.QueneName}";
+                var address = $"net.msmq://localhost/private/{this.QueneName}";
                 return address;
             }
         }
@@ -22,7 +31,9 @@ namespace CalculateEmails.Configuration
         {
             get
             {
-                var address = $"http://{MConfiguration.Configuration["ServerName"]}:{MConfiguration.Configuration["port"]}";
+                //pw:change it
+                var address = "net.tcp://localhost:5678";
+                //var address = $"net.tcp://{MConfiguration.Configuration["ServerName"]}:{MConfiguration.Configuration["Port"]}";
                 return address;
             }
         }

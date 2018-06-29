@@ -58,37 +58,36 @@ namespace CalculateEmails
             todoItems.ItemChange += TaskItems_ItemChange;
         }
 
-
-
-
-
         List<TaskItem> TaskItemsList = new List<TaskItem>();
 
         private void TaskItems_ItemChange(object Item)
         {
-            this.TaskItemsList.RemoveAll(x => x.OutDated);
-            MailItem element = Item as MailItem;
-            if (element != null)
+            CallerWrapper(() =>
             {
-                if (element.FlagStatus == OlFlagStatus.olFlagComplete)
+                this.TaskItemsList.RemoveAll(x => x.OutDated);
+                MailItem element = Item as MailItem;
+                if (element != null)
                 {
-                    if (this.TaskItemsList.Any(x => x.EntryId == element.EntryID) == false)
+                    if (element.FlagStatus == OlFlagStatus.olFlagComplete)
                     {
-                        this.TaskItemsList.Add(new TaskItem { EntryId = element.EntryID });
-                        new WcfClient().ProcesOutlookTask(TaskActionType.Finished);
+                        if (this.TaskItemsList.Any(x => x.EntryId == element.EntryID) == false)
+                        {
+                            this.TaskItemsList.Add(new TaskItem { EntryId = element.EntryID });
+                            new WcfClient().ProcesOutlookTask(TaskActionType.Finished);
+                        }
                     }
                 }
-            }
+            });
         }
 
         private void TaskItems_ItemRemove()
         {
-            new WcfClient().ProcesOutlookTask(TaskActionType.Removed);
+            CallerWrapper(() => new WcfClient().ProcesOutlookTask(TaskActionType.Removed));
         }
 
         private void TaskItems_ItemAdd(object Item)
         {
-            new WcfClient().ProcesOutlookTask(TaskActionType.Added);
+            CallerWrapper(() => new WcfClient().ProcesOutlookTask(TaskActionType.Added));
         }
     }
 }

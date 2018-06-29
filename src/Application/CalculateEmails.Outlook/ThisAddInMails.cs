@@ -26,15 +26,12 @@ namespace CalculateEmails
             }
         }
 
-        //TaskManager manager = new TaskManager();
-
         private void MailsManage()
         {
             RegisterMainInboxHandlers();
             FindAllInboxFolders();
             RegisterSubInboxHandlers();
             RegisterSentItemsHanlder();
-            ServiceIsWorking = true;
         }
 
         private void RegisterMainInboxHandlers()
@@ -64,7 +61,6 @@ namespace CalculateEmails
                     folderItems.ItemChange += SubInboxChanged;
                 }
 
-
                 listOfItems.Add(folderItems);
             }
         }
@@ -81,35 +77,28 @@ namespace CalculateEmails
             //throw new NotImplementedException();
         }
 
-
-
-        private async void MainInboxAdded(object Item)
+        private void CallerWrapper(Action a)
         {
             if (CalculateEmailsEnabled)
             {
-                if (ThisAddIn.ServiceIsWorking)
-                {
-                    new WcfClient().ProcessOutlookMail(InboxType.Main, EmailActionType.Added);
-                    //UpdateLabel(x);
-                }
+                a();
+                DelayAndUpdateLabelWrapper();
             }
         }
 
-        private async void SubInboxAdded(object Item)
+        private void MainInboxAdded(object Item)
         {
-            if (CalculateEmailsEnabled)
-            {
-                if (ThisAddIn.ServiceIsWorking)
-                {
-                    new WcfClient().ProcessOutlookMail(InboxType.Subinbox, EmailActionType.Added);
-                    //UpdateLabel(x);
-                }
-            }
+            CallerWrapper(() => new WcfClient().ProcessOutlookMail(InboxType.Main, EmailActionType.Added));
         }
 
-        private async void MainInboxRemoved()
+        private void SubInboxAdded(object Item)
         {
-            if (CalculateEmailsEnabled)
+            CallerWrapper(() => new WcfClient().ProcessOutlookMail(InboxType.Subinbox, EmailActionType.Added));
+        }
+
+        private void MainInboxRemoved()
+        {
+            CallerWrapper(() =>
             {
                 if (InvitationsCounter > 0)
                 {
@@ -117,37 +106,20 @@ namespace CalculateEmails
                 }
                 else
                 {
-                    if (ThisAddIn.ServiceIsWorking)
-                    {
-                        new WcfClient().ProcessOutlookMail(InboxType.Main, EmailActionType.Removed);
-                        //UpdateLabel(x);
-                    }
+                    new WcfClient().ProcessOutlookMail(InboxType.Main, EmailActionType.Removed);
                 }
-            }
+            });
         }
 
-        private async void SubInboxRemoved()
+        private void SubInboxRemoved()
         {
-            if (CalculateEmailsEnabled)
-            {
-                if (ThisAddIn.ServiceIsWorking)
-                {
-                    new WcfClient().ProcessOutlookMail(InboxType.Subinbox, EmailActionType.Removed);
-                    //UpdateLabel(x);
-                }
-            }
+            CallerWrapper(() => new WcfClient().ProcessOutlookMail(InboxType.Subinbox, EmailActionType.Removed));
         }
 
-        private async void SentItems_ItemAdd(object Item)
+
+        private void SentItems_ItemAdd(object Item)
         {
-            if (CalculateEmailsEnabled)
-            {
-                if (ThisAddIn.ServiceIsWorking)
-                {
-                    new WcfClient().ProcessOutlookMail(InboxType.Sent, EmailActionType.Added);
-                    // UpdateLabel(x);
-                }
-            }
+            CallerWrapper(() => new WcfClient().ProcessOutlookMail(InboxType.Sent, EmailActionType.Added));
         }
 
         private void MainInboxChanged(object Item)
@@ -175,6 +147,5 @@ namespace CalculateEmails
                 }
             }
         }
-
     }
 }

@@ -258,6 +258,7 @@
             // 
             // chHeartBeat
             // 
+            this.chHeartBeat.Enabled = false;
             this.chHeartBeat.Label = "Online";
             this.chHeartBeat.Name = "chHeartBeat";
             // 

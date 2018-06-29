@@ -17,6 +17,7 @@ namespace BLTests
 
             var builder = new ContainerBuilder();
             builder.RegisterModule<CalculateEmails.WCFService.Autofac>();
+            builder.RegisterModule<CalculateEmails.ServiceClient.AutofacModule>();
             builder.RegisterType<Configuration>().As<IConfig>();
 
             AutofacContainer.Container = builder.Build();

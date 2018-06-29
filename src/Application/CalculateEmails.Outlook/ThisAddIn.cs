@@ -42,7 +42,8 @@ namespace CalculateEmails
             Globals.Ribbons.CalculateEmails.btnClearInvitation.Click += BtnClearInvitation_Click;
 
             Thread t = new Thread(new ThreadStart(HeartBeatChecker));
-            //  t.Start();
+            t.Start();
+            DelayAndUpdateLabelWrapper();
 
             this.InboxFolders = new List<Outlook.Folder>();
             this.listOfItems = new List<Outlook.Items>();
@@ -127,12 +128,11 @@ namespace CalculateEmails
 
         public void HeartBeatChecker()
         {
-            bool result = true;
             while (true)
             {
                 try
                 {
-                    new WcfClient().HeartBeat();
+                    new OnlineClient().HeartBeat();
                     ServiceIsWorking = true;
                     WriteToLog("Outlook calculate emails service working correctly. HeartBeat OK.");
                 }
@@ -217,7 +217,28 @@ namespace CalculateEmails
         }
 
 
-        private void UpdateLabel(CalculationDay calculationDay)
+        private void DelayAndUpdateLabelWrapper()
+        {
+            if (this.CalculateEmailsEnabled)
+            {
+                Thread t = new Thread(new ThreadStart(DelayAndUpdateLabel));
+                t.Start();
+            }
+        }
+
+        private void DelayAndUpdateLabel()
+        {
+            Thread.Sleep(1000);
+            UpdateCalculateDetails();
+        }
+
+        private void UpdateCalculateDetails()
+        {
+            var calculationDay = GetCalculationDayDetails();
+            UpdateLabelControls(calculationDay);
+        }
+
+        private void UpdateLabelControls(CalculationDay calculationDay)
         {
             Globals.Ribbons.CalculateEmails.lblInCounter.Label = calculationDay.MailCountAdd.ToString(); ;
             Globals.Ribbons.CalculateEmails.lblOutCouter.Label = calculationDay.MailCountSent.ToString(); ;
@@ -236,6 +257,12 @@ namespace CalculateEmails
             Globals.Ribbons.CalculateEmails.lblTaskFinished2.Label = calculationDay.TaskCountFinished.ToString(); ;
         }
 
+        private CalculationDay GetCalculationDayDetails()
+        {
+            OnlineClient onlineClient = new OnlineClient();
+            CalculationDay calculationDay = onlineClient.GetCalculationDay();
+            return calculationDay;
+        }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {

@@ -73,6 +73,10 @@
       <Project>{2ffd0e87-f59f-4e00-b6fb-95ad7d878586}</Project>
       <Name>CalculateEmails.WCFService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Server\CalculateEmails.WindowsService\CalculateEmails.WindowsService.csproj">
+      <Project>{fa4a7673-84e9-4377-b19a-f65d753337e3}</Project>
+      <Name>CalculateEmails.WindowsService</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
@@ -90,6 +94,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.ServiceProcess" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
