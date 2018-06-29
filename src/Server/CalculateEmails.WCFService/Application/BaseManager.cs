@@ -29,7 +29,7 @@ namespace CalculateEmails.WCFService.Application
             //FillTodaysCalculationDetails();
 
             DBManager = AutofacContainer.Container.Resolve<IDBManager>();
-            //or
+            mapperConfiguration = new MapperConfiguration(config => config.CreateMap<CalculationDayDB, CalculationDay>());
 
         }
 
@@ -80,9 +80,12 @@ namespace CalculateEmails.WCFService.Application
             }
         }
 
-        public CalculationDayDB GetLastCalculationDay(DateTime date)
+        public CalculationDay GetLastCalculationDay(DateTime date)
         {
-            return FillTodaysCalculationDetails(date);
+            var mapper = mapperConfiguration.CreateMapper();
+            CalculationDayDB resultDB= FillTodaysCalculationDetails(date);
+            CalculationDay result = mapper.Map<CalculationDayDB, CalculationDay>(resultDB);
+            return result;
         }
 
         private CalculationDayDB FillTodaysCalculationDetails(DateTime date)

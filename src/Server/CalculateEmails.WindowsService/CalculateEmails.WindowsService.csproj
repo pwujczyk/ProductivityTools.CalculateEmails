@@ -46,11 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PSCalculateEmais.cs">
+    <Compile Include="PSCalculateEmails.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="PSCalculateEmais.Designer.cs">
-      <DependentUpon>PSCalculateEmais.cs</DependentUpon>
+    <Compile Include="PSCalculateEmails.Designer.cs">
+      <DependentUpon>PSCalculateEmails.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -11,7 +11,7 @@ namespace CalculateEmails.Runner
     {
         static void Main(string[] args)
         {
-            PSCalculateEmais service = new PSCalculateEmais();
+            PSCalculateEmails service = new PSCalculateEmails();
             service.OnDebug();
             Console.WriteLine("Host started");
             Console.Read();

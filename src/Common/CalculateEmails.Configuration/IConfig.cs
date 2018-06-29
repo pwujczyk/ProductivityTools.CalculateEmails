@@ -2,7 +2,9 @@
 {
     public interface IConfig
     {
-        string Address { get; }
+        string MQAdress { get; }
+
+        string OnlineAddress { get; }
         string GetSqlServerConnectionString();
 
         string GetDataSourceConnectionString();

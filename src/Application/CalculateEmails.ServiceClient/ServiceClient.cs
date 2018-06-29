@@ -31,13 +31,12 @@ namespace CalculateEmails.ServiceClient
             {
 
                 IConfig client = AutofacContainer.Container.Resolve<IConfig>();
-                string address = client.Address;
+                string address = client.MQAdress;
                 NetMsmqBinding mqbinding = new NetMsmqBinding(securityMode: NetMsmqSecurityMode.None);
                 mqbinding.CloseTimeout = TimeSpan.FromMinutes(20);
                 ChannelFactory<ICalculateEmailsWCFMQService> factory = new ChannelFactory<ICalculateEmailsWCFMQService>(mqbinding, new EndpointAddress(address));
 
                 //factory.Endpoint.EndpointBehaviors.Add(new HeartBeatCheckEndpointAttribute());
-
 
                 ICalculateEmailsWCFMQService proxy = factory.CreateChannel();
 
@@ -49,9 +48,7 @@ namespace CalculateEmails.ServiceClient
 
         public void ProcessOutlookMail(InboxType inboxType, EmailActionType actionType)
         {
-
             this.Client.ProcessMail(inboxType, actionType, Now);
-
         }
 
         public void ProcesOutlookTask(TaskActionType taskActionType)

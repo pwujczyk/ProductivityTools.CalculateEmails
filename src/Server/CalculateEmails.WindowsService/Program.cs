@@ -17,7 +17,7 @@ namespace CalculateEmails.WindowsService
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
-                new PSCalculateEmais()
+                new PSCalculateEmails()
             };
             ServiceBase.Run(ServicesToRun);
         }

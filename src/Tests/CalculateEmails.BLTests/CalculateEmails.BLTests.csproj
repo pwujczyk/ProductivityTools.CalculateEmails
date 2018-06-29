@@ -42,12 +42,17 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="DBSetup.cs" />
     <Compile Include="LoggerTests.cs" />
-    <Compile Include="MailTests.cs" />
+    <Compile Include="ManagerTests\MailTests.cs" />
     <Compile Include="Managment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TasksTests.cs" />
+    <Compile Include="ManagerTests\TasksTests.cs" />
+    <Compile Include="ServiceTests\Events.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Application\CalculateEmails.ServiceClient\CalculateEmails.ServiceClient.csproj">
+      <Project>{c93eee63-4a70-440a-b37c-bcb9955e9025}</Project>
+      <Name>CalculateEmails.ServiceClient</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Common\CalculateEmails.Autofac\CalculateEmails.Autofac.csproj">
       <Project>{0f0c73a9-8fdf-4d49-bd5e-b00e2c12bcb5}</Project>
       <Name>CalculateEmails.Autofac</Name>
@@ -89,6 +94,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

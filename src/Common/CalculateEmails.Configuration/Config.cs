@@ -9,11 +9,20 @@ namespace CalculateEmails.Configuration
 {
     public class Config :IConfig
     {
-        public string Address
+        public string MQAdress
         {
             get
             {
-                var address = $"net.msmq://{MConfiguration.Configuration["ServerQueneName"]}/private/{MConfiguration.Configuration["QueneName"]}";
+                var address = $"net.msmq://{MConfiguration.Configuration["ServerName"]}/private/{MConfiguration.Configuration["QueneName"]}";
+                return address;
+            }
+        }
+
+        public string OnlineAddress
+        {
+            get
+            {
+                var address = $"http://{MConfiguration.Configuration["ServerName"]}:{MConfiguration.Configuration["port"]}";
                 return address;
             }
         }

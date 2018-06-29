@@ -13,9 +13,6 @@ namespace BLTests
     [TestClass]
     public class MailTests: BaseTestClass
     {
-
-
-
         [TestMethod]
         public void MailReferenceMethod()
         {

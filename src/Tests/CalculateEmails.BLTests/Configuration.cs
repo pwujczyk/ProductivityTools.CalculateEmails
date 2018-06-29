@@ -9,7 +9,15 @@ namespace BLTests
 {
     public class Configuration : IConfig
     {
-        public string Address => throw new NotImplementedException();
+        public string MQAdress
+        {
+            get
+            {
+                var address = $"net.msmq://localhost/private/CalculateEmailsTest";
+                return address;
+            }
+        }
+        public string OnlineAddress => throw new NotImplementedException();
 
         public string GetSqlServerConnectionString()
         {

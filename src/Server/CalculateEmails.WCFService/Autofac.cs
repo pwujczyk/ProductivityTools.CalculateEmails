@@ -9,7 +9,7 @@ using DALContracts;
 
 namespace CalculateEmails.WCFService
 {
-    public class AutofacModuleWCFService:Module
+    public class Autofac:Module
     {
         protected override void Load(ContainerBuilder builder)
         {

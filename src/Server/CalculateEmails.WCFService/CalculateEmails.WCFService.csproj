@@ -71,7 +71,7 @@
     <Compile Include="Application\BaseManager.cs" />
     <Compile Include="Application\MailManager.cs" />
     <Compile Include="Application\TaskManager.cs" />
-    <Compile Include="AutofacModuleWCFService.cs" />
+    <Compile Include="Autofac.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CalculateEmailsWCFService.cs" />
   </ItemGroup>

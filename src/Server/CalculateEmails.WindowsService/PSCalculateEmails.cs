@@ -19,11 +19,11 @@ using System.Threading.Tasks;
 
 namespace CalculateEmails.WindowsService
 {
-    public partial class PSCalculateEmais : ServiceBase
+    public partial class PSCalculateEmails : ServiceBase
     {
 
         ServiceHost host;
-        public PSCalculateEmais()
+        public PSCalculateEmails()
         {
             InitializeComponent();
         }
@@ -47,23 +47,29 @@ namespace CalculateEmails.WindowsService
         {
             MConfiguration.SetConfigurationName("Configuration.config");
             var builder = new ContainerBuilder();
-            builder.RegisterModule<AutofacModuleWCFService>();
+            builder.RegisterModule<CalculateEmails.WCFService.Autofac>();
             AutofacContainer.Container = builder.Build();
 
+            OpenHost();
+        }
+
+        private void OpenHost()
+        {
             IConfig client = AutofacContainer.Container.Resolve<IConfig>();
-            var binding = new NetMsmqBinding(NetMsmqSecurityMode.None);
-
-
+            var mqBinding = new NetMsmqBinding(NetMsmqSecurityMode.None);
             string queneAddress = $".\\private$\\{MConfiguration.Configuration["QueneName"]}";
             if (MessageQueue.Exists(queneAddress) == false)
             {
                 MessageQueue.Create(queneAddress, true);
             }
 
-            string address = client.Address;
+            string mqAddress = client.MQAdress;
+            string onlineAddress = client.OnlineAddress;
+            
 
             host = new ServiceHost(typeof(CalculateEmailsWCFService));
-            host.AddServiceEndpoint(typeof(ICalculateEmailsWCFMQService), binding, address);
+            host.AddServiceEndpoint(typeof(ICalculateEmailsWCFMQService), mqBinding, mqAddress);
+            host.AddServiceEndpoint(typeof(ICalculateEmailsStatsService), new NetTcpBinding(), onlineAddress);
 
             host.Open();
         }
