@@ -20,10 +20,26 @@ namespace CalculateEmails.Configuration
         {
             get
             {
-                //pw: change it
-                // var address = $"net.msmq://{MConfiguration.Configuration["ServerName"]}/private/{this.QueneName}";
-                var address = $"net.msmq://localhost/private/{this.QueneName}";
+               
+                var address = $"net.msmq://{ServerName}/private/{this.QueneName}";
                 return address;
+            }
+        }
+
+        private string ServerName
+        {
+            get
+            {
+                var serverName = MConfiguration.Configuration["ServerName"];
+                return serverName;
+            }
+        }
+        private string Port
+        {
+            get
+            {
+                var port =  MConfiguration.Configuration["Port"];
+                return port;
             }
         }
 
@@ -31,9 +47,7 @@ namespace CalculateEmails.Configuration
         {
             get
             {
-                //pw:change it
-                var address = "net.tcp://localhost:5678";
-                //var address = $"net.tcp://{MConfiguration.Configuration["ServerName"]}:{MConfiguration.Configuration["Port"]}";
+                var address = $"net.tcp://{ServerName}:{Port}";
                 return address;
             }
         }

@@ -21,7 +21,7 @@ namespace CalculateEmails
         const string MainInboxName = "Inbox";
         const string CalculateEmails = "CalculateEmails";
 
-        public static bool ServiceIsWorking;
+        public static bool ServiceIsWorking = false;
         private int InvitationsCounter;
 
 
@@ -35,6 +35,7 @@ namespace CalculateEmails
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
             MasterConfiguration.MConfiguration.SetCurrentDomainPath(true);
+            MasterConfiguration.MConfiguration.SetConfigurationName("Configuration.config");
             RegisterAutofac();
 
             this.CalculateEmailsEnabled = true;

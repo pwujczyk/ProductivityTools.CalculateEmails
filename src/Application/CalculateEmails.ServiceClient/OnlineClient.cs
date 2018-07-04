@@ -38,7 +38,6 @@ namespace CalculateEmails.ServiceClient
 
         public void HeartBeat()
         {
-            //todo:remove
             this.Client.HeartBeat();
         }
     }
