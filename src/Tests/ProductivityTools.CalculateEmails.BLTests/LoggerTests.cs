@@ -1,0 +1,22 @@
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ProductivityTools.CalculateEmails.WCFService;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ProductivityTools.BLTests
+{
+    [TestClass]
+    public class LoggerTests
+    {
+        [TestMethod]
+        public void Log()
+        {
+            //todo:change
+            CalculateEmailsWCFService c = new CalculateEmailsWCFService();
+            c.ProcessMail(CalculateEmails.Contract.DataContract.InboxType.Main, CalculateEmails.Contract.DataContract.EmailActionType.Added,DateTime.Now);
+        }
+    }
+}

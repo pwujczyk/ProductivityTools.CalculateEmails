@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FA4A7673-84E9-4377-B19A-F65D753337E3}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ProductivityTools.CalculateEmails.WindowsService</RootNamespace>
+    <AssemblyName>ProductivityTools.CalculateEmails.WindowsService</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="PSCalculateEmails.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PSCalculateEmails.Designer.cs">
+      <DependentUpon>PSCalculateEmails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\ProductivityTools.MasterConfiguration2\src\Library\ProductivityTools.MasterConfiguration\ProductivityTools.MasterConfiguration.csproj">
+      <Project>{108cefcd-3617-4c60-bdf3-d1f77636fb62}</Project>
+      <Name>ProductivityTools.MasterConfiguration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\ProductivityTools.CalculateEmails.Autofac\ProductivityTools.CalculateEmails.Autofac.csproj">
+      <Project>{0f0c73a9-8fdf-4d49-bd5e-b00e2c12bcb5}</Project>
+      <Name>ProductivityTools.CalculateEmails.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\ProductivityTools.CalculateEmails.Configuration\ProductivityTools.CalculateEmails.Configuration.csproj">
+      <Project>{8060356b-3757-4eda-8e6a-2fc0da6feaa3}</Project>
+      <Name>ProductivityTools.CalculateEmails.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProductivityTools.CalculateEmails.WCFService\ProductivityTools.CalculateEmails.WCFService.csproj">
+      <Project>{2ffd0e87-f59f-4e00-b6fb-95ad7d878586}</Project>
+      <Name>ProductivityTools.CalculateEmails.WCFService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\ProductivityTools.CalculateEmails.Contract\ProductivityTools.CalculateEmails.Contract.csproj">
+      <Project>{2ba5b1bc-4720-444e-954f-50a95fbac076}</Project>
+      <Name>ProductivityTools.CalculateEmails.Contract</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
