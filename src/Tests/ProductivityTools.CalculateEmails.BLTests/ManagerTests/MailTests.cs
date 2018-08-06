@@ -18,7 +18,7 @@ namespace ProductivityTools.BLTests
         [TestMethod]
         public void MailMailOneNewMail()
         {
-            BLManager bLManager = new BLManager();
+            MailManager bLManager = new MailManager();
             bLManager.Process(EmailActionType.Added, InboxType.Main, Now);
             var x = bLManager.GetLastCalculationDay(Now);
             Assert.AreEqual(1, x.MailCountAdd, MailCountAdd);
@@ -33,7 +33,7 @@ namespace ProductivityTools.BLTests
         [TestMethod]
         public void SentOneMail()
         {
-            BLManager bLManager = new BLManager();
+            MailManager bLManager = new MailManager();
             bLManager.Process(EmailActionType.Added, InboxType.Sent, Now);
             var x = bLManager.GetLastCalculationDay( Now);
             Assert.AreEqual(x.MailCountAdd, 0, MailCountAdd);
@@ -47,7 +47,7 @@ namespace ProductivityTools.BLTests
         [TestMethod]
         public void MailMoveMailBetweenInboxesReverseOrder()
         {
-            BLManager bLManager = new BLManager();
+            MailManager bLManager = new MailManager();
             bLManager.Process(EmailActionType.Added, InboxType.Subinbox, Now);
             bLManager.Process(EmailActionType.Removed, InboxType.Main, Now);
             var x = bLManager.GetLastCalculationDay(Now);
@@ -62,7 +62,7 @@ namespace ProductivityTools.BLTests
         [TestMethod]
         public void Mail()
         {
-            BLManager bLManager = new BLManager();
+            MailManager bLManager = new MailManager();
             bLManager.Process(EmailActionType.Removed, InboxType.Main, Now);
             bLManager.Process(EmailActionType.Added, InboxType.Subinbox, Now);
             var x = bLManager.GetLastCalculationDay(Now);
@@ -78,7 +78,7 @@ namespace ProductivityTools.BLTests
         public void MailMove4MailBetweenInboxesRightOrder()
         {
             BaseManager.WriteToLog("Move 4 mails between inboxes");
-            BLManager bLManager = new BLManager();
+            MailManager bLManager = new MailManager();
             bLManager.Process(EmailActionType.Removed, InboxType.Main, Now);
             bLManager.Process(EmailActionType.Added, InboxType.Subinbox, Now);
             bLManager.Process(EmailActionType.Added, InboxType.Subinbox, Now);
@@ -98,7 +98,7 @@ namespace ProductivityTools.BLTests
         public void MailMove6MailBetweenInboxesRightOrder()
         {
             BaseManager.WriteToLog("Move 4 mails between inboxes");
-            BLManager bLManager = new BLManager();
+            MailManager bLManager = new MailManager();
             bLManager.Process(EmailActionType.Removed, InboxType.Main, Now);
             bLManager.Process(EmailActionType.Removed, InboxType.Main, Now);
             bLManager.Process(EmailActionType.Removed, InboxType.Main, Now);
@@ -119,7 +119,7 @@ namespace ProductivityTools.BLTests
         [TestMethod]
         public void MailProcessOneMailFromMainInbox()
         {
-            BLManager bLManager = new BLManager();
+            MailManager bLManager = new MailManager();
             bLManager.Process(EmailActionType.Removed, InboxType.Main, Now);
             var x = bLManager.GetLastCalculationDay(Now);
             Assert.AreEqual(0, x.MailCountAdd, MailCountAdd);
@@ -135,7 +135,7 @@ namespace ProductivityTools.BLTests
         public void MailProcessTwoMailFromSubInbox()
         {
             BaseManager.WriteToLog("ProcessTwoMailFromSubInbox");
-            BLManager bLManager = new BLManager();
+            MailManager bLManager = new MailManager();
             bLManager.Process(EmailActionType.Removed, InboxType.Subinbox, Now);
             bLManager.Process(EmailActionType.Removed, InboxType.Subinbox, Now);
             var x = bLManager.GetLastCalculationDay(Now);

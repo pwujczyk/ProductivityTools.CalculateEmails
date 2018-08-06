@@ -12,21 +12,28 @@ using System.Threading.Tasks;
 
 namespace ProductivityTools.CalculateEmails.ServiceClient
 {
-    public class OnlineClient
+    public class StatsClient
     {
+
         protected ICalculateEmailsStatsService Client
         {
             get
             {
-                IConfig client = AutofacContainer.Container.Resolve<IConfig>();
+                IConfig client = Autofac.AutofacContainer.Container.Resolve<IConfig>();
                 string address = client.OnlineAddress;
-                NetTcpBinding mqbinding = new NetTcpBinding();
-                ChannelFactory<ICalculateEmailsStatsService> factory = new ChannelFactory<ICalculateEmailsStatsService>(mqbinding, new EndpointAddress(address));
-
+                NetTcpBinding binding = new NetTcpBinding();
+                ChannelFactory<ICalculateEmailsStatsService> factory = new ChannelFactory<ICalculateEmailsStatsService>(binding, address);
                 ICalculateEmailsStatsService proxy = factory.CreateChannel();
-
                 return proxy;
             }
+        }
+
+
+        public List<CalculationDay> GetStats(DateTime startdate, DateTime endDate)
+        {
+            List<CalculationDay> result = this.Client.GetDays(startdate, endDate);
+            (Client as IClientChannel).Close();
+            return result;
         }
 
         public CalculationDay GetCalculationDay()

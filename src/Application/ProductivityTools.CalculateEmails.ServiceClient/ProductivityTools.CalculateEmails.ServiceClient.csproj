@@ -48,8 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutofacModule.cs" />
-    <Compile Include="OnlineClient.cs" />
-    <Compile Include="ServiceClient.cs" />
+    <Compile Include="StatsClient.cs" />
+    <Compile Include="ProcessingClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

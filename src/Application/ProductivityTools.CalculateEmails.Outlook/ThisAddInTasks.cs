@@ -73,7 +73,7 @@ namespace ProductivityTools.CalculateEmails
                         if (this.TaskItemsList.Any(x => x.EntryId == element.EntryID) == false)
                         {
                             this.TaskItemsList.Add(new TaskItem { EntryId = element.EntryID });
-                            new WcfClient().ProcesOutlookTask(TaskActionType.Finished);
+                            new ProcessingClient().ProcesOutlookTask(TaskActionType.Finished);
                         }
                     }
                 }
@@ -82,12 +82,12 @@ namespace ProductivityTools.CalculateEmails
 
         private void TaskItems_ItemRemove()
         {
-            CallerWrapper(() => new WcfClient().ProcesOutlookTask(TaskActionType.Removed));
+            CallerWrapper(() => new ProcessingClient().ProcesOutlookTask(TaskActionType.Removed));
         }
 
         private void TaskItems_ItemAdd(object Item)
         {
-            CallerWrapper(() => new WcfClient().ProcesOutlookTask(TaskActionType.Added));
+            CallerWrapper(() => new ProcessingClient().ProcesOutlookTask(TaskActionType.Added));
         }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProductivityTools.CalculateEmails.Autofac;
 using ProductivityTools.CalculateEmails.Configuration;
 using ProductivityTools.CalculateEmails.DALContracts;
+using ProductivityTools.DBScripts;
 
 namespace ProductivityTools.BLTests
 {
@@ -13,6 +14,7 @@ namespace ProductivityTools.BLTests
         [AssemblyInitialize()]
         public static void AssemblyInit(TestContext context)
         {
+
 
             var builder = new ContainerBuilder();
             builder.RegisterModule<CalculateEmails.WCFService.Autofac>();

@@ -38,6 +38,7 @@ namespace ProductivityTools.CalculateEmails.WindowsService
 
         protected override void OnStart(string[] args)
         {
+            ProductivityTools.MasterConfiguration.MConfiguration.SetConfigurationName("Configuration.config");
             StartServer();
         }
 
@@ -54,7 +55,6 @@ namespace ProductivityTools.CalculateEmails.WindowsService
 
         private static void Configure()
         {
-            MConfiguration.SetConfigurationName("Configuration.config");
             var builder = new ContainerBuilder();
             builder.RegisterModule<CalculateEmails.WCFService.Autofac>();
             AutofacContainer.Container = builder.Build();
@@ -74,7 +74,7 @@ namespace ProductivityTools.CalculateEmails.WindowsService
             }
 
             host = new ServiceHost(typeof(CalculateEmailsWCFService));
-            host.AddServiceEndpoint(typeof(ICalculateEmailsWCFMQService), mqBinding, mqAddress);
+            host.AddServiceEndpoint(typeof(ICalculateEmailsProcessing), mqBinding, mqAddress);
             host.AddServiceEndpoint(typeof(ICalculateEmailsStatsService), new NetTcpBinding(), onlineAddress);
 
             host.Open();

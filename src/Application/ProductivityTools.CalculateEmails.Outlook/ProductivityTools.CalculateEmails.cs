@@ -133,7 +133,7 @@ namespace ProductivityTools.CalculateEmails
             {
                 try
                 {
-                    new OnlineClient().HeartBeat();
+                    new StatsClient().HeartBeat();
                     ServiceIsWorking = true;
                     WriteToLog("Outlook calculate emails service working correctly. HeartBeat OK.");
                 }
@@ -260,7 +260,7 @@ namespace ProductivityTools.CalculateEmails
 
         private CalculationDay GetCalculationDayDetails()
         {
-            OnlineClient onlineClient = new OnlineClient();
+            StatsClient onlineClient = new StatsClient();
             CalculationDay calculationDay = onlineClient.GetCalculationDay();
             return calculationDay;
         }

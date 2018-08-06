@@ -15,6 +15,9 @@ namespace ProductivityTools.CalculateEmails.Contract.ServiceContract
         CalculationDay GetDay(DateTime date);
 
         [OperationContract]
+        List<CalculationDay> GetDays(DateTime startDate, DateTime dateTime);
+
+        [OperationContract]
         void HeartBeat();
     }
 }

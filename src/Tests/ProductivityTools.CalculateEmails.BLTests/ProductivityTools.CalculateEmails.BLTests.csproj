@@ -42,6 +42,7 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="DBSetup.cs" />
     <Compile Include="LoggerTests.cs" />
+    <Compile Include="ManagerTests\BaseManagerTests.cs" />
     <Compile Include="ManagerTests\MailTests.cs" />
     <Compile Include="Managment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,6 +69,10 @@
     <ProjectReference Include="..\..\Server\ProductivityTools.CalculateEmails.DALContracts\ProductivityTools.CalculateEmails.DALContracts.csproj">
       <Project>{a356905e-d585-45e0-9e3e-3119b41fada1}</Project>
       <Name>ProductivityTools.CalculateEmails.DALContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Server\ProductivityTools.CalculateEmails.DBScripts\ProductivityTools.CalculateEmails.DBScripts.csproj">
+      <Project>{82cdb431-6cfb-4f71-b292-843741eafd03}</Project>
+      <Name>ProductivityTools.CalculateEmails.DBScripts</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Server\ProductivityTools.CalculateEmails.WCFService\ProductivityTools.CalculateEmails.WCFService.csproj">
       <Project>{2ffd0e87-f59f-4e00-b6fb-95ad7d878586}</Project>

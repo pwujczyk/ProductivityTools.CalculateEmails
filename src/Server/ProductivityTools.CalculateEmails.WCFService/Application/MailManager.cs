@@ -11,13 +11,13 @@ namespace ProductivityTools.CalculateEmails.WCFService.Application
 {
     delegate void MailAction(DateTime date);
 
-    public class BLManager : BaseManager
+    public class MailManager : BaseManager
     {
         private int milisecondsDelay = 100;
         private static ConcurrentDictionary<Guid, MailElement> mailElements = new ConcurrentDictionary<Guid, MailElement>();
         private ConcurrentBag<ActionItem> actionList = new ConcurrentBag<ActionItem>();
 
-        public BLManager()
+        public MailManager()
         {
             this.actionList.Add(new ActionItem() { Id = 11, DoneIn = InboxType.Main, Action = EmailActionType.Added, AndPreviousAction = EmailActionType.None, PreviousDoneIn = InboxType.None, ThenPerform = IncreaseMailCount });
 

@@ -88,12 +88,12 @@ namespace ProductivityTools.CalculateEmails
 
         private void MainInboxAdded(object Item)
         {
-            CallerWrapper(() => new WcfClient().ProcessOutlookMail(InboxType.Main, EmailActionType.Added));
+            CallerWrapper(() => new ProcessingClient().ProcessOutlookMail(InboxType.Main, EmailActionType.Added));
         }
 
         private void SubInboxAdded(object Item)
         {
-            CallerWrapper(() => new WcfClient().ProcessOutlookMail(InboxType.Subinbox, EmailActionType.Added));
+            CallerWrapper(() => new ProcessingClient().ProcessOutlookMail(InboxType.Subinbox, EmailActionType.Added));
         }
 
         private void MainInboxRemoved()
@@ -106,20 +106,20 @@ namespace ProductivityTools.CalculateEmails
                 }
                 else
                 {
-                    new WcfClient().ProcessOutlookMail(InboxType.Main, EmailActionType.Removed);
+                    new ProcessingClient().ProcessOutlookMail(InboxType.Main, EmailActionType.Removed);
                 }
             });
         }
 
         private void SubInboxRemoved()
         {
-            CallerWrapper(() => new WcfClient().ProcessOutlookMail(InboxType.Subinbox, EmailActionType.Removed));
+            CallerWrapper(() => new ProcessingClient().ProcessOutlookMail(InboxType.Subinbox, EmailActionType.Removed));
         }
 
 
         private void SentItems_ItemAdd(object Item)
         {
-            CallerWrapper(() => new WcfClient().ProcessOutlookMail(InboxType.Sent, EmailActionType.Added));
+            CallerWrapper(() => new ProcessingClient().ProcessOutlookMail(InboxType.Sent, EmailActionType.Added));
         }
 
         private void MainInboxChanged(object Item)

@@ -11,7 +11,7 @@ namespace ProductivityTools.CalculateEmails.Contract.ServiceContract
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
     [ServiceContract]
-    public interface ICalculateEmailsWCFMQService
+    public interface ICalculateEmailsProcessing
     {
         [OperationContract(IsOneWay = true)]
         void ProcessMail(InboxType inboxType, EmailActionType actionType, DateTime occured);

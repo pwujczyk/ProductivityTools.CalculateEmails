@@ -111,33 +111,34 @@ namespace ProductivityTools.DAL
             }
         }
 
-        public CalculationDayDB GetLastCalculationDay(DateTime date)
+        public List<CalculationDayDB> GetCalculationDays(DateTime startDate, DateTime endDay)
         {
-            CalculationDayDB result = new CalculationDayDB();
+            List<CalculationDayDB> result = new List<CalculationDayDB>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
 
-                SqlCommand command = new SqlCommand("[outlook].[GetLastCalculationDay]");
+          
+                SqlCommand command = new SqlCommand("[outlook].[GetCalculationDay]");
                 command.Connection = connection;
                 command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.Add(new SqlParameter("Date", date));
+                command.Parameters.Add(new SqlParameter("startDate", startDate));
+                command.Parameters.Add(new SqlParameter("endDate", endDay));
                 connection.Open();
                 SqlDataReader sqlDataReader = command.ExecuteReader();
-                if (sqlDataReader.Read())
+                while(sqlDataReader.Read())
                 {
-                    result.CalculateEmailsId = (int)sqlDataReader["CalculateEmailsId"];
-                    result.Date = (DateTime)sqlDataReader["Date"];
-                    result.MailCountAdd = (int)sqlDataReader["MailCountAdd"];
-                    result.MailCountSent = (int)sqlDataReader["MailCountSent"];
-                    result.MailCountProcessed = (int)sqlDataReader["MailCountProcessed"];
-                    result.TaskCountAdded = (int)sqlDataReader["TaskCountAdded"];
-                    result.TaskCountRemoved = (int)sqlDataReader["TaskCountRemoved"];
-                    result.TaskCountFinished = (int)sqlDataReader["TaskCountFinished"];
+                    var item = new CalculationDayDB();
+                    result.Add(item);
+                    item.CalculateEmailsId = (int)sqlDataReader["CalculateEmailsId"];
+                    item.Date = (DateTime)sqlDataReader["Date"];
+                    item.MailCountAdd = (int)sqlDataReader["MailCountAdd"];
+                    item.MailCountSent = (int)sqlDataReader["MailCountSent"];
+                    item.MailCountProcessed = (int)sqlDataReader["MailCountProcessed"];
+                    item.TaskCountAdded = (int)sqlDataReader["TaskCountAdded"];
+                    item.TaskCountRemoved = (int)sqlDataReader["TaskCountRemoved"];
+                    item.TaskCountFinished = (int)sqlDataReader["TaskCountFinished"];
                 }
-                else
-                {
-                    throw new Exception("No record retrieved");
-                }
+              
                 connection.Close();
             }
 
@@ -175,7 +176,5 @@ namespace ProductivityTools.DAL
 
             }
         }
-
-       
     }
 }

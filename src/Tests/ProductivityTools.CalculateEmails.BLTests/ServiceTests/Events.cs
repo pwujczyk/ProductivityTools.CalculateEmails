@@ -30,11 +30,11 @@ namespace ProductivityTools.BLTests.ServiceTests
             PSCalculateEmails calculateEmails = new PSCalculateEmails();
             calculateEmails.OnTest();
 
-            WcfClient client = new WcfClient();
+            ProcessingClient client = new ProcessingClient();
             client.ProcessOutlookMail(CalculateEmails.Contract.DataContract.InboxType.Main, CalculateEmails.Contract.DataContract.EmailActionType.Added);
 
 
-            OnlineClient onlineClient = new OnlineClient();
+            StatsClient onlineClient = new StatsClient();
             var stats=onlineClient.GetCalculationDay();
             Assert.AreEqual(1, stats.MailCountAdd);
         }

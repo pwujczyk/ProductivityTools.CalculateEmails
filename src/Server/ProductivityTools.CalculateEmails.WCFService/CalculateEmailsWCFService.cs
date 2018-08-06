@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 namespace ProductivityTools.CalculateEmails.WCFService
 {
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Single, InstanceContextMode = InstanceContextMode.Single)]
-    public class CalculateEmailsWCFService : ICalculateEmailsWCFMQService, ICalculateEmailsStatsService
+    public class CalculateEmailsWCFService : ICalculateEmailsProcessing, ICalculateEmailsStatsService
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -41,7 +41,7 @@ namespace ProductivityTools.CalculateEmails.WCFService
         private void PerformOperation(InboxType inboxType, EmailActionType actionType, DateTime occured)
         {
             //           log.Info("Hello logging world!");
-            BLManager bLManager = new BLManager();
+            MailManager bLManager = new MailManager();
             bLManager.Process(actionType, inboxType, occured);
             // 
         }
@@ -62,6 +62,13 @@ namespace ProductivityTools.CalculateEmails.WCFService
             BaseManager baseManager = new BaseManager();
             CalculationDay calculation = baseManager.GetLastCalculationDay(date);
             return calculation;
+        }
+
+        public List<CalculationDay> GetDays(DateTime startDate, DateTime endDay)
+        {
+            var baseManager = new BaseManager();
+            List<CalculationDay> list=baseManager.GetCalcuationDays(startDate, endDay);
+            return list;
         }
     }
 }

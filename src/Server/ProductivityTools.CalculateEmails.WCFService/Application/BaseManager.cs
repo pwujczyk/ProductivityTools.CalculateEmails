@@ -88,11 +88,15 @@ namespace ProductivityTools.CalculateEmails.WCFService.Application
             return result;
         }
 
+        public List<CalculationDay> GetCalcuationDays(DateTime startDay, DateTime endDay)
+        {
+            return new List<CalculationDay>();
+        }
+
         private CalculationDayDB FillTodaysCalculationDetails(DateTime date)
         {
-
-            return DBManager.GetLastCalculationDay(date);
-
+            var list=DBManager.GetCalculationDays(date,date);
+            return list.Single();
         }
 
         //private void FillDetailList()

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8060356B-3757-4EDA-8E6A-2FC0DA6FEAA3}</ProjectGuid>
+    <ProjectGuid>{47918C36-21E2-4F49-B046-912A5CEDB085}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProductivityTools.CalculateEmails.Configuration</RootNamespace>
-    <AssemblyName>ProductivityTools.CalculateEmails.Configuration</AssemblyName>
+    <RootNamespace>ProductivityTools.CalculateEmails.PSCalculateEmails</RootNamespace>
+    <AssemblyName>ProductivityTools.CalculateEmails.PSCalculateEmails</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\out\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -33,11 +33,18 @@
     <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="ConnectionStringLightPT, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\ConnectionStringLightPT.0.0.2\lib\v4.6.1\ConnectionStringLightPT.dll</HintPath>
+    <Reference Include="Description, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Description.1.0.0\lib\Description.dll</HintPath>
+    </Reference>
+    <Reference Include="ProductivityTools.DateTimeTools, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\ProductivityTools.DateTimeTools.0.0.3\lib\v4.6.1\ProductivityTools.DateTimeTools.dll</HintPath>
+    </Reference>
+    <Reference Include="ProductivityTools.PSCmdlet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\ProductivityTools.PSCmdlet.0.0.3\lib\v4.6.1\ProductivityTools.PSCmdlet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,23 +54,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutofacModule.cs" />
-    <Compile Include="Config.cs" />
-    <Compile Include="IConfig.cs" />
+    <Compile Include="Commands\OutlookStats.cs" />
+    <Compile Include="PSCalculateEmails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ConfigurationTest.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Configuration.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\ProductivityTools.MasterConfiguration2\src\Library\ProductivityTools.MasterConfiguration\ProductivityTools.MasterConfiguration.csproj">
       <Project>{108cefcd-3617-4c60-bdf3-d1f77636fb62}</Project>
       <Name>ProductivityTools.MasterConfiguration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\ProductivityTools.CalculateEmails.Autofac\ProductivityTools.CalculateEmails.Autofac.csproj">
+      <Project>{0f0c73a9-8fdf-4d49-bd5e-b00e2c12bcb5}</Project>
+      <Name>ProductivityTools.CalculateEmails.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\ProductivityTools.CalculateEmails.Contract\ProductivityTools.CalculateEmails.Contract.csproj">
+      <Project>{2ba5b1bc-4720-444e-954f-50a95fbac076}</Project>
+      <Name>ProductivityTools.CalculateEmails.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProductivityTools.CalculateEmails.ServiceClient\ProductivityTools.CalculateEmails.ServiceClient.csproj">
+      <Project>{c93eee63-4a70-440a-b37c-bcb9955e9025}</Project>
+      <Name>ProductivityTools.CalculateEmails.ServiceClient</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
