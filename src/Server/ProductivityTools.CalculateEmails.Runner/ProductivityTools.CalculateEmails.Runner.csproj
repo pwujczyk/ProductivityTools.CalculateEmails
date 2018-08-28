@@ -51,6 +51,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\ProductivityTools.MasterConfiguration2\src\Library\ProductivityTools.MasterConfiguration\ProductivityTools.MasterConfiguration.csproj">
+      <Project>{108cefcd-3617-4c60-bdf3-d1f77636fb62}</Project>
+      <Name>ProductivityTools.MasterConfiguration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProductivityTools.CalculateEmails.WindowsService\ProductivityTools.CalculateEmails.WindowsService.csproj">
       <Project>{fa4a7673-84e9-4377-b19a-f65d753337e3}</Project>
       <Name>ProductivityTools.CalculateEmails.WindowsService</Name>

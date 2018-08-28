@@ -12,9 +12,8 @@ using System.Threading.Tasks;
 
 namespace ProductivityTools.CalculateEmails.ServiceClient
 {
-    public class StatsClient
+    public class StatsClient : IStatsClient
     {
-
         protected ICalculateEmailsStatsService Client
         {
             get
@@ -22,7 +21,7 @@ namespace ProductivityTools.CalculateEmails.ServiceClient
                 IConfig client = Autofac.AutofacContainer.Container.Resolve<IConfig>();
                 string address = client.OnlineAddress;
                 NetTcpBinding binding = new NetTcpBinding();
-                ChannelFactory<ICalculateEmailsStatsService> factory = new ChannelFactory<ICalculateEmailsStatsService>(binding, address);
+                 ChannelFactory<ICalculateEmailsStatsService> factory = new ChannelFactory<ICalculateEmailsStatsService>(binding, address);
                 ICalculateEmailsStatsService proxy = factory.CreateChannel();
                 return proxy;
             }

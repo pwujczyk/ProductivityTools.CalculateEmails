@@ -12,7 +12,7 @@ namespace ProductivityTools.CalculateEmails.PSCalculateEmails
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<DateTimeTools.DateTimeTools>().As<IDateTimeTools>();
+            builder.RegisterType<DateTimeTools.DateTimePT>().As<IDateTimePT>();
             builder.RegisterModule<ServiceClient.AutofacModule>();
             base.Load(builder);
         }

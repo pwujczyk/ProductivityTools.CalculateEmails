@@ -12,8 +12,8 @@ namespace ProductivityTools.DBScripts
         {
             //IConfigurationClient client = IoCManager.IoCManager.GetSinglenstance<IConfigurationClient>();;
             IConfig client = AutofacContainer.Container.Resolve<IConfig>();
-            string serverName = client.GetSqlDataSource();
-            string dbName = client.GetSqlServerDataBaseName();
+            string serverName = client.GetSqlDataSource;
+            string dbName = client.GetSqlServerDataBaseName;
 
             DBUp dBUp = new DBUp("outlook");
             Assembly assembly = Assembly.GetExecutingAssembly();

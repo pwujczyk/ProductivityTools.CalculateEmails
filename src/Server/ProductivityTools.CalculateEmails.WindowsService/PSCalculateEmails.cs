@@ -15,12 +15,12 @@ using ProductivityTools.CalculateEmails.Contract.ServiceContract;
 using ProductivityTools.CalculateEmails.WCFService;
 using ProductivityTools.CalculateEmails.Configuration;
 using ProductivityTools.CalculateEmails.Autofac;
+using System.ServiceModel.Description;
 
 namespace ProductivityTools.CalculateEmails.WindowsService
 {
     public partial class PSCalculateEmails : ServiceBase
     {
-
         ServiceHost host;
         public PSCalculateEmails()
         {
@@ -38,7 +38,7 @@ namespace ProductivityTools.CalculateEmails.WindowsService
 
         protected override void OnStart(string[] args)
         {
-            ProductivityTools.MasterConfiguration.MConfiguration.SetConfigurationName("Configuration.config");
+            MConfiguration.SetConfigurationName("Configuration.config");
             StartServer();
         }
 
@@ -67,6 +67,7 @@ namespace ProductivityTools.CalculateEmails.WindowsService
             string queneAddress = $".\\private$\\{client.QueneName}";
             string mqAddress = client.MQAdress;
             string onlineAddress = client.OnlineAddress;
+            string webAddres = client.OnlineWebAddress;
 
             if (MessageQueue.Exists(queneAddress) == false)
             {
@@ -74,9 +75,20 @@ namespace ProductivityTools.CalculateEmails.WindowsService
             }
 
             host = new ServiceHost(typeof(CalculateEmailsWCFService));
-            host.AddServiceEndpoint(typeof(ICalculateEmailsProcessing), mqBinding, mqAddress);
-            host.AddServiceEndpoint(typeof(ICalculateEmailsStatsService), new NetTcpBinding(), onlineAddress);
+            //host.AddServiceEndpoint(typeof(ICalculateEmailsProcessing), mqBinding, mqAddress);
+            //host.AddServiceEndpoint(typeof(ICalculateEmailsStatsService), new NetTcpBinding(), onlineAddress);
 
+            WebHttpBehavior behavior = new WebHttpBehavior();
+
+
+            ServiceEndpoint serviceEndpoint = new ServiceEndpoint(
+
+                    ContractDescription.GetContract(typeof(ICalculateEmailsStatsService))
+                    , new WebHttpBinding()
+                    , new EndpointAddress(webAddres));
+            serviceEndpoint.EndpointBehaviors.Add(behavior);
+            host.AddServiceEndpoint(serviceEndpoint);
+            //host.AddServiceEndpoint(typeof(ICalculateEmailsStatsService), new WebHttpBinding(), webAddres);
             host.Open();
         }
 

@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\out\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -37,7 +37,7 @@
       <HintPath>..\..\..\packages\Description.1.0.0\lib\Description.dll</HintPath>
     </Reference>
     <Reference Include="ProductivityTools.DateTimeTools, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\ProductivityTools.DateTimeTools.0.0.3\lib\v4.6.1\ProductivityTools.DateTimeTools.dll</HintPath>
+      <HintPath>..\..\..\packages\ProductivityTools.DateTimeTools.0.0.4\lib\v4.6.1\ProductivityTools.DateTimeTools.dll</HintPath>
     </Reference>
     <Reference Include="ProductivityTools.PSCmdlet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\ProductivityTools.PSCmdlet.0.0.3\lib\v4.6.1\ProductivityTools.PSCmdlet.dll</HintPath>
@@ -54,9 +54,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutofacModule.cs" />
+    <Compile Include="Commands\ConfigurationFile.cs" />
     <Compile Include="Commands\OutlookStats.cs" />
     <Compile Include="PSCalculateEmails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringTools.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

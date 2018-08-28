@@ -90,7 +90,10 @@ namespace ProductivityTools.CalculateEmails.WCFService.Application
 
         public List<CalculationDay> GetCalcuationDays(DateTime startDay, DateTime endDay)
         {
-            return new List<CalculationDay>();
+            var list = DBManager.GetCalculationDays(startDay, endDay);
+            var mapper = mapperConfiguration.CreateMapper();
+            var result = mapper.Map<List<CalculationDayDB>, List<CalculationDay>>(list);
+            return result;
         }
 
         private CalculationDayDB FillTodaysCalculationDetails(DateTime date)

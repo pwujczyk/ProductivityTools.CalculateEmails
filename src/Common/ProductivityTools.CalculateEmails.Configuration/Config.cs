@@ -34,43 +34,70 @@ namespace ProductivityTools.CalculateEmails.Configuration
                 return serverName;
             }
         }
-        private string Port
+        private string PortNetTcp
         {
             get
             {
-                var port =  MConfiguration.Configuration["Port"];
+                var port =  MConfiguration.Configuration["PortNetTcp"];
                 return port;
             }
         }
+
+        private string PortWebApi
+        {
+            get
+            {
+                var port = MConfiguration.Configuration["PortWebApi"];
+                return port;
+            }
+        }
+
 
         public string OnlineAddress
         {
             get
             {
-                var address = $"net.tcp://{ServerName}:{Port}";
+                var address = $"net.tcp://{ServerName}:{PortNetTcp}";
                 return address;
             }
         }
 
-         public string GetSqlServerConnectionString()
+        public string OnlineWebAddress
         {
-            return ConnectionStringLightPT.ConnectionStringLight.GetSqlServerConnectionString(GetSqlDataSource(), GetSqlServerDataBaseName());
+            get
+            {
+                var address = $"http://{ServerName}:{PortWebApi}";
+                return address;
+            }
+        }
+
+        public string GetSqlServerConnectionString()
+        {
+            return ConnectionStringLightPT.ConnectionStringLight.GetSqlServerConnectionString(GetSqlDataSource, GetSqlServerDataBaseName);
         }
 
 
         public string GetDataSourceConnectionString()
         {
-            return ConnectionStringLightPT.ConnectionStringLight.GetSqlDataSourceConnectionString(GetSqlDataSource());
+            return ConnectionStringLightPT.ConnectionStringLight.GetSqlDataSourceConnectionString(GetSqlDataSource);
         }
 
-        public string GetSqlDataSource()
+        public string GetSqlDataSource
         {
-            return @".\Sql2017";
+            get
+            {
+                var serverName = MConfiguration.Configuration["DatabaseServerName"];
+                return serverName;
+            }
         }
 
-        public string GetSqlServerDataBaseName()
+        public string GetSqlServerDataBaseName
         {
-            return @"EcoVadisPT";
+            get
+            {
+                var databaseName = MConfiguration.Configuration["DatabaseName"];
+                return databaseName;
+            }
         }
     }
 }

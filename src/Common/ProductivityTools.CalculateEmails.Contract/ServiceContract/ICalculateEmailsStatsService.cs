@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using System.ServiceModel.Web;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,7 +16,8 @@ namespace ProductivityTools.CalculateEmails.Contract.ServiceContract
         CalculationDay GetDay(DateTime date);
 
         [OperationContract]
-        List<CalculationDay> GetDays(DateTime startDate, DateTime dateTime);
+        [WebGet(UriTemplate= "stats?startDate={startDate}&endDate={endDate}", ResponseFormat =WebMessageFormat.Json)]
+        List<CalculationDay> GetDays(DateTime startDate, DateTime endDate);
 
         [OperationContract]
         void HeartBeat();

@@ -14,27 +14,38 @@ namespace ProductivityTools.CalculateEmails.PSCalculateEmails
     [Cmdlet(VerbsCommon.Get, "OutlookStats")]
     public class PSCalculateEmails : PSCmdletPT
     {
+        static PSCalculateEmails()
+        {
+            MasterConfiguration.MConfiguration.SetConfigurationName("Configuration.config");
+        }
+
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public int? LastDays { get; set; }
 
+        [Parameter]
+        public string ConfigurationFile { get; set; }
 
         public PSCalculateEmails()
         {
             Autofac();
-            MasterConfiguration.MConfiguration.SetConfigurationName("Configuration.config");
+            RegisterCommands();
+        }
+
+        private void RegisterCommands()
+        {
             base.AddCommand(new OutlookStats(this));
+            base.AddCommand(new ConfigurationFile(this));
         }
 
         public PSCalculateEmails(bool debug)
         {
             if (debug)
             {
-                MasterConfiguration.MConfiguration.SetConfigurationName("Configuration.config");
-                base.AddCommand(new OutlookStats(this));
+                MasterConfiguration.MConfiguration.SetConfigurationName("ConfigurationDevelopment.config");
+                RegisterCommands();
             }
         }
-
 
         private void Autofac()
         {
@@ -45,6 +56,7 @@ namespace ProductivityTools.CalculateEmails.PSCalculateEmails
 
         protected override void ProcessRecord()
         {
+            WriteVerbose("Process Record");
             this.ProcessCommands();
         }
 

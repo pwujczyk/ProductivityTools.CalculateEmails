@@ -1,4 +1,5 @@
 ﻿using ProductivityTools.CalculateEmails.WindowsService;
+using ProductivityTools.MasterConfiguration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,14 @@ namespace ProductivityTools.CalculateEmails.Runner
     {
         static void Main(string[] args)
         {
+            if (args.Length > 0)
+            {
+                MConfiguration.SetConfigurationName(args[0]);
+            }
+            else
+            {
+                MConfiguration.SetConfigurationName("Configuration.config");
+            }
             PSCalculateEmails service = new PSCalculateEmails();
             service.OnDebug();
             Console.WriteLine("Host started");

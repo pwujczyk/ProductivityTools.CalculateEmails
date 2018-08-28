@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutofacModule.cs" />
+    <Compile Include="IStatsClient.cs" />
     <Compile Include="StatsClient.cs" />
     <Compile Include="ProcessingClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
