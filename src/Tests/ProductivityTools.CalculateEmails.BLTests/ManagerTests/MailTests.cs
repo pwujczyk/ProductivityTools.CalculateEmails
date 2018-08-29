@@ -2,7 +2,7 @@
 using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProductivityTools.CalculateEmails.Contract.DataContract;
-using ProductivityTools.CalculateEmails.WCFService.Application;
+using ProductivityTools.CalculateEmails.Service.Application;
 
 namespace ProductivityTools.BLTests
 {

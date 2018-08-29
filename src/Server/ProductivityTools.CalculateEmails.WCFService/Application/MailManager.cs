@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProductivityTools.CalculateEmails.WCFService.Application
+namespace ProductivityTools.CalculateEmails.Service.Application
 {
     delegate void MailAction(DateTime date);
 

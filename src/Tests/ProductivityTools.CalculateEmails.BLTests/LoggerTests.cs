@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ProductivityTools.CalculateEmails.WCFService;
+using ProductivityTools.CalculateEmails.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,7 @@ namespace ProductivityTools.BLTests
         public void Log()
         {
             //todo:change
-            CalculateEmailsWCFService c = new CalculateEmailsWCFService();
+            CalculateEmailsService c = new CalculateEmailsService();
             c.ProcessMail(CalculateEmails.Contract.DataContract.InboxType.Main, CalculateEmails.Contract.DataContract.EmailActionType.Added,DateTime.Now);
         }
     }

@@ -21,7 +21,7 @@ namespace ProductivityTools.BLTests.ServiceTests
         {
             //MConfiguration.SetConfigurationName("Configuration.config");
             var builder = new ContainerBuilder();
-            builder.RegisterModule<CalculateEmails.WCFService.Autofac>();
+            builder.RegisterModule<CalculateEmails.Service.Autofac>();
             builder.RegisterModule<CalculateEmails.ServiceClient.AutofacModule>();
             builder.RegisterType<Configuration>().As<IConfig>();
 

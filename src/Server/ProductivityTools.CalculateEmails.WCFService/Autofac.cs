@@ -7,7 +7,7 @@ using Autofac;
 using ProductivityTools.CalculateEmails.DALContracts;
 using ProductivityTools.DAL;
 
-namespace ProductivityTools.CalculateEmails.WCFService
+namespace ProductivityTools.CalculateEmails.Service
 {
     public class Autofac:Module
     {

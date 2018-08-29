@@ -59,6 +59,7 @@
     <Compile Include="DataContract\EmailActionType.cs" />
     <Compile Include="DataContract\CalculationDay.cs" />
     <Compile Include="DataContract\TaskActionType.cs" />
+    <Compile Include="ServiceContract\ICalculateEmailsStatsWebService.cs" />
     <Compile Include="ServiceContract\ICalculateEmailsStatsService.cs" />
     <Compile Include="ServiceContract\ICalculateEmailsWCFService.cs" />
     <Compile Include="DataContract\InboxType.cs" />

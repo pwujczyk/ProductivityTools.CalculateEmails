@@ -8,8 +8,8 @@
     <ProjectGuid>{2FFD0E87-F59F-4E00-B6FB-95AD7D878586}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProductivityTools.CalculateEmails.WCFService</RootNamespace>
-    <AssemblyName>ProductivityTools.CalculateEmails.WCFService</AssemblyName>
+    <RootNamespace>ProductivityTools.CalculateEmails.Service</RootNamespace>
+    <AssemblyName>ProductivityTools.CalculateEmails.Service</AssemblyName>
     <ProjectTypeGuids>{3D9AD99F-2412-4246-B90B-4EAA41C64699};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <StartArguments>/client:"WcfTestClient.exe"</StartArguments>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -73,7 +73,7 @@
     <Compile Include="Application\TaskManager.cs" />
     <Compile Include="Autofac.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CalculateEmailsWCFService.cs" />
+    <Compile Include="CalculateEmailService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

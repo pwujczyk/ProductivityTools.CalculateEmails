@@ -74,9 +74,9 @@
       <Project>{82cdb431-6cfb-4f71-b292-843741eafd03}</Project>
       <Name>ProductivityTools.CalculateEmails.DBScripts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Server\ProductivityTools.CalculateEmails.WCFService\ProductivityTools.CalculateEmails.WCFService.csproj">
+    <ProjectReference Include="..\..\Server\ProductivityTools.CalculateEmails.WCFService\ProductivityTools.CalculateEmails.Service.csproj">
       <Project>{2ffd0e87-f59f-4e00-b6fb-95ad7d878586}</Project>
-      <Name>ProductivityTools.CalculateEmails.WCFService</Name>
+      <Name>ProductivityTools.CalculateEmails.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Server\ProductivityTools.CalculateEmails.WindowsService\ProductivityTools.CalculateEmails.WindowsService.csproj">
       <Project>{fa4a7673-84e9-4377-b19a-f65d753337e3}</Project>

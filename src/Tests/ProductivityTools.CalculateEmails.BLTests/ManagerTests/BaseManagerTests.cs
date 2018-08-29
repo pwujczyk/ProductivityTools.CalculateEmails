@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProductivityTools.BLTests;
 using ProductivityTools.CalculateEmails.Contract.DataContract;
-using ProductivityTools.CalculateEmails.WCFService.Application;
+using ProductivityTools.CalculateEmails.Service.Application;
 using System;
 using System.Collections.Generic;
 using System.Linq;

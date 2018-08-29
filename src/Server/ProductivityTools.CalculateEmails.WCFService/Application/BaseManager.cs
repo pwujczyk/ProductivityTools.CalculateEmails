@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ProductivityTools.CalculateEmails.WCFService.Application
+namespace ProductivityTools.CalculateEmails.Service.Application
 {
     public class BaseManager
     {

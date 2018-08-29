@@ -4,7 +4,7 @@ using ProductivityTools.CalculateEmails.Autofac;
 using ProductivityTools.CalculateEmails.Contract.DataContract;
 using ProductivityTools.CalculateEmails.Contract.ServiceContract;
 using ProductivityTools.CalculateEmails.DALContracts;
-using ProductivityTools.CalculateEmails.WCFService.Application;
+using ProductivityTools.CalculateEmails.Service.Application;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,21 +14,21 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ProductivityTools.CalculateEmails.WCFService
+namespace ProductivityTools.CalculateEmails.Service
 {
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Single, InstanceContextMode = InstanceContextMode.Single)]
-    public class CalculateEmailsWCFService : ICalculateEmailsProcessing, ICalculateEmailsStatsService
+    public class CalculateEmailsService : ICalculateEmailsProcessing, ICalculateEmailsStatsService, ICalculateEmailsStatsWebService
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        static CalculateEmailsWCFService()
+        static CalculateEmailsService()
         {
             IDBManager DBManager = AutofacContainer.Container.Resolve<IDBManager>();
             DBManager.PerformDatabaseupdate();
 
         }
 
-        public CalculateEmailsWCFService()
+        public CalculateEmailsService()
         {
 
         }
