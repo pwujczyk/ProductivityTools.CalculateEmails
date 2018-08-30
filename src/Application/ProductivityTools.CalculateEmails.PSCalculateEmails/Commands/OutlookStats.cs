@@ -63,9 +63,9 @@ namespace ProductivityTools.CalculateEmails.PSCalculateEmails.Commands
             IStatsClient client = Autofac.AutofacContainer.Container.Resolve<IStatsClient>();
             List<CalculationDay> stats = client.GetStats(startDate, endDate);
             Func<int, string> f = s => s.ToString().FillWithZeros(3);
-            foreach (var stat in stats)
+            foreach (var stat in stats.OrderBy(x => x.Date)) 
             {
-                string result = $"[{stat.Date}] Mail add: {f(stat.MailCountAdd)}, Mail processed: {f(stat.MailCountProcessed)}, Mail sent: {f(stat.MailCountSent)}, Task addded {f(stat.TaskCountAdded)}, Task finished {f(stat.TaskCountFinished)}, Task removed {f(stat.TaskCountRemoved)}";
+                string result = $"[{stat.Date}] m-added: {f(stat.MailCountAdd)}, m-sent: {f(stat.MailCountSent)}, m-processed: {f(stat.MailCountProcessed)}, t-added {f(stat.TaskCountAdded)}, t-finished {f(stat.TaskCountFinished)}, t-removed {f(stat.TaskCountRemoved)}";
                 WriteOutput(result);
             }
         }
