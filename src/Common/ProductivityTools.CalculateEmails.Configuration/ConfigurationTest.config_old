@@ -2,12 +2,12 @@
 <configuration>
   <Source Type="File"></Source>
   <ApplicationConfiguration>
-    <QueneName>CalculateEmailsQuene</QueneName>
+    <QueneName>CalculateEmailsTestQuene</QueneName>
     <ServerName>localhost</ServerName>
     <PortNetTcp Comment="net.tcp">7100</PortNetTcp>
     <PortWebApi Comment="Web api port">5101</PortWebApi>
     <DatabaseServerName>.\sql2017</DatabaseServerName>
-    <DatabaseName>PawelPTTest</DatabaseName>
+    <DatabaseName>EcoVadisPTTest</DatabaseName>
     <CredentialPath>d:\tech\Pawel\PSCalendar\</CredentialPath>
   </ApplicationConfiguration>
 </configuration>

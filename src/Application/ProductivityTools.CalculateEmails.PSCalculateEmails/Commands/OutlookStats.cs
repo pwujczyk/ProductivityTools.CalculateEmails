@@ -24,7 +24,6 @@ namespace ProductivityTools.CalculateEmails.PSCalculateEmails.Commands
 
         protected override void Invoke()
         {
-            this.Cmdlet.WriteVerbose("Invoke");
             Func<DateTime> GetToday = () =>
                   {
 

@@ -47,12 +47,15 @@ namespace ProductivityTools.BLTests
 
         public void DropDatabase()
         {
+
+            string name = new Configuration().GetSqlServerDataBaseName;
             using (SqlConnection con = new SqlConnection(connectionStringServer))
             {
+
                 con.Open();
-                String sqlCommandText = @"
-                ALTER DATABASE EcoVadisPTTest SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-                DROP DATABASE [EcoVadisPTTest]";
+                String sqlCommandText = $@"
+                ALTER DATABASE {name} SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+                DROP DATABASE [{name}]";
                 SqlCommand sqlCommand = new SqlCommand(sqlCommandText, con);
                 sqlCommand.ExecuteNonQuery();
             }

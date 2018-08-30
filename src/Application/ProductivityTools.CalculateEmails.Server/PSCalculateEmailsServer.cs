@@ -5,6 +5,7 @@ using ProductivityTools.CalculateEmails.Contract.ServiceContract;
 using ProductivityTools.CalculateEmails.Service;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Messaging;
 using System.ServiceModel;
@@ -20,8 +21,7 @@ namespace ProductivityTools.CalculateEmails.Server
 
         public void OpenHost()
         {
-            Configure();
-
+            Debug.WriteLine("open host");
             IConfig client = AutofacContainer.Container.Resolve<IConfig>();
             var mqBinding = new NetMsmqBinding(NetMsmqSecurityMode.None);
             string queneAddress = $".\\private$\\{client.QueneName}";
@@ -46,6 +46,8 @@ namespace ProductivityTools.CalculateEmails.Server
             serviceEndpoint.EndpointBehaviors.Add(behavior);
 
             host.AddServiceEndpoint(serviceEndpoint);
+            host.Description.Behaviors.Remove(typeof(ServiceDebugBehavior));
+            host.Description.Behaviors.Add(new ServiceDebugBehavior { IncludeExceptionDetailInFaults = true });
             host.Open();
         }
 
@@ -54,11 +56,6 @@ namespace ProductivityTools.CalculateEmails.Server
             host.Close();
         }
 
-        private static void Configure()
-        {
-            var builder = new ContainerBuilder();
-            builder.RegisterModule<CalculateEmails.Service.Autofac>();
-            AutofacContainer.Container = builder.Build();
-        }
+
     }
 }

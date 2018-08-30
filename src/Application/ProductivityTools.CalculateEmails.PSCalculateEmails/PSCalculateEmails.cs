@@ -56,7 +56,6 @@ namespace ProductivityTools.CalculateEmails.PSCalculateEmails
 
         protected override void ProcessRecord()
         {
-            WriteVerbose("Process Record");
             this.ProcessCommands();
         }
 

@@ -50,7 +50,15 @@ namespace ProductivityTools.CalculateEmails.WindowsService
 
         private void StartServer()
         {
+            Configure();
             server.OpenHost();
+        }
+
+        private static void Configure()
+        {
+            var builder = new ContainerBuilder();
+            builder.RegisterModule<Server.AutofacModuleServer>();
+            AutofacContainer.Container = builder.Build();
         }
     }
 }

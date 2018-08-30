@@ -50,6 +50,10 @@
     <Compile Include="ServiceTests\Events.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\ProductivityTools.MasterConfiguration2\src\Library\ProductivityTools.MasterConfiguration\ProductivityTools.MasterConfiguration.csproj">
+      <Project>{108cefcd-3617-4c60-bdf3-d1f77636fb62}</Project>
+      <Name>ProductivityTools.MasterConfiguration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Application\ProductivityTools.CalculateEmails.ServiceClient\ProductivityTools.CalculateEmails.ServiceClient.csproj">
       <Project>{c93eee63-4a70-440a-b37c-bcb9955e9025}</Project>
       <Name>ProductivityTools.CalculateEmails.ServiceClient</Name>
@@ -89,6 +93,9 @@
     </Reference>
     <Reference Include="ConnectionStringLightPT, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\ConnectionStringLightPT.0.0.2\lib\v4.6.1\ConnectionStringLightPT.dll</HintPath>
+    </Reference>
+    <Reference Include="DateTimePT, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\DateTimePT.0.0.1\lib\v4.6.1\DateTimePT.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">

@@ -55,7 +55,7 @@
     <None Include="ConfigurationDevelopment.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ConfigurationTest.config">
+    <None Include="ConfigurationTest.config_old">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Configuration.config">

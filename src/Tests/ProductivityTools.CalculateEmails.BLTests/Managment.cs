@@ -25,6 +25,7 @@ namespace ProductivityTools.BLTests
 
             IDBManager DBManager = AutofacContainer.Container.Resolve<IDBManager>();
             DBManager.PerformDatabaseupdate();
+           
         }
 
         [AssemblyCleanup()]

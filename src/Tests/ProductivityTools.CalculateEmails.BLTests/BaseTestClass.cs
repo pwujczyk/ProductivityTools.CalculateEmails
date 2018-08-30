@@ -22,8 +22,6 @@ namespace ProductivityTools.BLTests
             get { return DateTime.Now; }
         }
 
-
-
         [ClassInitialize()]
         public static void ClassInit(TestContext context)
         {

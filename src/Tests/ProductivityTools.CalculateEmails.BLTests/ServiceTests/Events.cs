@@ -19,10 +19,14 @@ namespace ProductivityTools.BLTests.ServiceTests
         [TestCategory("Service")]
         public void NewEmail()
         {
-            //MConfiguration.SetConfigurationName("Configuration.config");
+            //MasterConfiguration.MConfiguration.SetConfigurationName("ConfigurationTest.config");
+
             var builder = new ContainerBuilder();
+            //builder.RegisterModule<CalculateEmails.Service.Autofac>();
+            //builder.RegisterModule<CalculateEmails.ServiceClient.AutofacModule>();
+            builder.RegisterType<StatsClient>().As<IStatsClient>();
+            builder.RegisterType<DateTimePT.DateTimeTools>().As<DateTimePT.IDateTimeTools>();
             builder.RegisterModule<CalculateEmails.Service.Autofac>();
-            builder.RegisterModule<CalculateEmails.ServiceClient.AutofacModule>();
             builder.RegisterType<Configuration>().As<IConfig>();
 
             AutofacContainer.Container = builder.Build();
@@ -32,7 +36,6 @@ namespace ProductivityTools.BLTests.ServiceTests
 
             ProcessingClient client = new ProcessingClient();
             client.ProcessOutlookMail(CalculateEmails.Contract.DataContract.InboxType.Main, CalculateEmails.Contract.DataContract.EmailActionType.Added);
-
 
             StatsClient onlineClient = new StatsClient();
             var stats=onlineClient.GetCalculationDay();

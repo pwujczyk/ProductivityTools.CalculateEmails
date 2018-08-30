@@ -15,7 +15,6 @@ namespace ProductivityTools.CalculateEmails.ServiceClient
 {
     public class ProcessingClient
     {
-
         DateTime Now
         {
             get
