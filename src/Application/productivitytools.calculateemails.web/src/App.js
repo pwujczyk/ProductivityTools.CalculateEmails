@@ -2,32 +2,93 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-const SERVICE_ADDRESS='http://localhost:5667/ICalculateEmailsStatsService'
+//const SERVICE_ADDRESS = 'http://localhost:9667/stats?startDate=2018.08.24&endDate=2019.01.01'
+const SERVICE_ADDRESS = 'http://localhost:9667/stats'
+const START_DATE_PARAM ='?startDate=';
+const END_DATE_PARAM='&endDate='
 
-const outlookStatList = [
-	{
-		id:1,
-		Day: '2018.08.22',
-		MailCountAdd: 2,
-		MailCountSent: 3,
-		MailCountProcessed: 5
-	},
-	{
-		id:2,
-		Day: '2018.08.23',
-		MailCountAdd: 12,
-		MailCountSent: 23,
-		MailCountProcessed: 25
+class DateTimeTools{
+	
+	constructor(){
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+		var yyyy = today.getFullYear();
+		
+		var today = yyyy +'-'+mm+'-'+dd;
+		this.Today= today;
 	}
-]
+	GetDate(){
+		return this.Today;
+	}
+	
+	AddDays(count){
+		var parts = this.Today.split('-');
+		var dd=parts[2];
+		var mm=parts[1];
+		var yyyy=parts[0];
+		
+		dd=parseInt(dd)+parseInt(count);
+		var today = yyyy +'-'+mm+'-'+dd;
+		this.Today= today;
+		return this;
+  // new Date(year, month [, day [, hours[, minutes[, seconds[, ms]]]]])
+		//return new Date(parts[0], parts[1]-1, parts[2]); // Note: months are 0-based
+	}
+	
+}
 
-class OutlookStatsTableRow extends Component{
+class Button extends Component{
 	render(){
-		const {row}=this.props
+		const{onclick,children}=this.props;
+		return(
+			<button type="button" onClick={onclick} value="Get">{children}</button>
+		)
+	}
+}
+
+
+class DateContainer extends Component{
+	render(){
+		const {value,onChange,children}=this.props
+		console.log("onchange")
+		console.log(onChange)
+		return(
+			<div>
+				<label>{children}</label>
+				<input type="text" value={value} onChange={onChange}></input>
+			</div>
+		)
+	}
+}
+
+
+class OutlookStatsTableRow extends Component {
+
+	constructor(props){
+		super(props);
+
+	}
+
+	formatDate(datestring){
+		var d = Date.parse(datestring)
+		console.log("DateXXX");
+		console.log(typeof(d));
+	
+	}
+
+	render() {
+		const { row } = this.props
 		return (
 			<tr>
-				<td>{row.Day}</td>
+				<td>{row.Date}</td>
+				<td>{this.formatDate(row.Date)}</td>
 				<td>{row.MailCountAdd}</td>
+				<td>{row.MailCountSent}</td>
+				<td>{row.MailCountProcessed}</td>
+				<td>{row.TaskCountAdded}</td>
+				<td>{row.TaskCountFinished}</td>
+				<td>{row.TaskCountRemoved}</td>
 			</tr>
 		)
 	}
@@ -41,50 +102,85 @@ class OutlookStatsTable extends Component {
 			<table>
 				<thead>
 					<tr>
-						<th>Day</th>
+						<th>Date</th>
+						<th>Date</th>
 						<th>Maill add</th>
+						<th>Mail sent</th>
+						<th>Mail processed</th>
+						<th>Task added</th>
+						<th>Task finished</th>
+						<th>Task removed</th>
 					</tr>
-					</thead>
-					<tbody>
-						{outlookStatList.map(function (item) {
-							return <OutlookStatsTableRow key={item.Day} row={item}/>
-						})}
-					</tbody>
+				</thead>
+				<tbody>
+					{outlookStatList.map(function (item) {
+						return <OutlookStatsTableRow key={item.Date} row={item} />
+					})}
+				</tbody>
 			</table>)
 	}
 }
-		
+
 class App extends Component {
 
-		constructor(props) {
-			super(props);
-      this.state = {
-						outlookStatList: outlookStatList,
-			};
+	constructor(props) {
+		super(props);
+		this.state = {
+			outlookStatList: null,
+		};
+		this.fetchCalculateStats=this.fetchCalculateStats.bind(this)
+		this.onChange=this.onChange.bind(this)
 	}
 
-	setCalculateEmailsStats(calculateEmailsStats){
+	setCalculateEmailsStats(calculateEmailsStats) {
+		console.log("setCalculateEmailsStats")
 		console.log(calculateEmailsStats);
-		this.setState({calculateEmailsStats});
+		this.setState({ outlookStatList: calculateEmailsStats });
+	}
+	
+	fetchCalculateStats(startDate,endDate){
+		const addres=`${SERVICE_ADDRESS}${START_DATE_PARAM}${startDate}${END_DATE_PARAM}${endDate}`
+		fetch(`${addres}`)
+			.then(response => response.json())
+			.then(result => this.setCalculateEmailsStats(result))
+			.catch(error => console.log(error));
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		console.log('compoenent mount');
-		fetch(`${SERVICE_ADDRESS}`)
-		.then(response=>console.log(response))
-		.then(result=>this.setCalculateEmailsStats(result))
-		.catch(error=>console.log(error));
+		const now=new DateTimeTools().GetDate();
+		console.log(now);
+		const weekbefore=new DateTimeTools().AddDays(-7).GetDate();
+		console.log(weekbefore);
+		this.fetchCalculateStats(weekbefore,now);
+		this.setState({startDate:weekbefore,endDate:now})
+		//fetch(`${SERVICE_ADDRESS}`)
+		//.then(response => response.json())
+			//.then(result => this.setCalculateEmailsStats(result))
+		//	.catch(error => console.log(error));
 
 		console.log(this.state)
 	}
-
-    render() {
-        return (
-            <div className="App">
-						<OutlookStatsTable outlookStatList={outlookStatList} />
-					</div>
-					);
-			}
-	}
 	
-	export default App;
+	onChange(target,event){
+		console.log("eventXXXX");
+		console.log(target);
+		this.setState({ [target]: event.target.value })
+	}
+
+	render() {
+		const { outlookStatList,startDate,endDate } = this.state
+		console.log("StartDate");
+		console.log(startDate);
+		return (
+			<div className="App">
+				<DateContainer value={startDate} onChange={(e)=>this.onChange('startDate',e)}>From</DateContainer>
+				<DateContainer value={endDate} onChange={(e)=>this.onChange('endDate',e)}>To</DateContainer>
+				{outlookStatList? <OutlookStatsTable outlookStatList={outlookStatList} />:null	}
+				<Button onclick={()=>this.fetchCalculateStats(startDate,endDate)}>Get</Button>
+			</div>
+		);
+	}
+}
+
+export default App;

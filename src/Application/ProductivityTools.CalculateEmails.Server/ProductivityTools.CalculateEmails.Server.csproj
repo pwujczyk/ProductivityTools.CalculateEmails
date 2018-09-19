@@ -34,9 +34,14 @@
     <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Messaging" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -48,11 +53,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Autofac.cs" />
+    <Compile Include="Cors\EnableCrossOriginResourceSharingBehavior.cs" />
+    <Compile Include="Cors\CustomHeaderMessageInspector.cs" />
+    <Compile Include="JsonFormatter\ClientJsonDateFormatter.cs" />
+    <Compile Include="JsonFormatter\RawDataWriter.cs" />
+    <Compile Include="JsonFormatter\ResponseJsonFormatter.cs" />
     <Compile Include="PSCalculateEmailsServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\ProductivityTools.CalculateEmails.Autofac\ProductivityTools.CalculateEmails.Autofac.csproj">
@@ -71,6 +78,9 @@
       <Project>{2ffd0e87-f59f-4e00-b6fb-95ad7d878586}</Project>
       <Name>ProductivityTools.CalculateEmails.Service</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

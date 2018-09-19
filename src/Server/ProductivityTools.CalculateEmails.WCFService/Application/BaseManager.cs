@@ -83,7 +83,7 @@ namespace ProductivityTools.CalculateEmails.Service.Application
         public CalculationDay GetLastCalculationDay(DateTime date)
         {
             var mapper = mapperConfiguration.CreateMapper();
-            CalculationDayDB resultDB= FillTodaysCalculationDetails(date);
+            CalculationDayDB resultDB = FillTodaysCalculationDetails(date);
             CalculationDay result = mapper.Map<CalculationDayDB, CalculationDay>(resultDB);
             return result;
         }
@@ -98,8 +98,15 @@ namespace ProductivityTools.CalculateEmails.Service.Application
 
         private CalculationDayDB FillTodaysCalculationDetails(DateTime date)
         {
-            var list=DBManager.GetCalculationDays(date,date);
-            return list.Single();
+            var list = DBManager.GetCalculationDays(date, date);
+            if (list.Any())
+            {
+                return list.Single();
+            }
+            else
+            {
+                return new CalculationDayDB() { Date = date };
+            }
         }
 
         //private void FillDetailList()

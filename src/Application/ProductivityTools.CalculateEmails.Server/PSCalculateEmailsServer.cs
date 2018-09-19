@@ -2,6 +2,8 @@
 using ProductivityTools.CalculateEmails.Autofac;
 using ProductivityTools.CalculateEmails.Configuration;
 using ProductivityTools.CalculateEmails.Contract.ServiceContract;
+using ProductivityTools.CalculateEmails.Server.Cors;
+using ProductivityTools.CalculateEmails.Server.JsonFormatter;
 using ProductivityTools.CalculateEmails.Service;
 using System;
 using System.Collections.Generic;
@@ -44,6 +46,12 @@ namespace ProductivityTools.CalculateEmails.Server
                     , new EndpointAddress(webAddres));
             WebHttpBehavior behavior = new WebHttpBehavior();
             serviceEndpoint.EndpointBehaviors.Add(behavior);
+            serviceEndpoint.EndpointBehaviors.Add(new EnableCrossOriginResourceSharingBehavior());
+
+            foreach (var operation in serviceEndpoint.Contract.Operations)
+            {
+                operation.OperationBehaviors.Add(new ClientJsonDateFormatterBehavior());
+            }
 
             host.AddServiceEndpoint(serviceEndpoint);
             host.Description.Behaviors.Remove(typeof(ServiceDebugBehavior));

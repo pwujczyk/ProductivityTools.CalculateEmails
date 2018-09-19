@@ -77,9 +77,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\..\..\ProductivityTools.MasterConfiguration2\src\Library\ProductivityTools.MasterConfiguration\ProductivityTools.MasterConfiguration.csproj">
       <Project>{108cefcd-3617-4c60-bdf3-d1f77636fb62}</Project>
       <Name>ProductivityTools.MasterConfiguration</Name>
@@ -108,6 +105,9 @@
       <Project>{fa4a7673-84e9-4377-b19a-f65d753337e3}</Project>
       <Name>ProductivityTools.CalculateEmails.WindowsService</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

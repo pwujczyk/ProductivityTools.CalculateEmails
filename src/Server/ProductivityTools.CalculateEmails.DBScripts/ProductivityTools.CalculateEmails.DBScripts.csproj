@@ -90,6 +90,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Scripts\006.DropGetLastCalculationDay.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\007.GetLastCalculationDay.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\008.InsertOrUpdateCalculationDay.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

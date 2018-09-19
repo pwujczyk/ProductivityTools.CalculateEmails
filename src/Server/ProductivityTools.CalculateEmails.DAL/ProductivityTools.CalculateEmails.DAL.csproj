@@ -36,6 +36,9 @@
     <Reference Include="ConnectionStringHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\ConnectionStringLightHelperPT.0.0.1\lib\v4.6.1\ConnectionStringHelper.dll</HintPath>
     </Reference>
+    <Reference Include="ConnectionStringLightPT, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\ConnectionStringLightPT.0.0.2\lib\v4.6.1\ConnectionStringLightPT.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

@@ -14,8 +14,6 @@ namespace ProductivityTools.BLTests
         [AssemblyInitialize()]
         public static void AssemblyInit(TestContext context)
         {
-
-
             var builder = new ContainerBuilder();
             builder.RegisterModule<CalculateEmails.Service.Autofac>();
             builder.RegisterModule<CalculateEmails.ServiceClient.AutofacModule>();

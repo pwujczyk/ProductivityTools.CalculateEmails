@@ -27,7 +27,6 @@ namespace ProductivityTools.CalculateEmails.ServiceClient
             }
         }
 
-
         public List<CalculationDay> GetStats(DateTime startdate, DateTime endDate)
         {
             List<CalculationDay> result = this.Client.GetDays(startdate, endDate);
@@ -37,7 +36,6 @@ namespace ProductivityTools.CalculateEmails.ServiceClient
 
         public CalculationDay GetCalculationDay()
         {
-            //todo
             var result=Client.GetDay(DateTime.Now);
             return result;
         }

@@ -9,6 +9,7 @@ using Autofac;
 using ProductivityTools.CalculateEmails.DALContracts;
 using ProductivityTools.CalculateEmails.Configuration;
 using ProductivityTools.CalculateEmails.Autofac;
+using System.Data.SqlTypes;
 
 namespace ProductivityTools.DAL
 {
@@ -111,13 +112,38 @@ namespace ProductivityTools.DAL
             }
         }
 
+        private DateTime ReplaceMinDateWithSQLMinDate(DateTime dt)
+        {
+            if (dt == DateTime.MinValue)
+            {
+                return (DateTime)SqlDateTime.MinValue;
+            }
+            else
+            {
+                return dt;
+            }
+        }
+
+        private DateTime ReplaceMinDateWithSQLMaxDate(DateTime dt)
+        {
+            if (dt == DateTime.MinValue)
+            {
+                return (DateTime)SqlDateTime.MaxValue;
+            }
+            else
+            {
+                return dt;
+            }
+        }
+
+
         public List<CalculationDayDB> GetCalculationDays(DateTime startDate, DateTime endDay)
         {
+            startDate = ReplaceMinDateWithSQLMinDate(startDate);
+            endDay = ReplaceMinDateWithSQLMaxDate(endDay);
             List<CalculationDayDB> result = new List<CalculationDayDB>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-
-          
                 SqlCommand command = new SqlCommand("[outlook].[GetCalculationDay]");
                 command.Connection = connection;
                 command.CommandType = System.Data.CommandType.StoredProcedure;
@@ -125,7 +151,7 @@ namespace ProductivityTools.DAL
                 command.Parameters.Add(new SqlParameter("endDate", endDay));
                 connection.Open();
                 SqlDataReader sqlDataReader = command.ExecuteReader();
-                while(sqlDataReader.Read())
+                while (sqlDataReader.Read())
                 {
                     var item = new CalculationDayDB();
                     result.Add(item);
@@ -138,7 +164,7 @@ namespace ProductivityTools.DAL
                     item.TaskCountRemoved = (int)sqlDataReader["TaskCountRemoved"];
                     item.TaskCountFinished = (int)sqlDataReader["TaskCountFinished"];
                 }
-              
+
                 connection.Close();
             }
 
@@ -159,7 +185,7 @@ namespace ProductivityTools.DAL
                 SqlCommand command = new SqlCommand("[outlook].[UpdateLastCalculationDay]");
                 command.Connection = connection;
                 command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.Add(new SqlParameter("@calculateEmailsId", calcualtionDay.CalculateEmailsId));
+                command.Parameters.Add(new SqlParameter("@Date", calcualtionDay.Date));
                 command.Parameters.Add(new SqlParameter("@MailCountAdd", calcualtionDay.MailCountAdd));
                 command.Parameters.Add(new SqlParameter("@MailCountSent", calcualtionDay.MailCountSent));
                 command.Parameters.Add(new SqlParameter("@MailCountProcessed", calcualtionDay.MailCountProcessed));
