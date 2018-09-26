@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.css';
+import styles from'./App.css';
 
 //const SERVICE_ADDRESS = 'http://localhost:9667/stats?startDate=2018.08.24&endDate=2019.01.01'
 const SERVICE_ADDRESS = 'http://localhost:9667/stats'
@@ -36,13 +36,26 @@ class DateTimeTools{
 		//return new Date(parts[0], parts[1]-1, parts[2]); // Note: months are 0-based
 	}
 	
+	FormatDate(date){
+		var d = new Date(date)
+		var year = d.getFullYear();
+		var month = d.getMonth()+1;
+		if(month<10){
+			var monthResult="0"+month;
+		}else{
+			var monthResult=month
+		}
+		var day = d.getDate();
+		var result=year + '.'+ monthResult +'.'+day;
+		return result;
+	}
 }
 
 class Button extends Component{
 	render(){
 		const{onclick,children}=this.props;
 		return(
-			<button type="button" onClick={onclick} value="Get">{children}</button>
+			<button type="button" className="Button"  onClick={onclick} value="Get">{children}</button>
 		)
 	}
 }
@@ -54,9 +67,9 @@ class DateContainer extends Component{
 		console.log("onchange")
 		console.log(onChange)
 		return(
-			<div>
-				<label>{children}</label>
-				<input type="text" value={value} onChange={onChange}></input>
+			<div className="DateContainer">
+				<label className="Label">{children}</label>
+				<input className="DateInput" type="text" value={value} onChange={onChange}></input>
 			</div>
 		)
 	}
@@ -64,24 +77,20 @@ class DateContainer extends Component{
 
 
 class OutlookStatsTableRow extends Component {
-
 	constructor(props){
 		super(props);
 
 	}
 
 	formatDate(datestring){
-		var d = Date.parse(datestring)
-		console.log("DateXXX");
-		console.log(typeof(d));
-	
+		const now=new DateTimeTools().FormatDate(datestring);
+		return now;
 	}
 
 	render() {
 		const { row } = this.props
 		return (
 			<tr>
-				<td>{row.Date}</td>
 				<td>{this.formatDate(row.Date)}</td>
 				<td>{row.MailCountAdd}</td>
 				<td>{row.MailCountSent}</td>
@@ -102,7 +111,6 @@ class OutlookStatsTable extends Component {
 			<table>
 				<thead>
 					<tr>
-						<th>Date</th>
 						<th>Date</th>
 						<th>Maill add</th>
 						<th>Mail sent</th>
@@ -174,10 +182,15 @@ class App extends Component {
 		console.log(startDate);
 		return (
 			<div className="App">
-				<DateContainer value={startDate} onChange={(e)=>this.onChange('startDate',e)}>From</DateContainer>
-				<DateContainer value={endDate} onChange={(e)=>this.onChange('endDate',e)}>To</DateContainer>
-				{outlookStatList? <OutlookStatsTable outlookStatList={outlookStatList} />:null	}
-				<Button onclick={()=>this.fetchCalculateStats(startDate,endDate)}>Get</Button>
+				<div className="Title">ProductivityTools - Calculate Emails</div>
+				<div className="Content">
+					<DateContainer value={startDate} onChange={(e)=>this.onChange('startDate',e)}>From</DateContainer>
+					<DateContainer value={endDate} onChange={(e)=>this.onChange('endDate',e)}>To</DateContainer>
+					<Button onclick={()=>this.fetchCalculateStats(startDate,endDate)}>Get</Button>
+					<hr/>
+					{outlookStatList? <OutlookStatsTable outlookStatList={outlookStatList} />:null	}
+					
+				</div>
 			</div>
 		);
 	}

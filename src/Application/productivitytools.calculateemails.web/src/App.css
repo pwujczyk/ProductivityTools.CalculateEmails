@@ -1,28 +1,79 @@
-.App {
-  text-align: center;
+.App{
+	background-color:#f2f2f6;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.DateContainer{
+	border-radius: 5px;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.Title{
+	background-color:#42ad88;
+	font:Segoe UI;
+	font-size:25px;
+	height:60px;
+	text-align:middle;
+	font-weight:bold;
+	color:white;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 60px; 
 }
 
-.App-title {
-  font-size: 1.5em;
+.Content
+{
+	margin: auto;
+    width: 1024px;
+    background-color: #f2f2f2;
+    min-height: 1000px;
+    /* bottom: 0; */
+    height: auto !important;
+    position: relative;
+	box-shadow: 5px 10px #f;
+	
+
+	box-shadow: 0px 4px 5px 4px rgba(0,0,0,0.24);
+	
+	
+	
 }
 
-.App-intro {
-  font-size: large;
+.Label{
+	font:Segoe UI;
+	padding:5px;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.DateInput {
+    font-size: 14px;
+    height: 32px;
+    font-family: Noto Sans,sans-serif;
+    outline: none;
+    width: 100px;
+    text-align: center;
+	border: 0;
+    border-radius: 15px;
+    line-height: 1.64;
+    position: relative;
+}
+
+.DateContainer{
+	width: 100px;
+    float: Left;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.Button{
+     border: 0;
+    border-radius: 22px;
+    cursor: pointer;
+    display: -ms-flexbox;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding: 9px 19px;
+    margin-top: 20px;
+	background-color: #42ad88;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.25);
+    color: #fff;
+    font-size: 12px;
+	width:100px;
 }
