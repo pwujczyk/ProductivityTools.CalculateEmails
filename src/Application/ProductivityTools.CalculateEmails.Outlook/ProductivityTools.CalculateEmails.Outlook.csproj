@@ -205,7 +205,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Serializer.cs" />
-    <Compile Include="ServiceClient.cs" />
     <Compile Include="ProductivityTools.CalculateEmails.cs">
       <SubType>Code</SubType>
     </Compile>

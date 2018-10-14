@@ -19,8 +19,6 @@ namespace ProductivityTools.CalculateEmails.Service
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Single, InstanceContextMode = InstanceContextMode.Single)]
     public class CalculateEmailsService : ICalculateEmailsProcessing, ICalculateEmailsStatsService, ICalculateEmailsStatsWebService
     {
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
         static CalculateEmailsService()
         {
             IDBManager DBManager = AutofacContainer.Container.Resolve<IDBManager>();
