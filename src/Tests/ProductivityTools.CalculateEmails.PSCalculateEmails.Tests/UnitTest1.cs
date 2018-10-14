@@ -37,7 +37,7 @@ namespace ProductivityTools.CalculateEmails.PSCalculateEmails.Tests
 
 
             PSCalculateEmails cmdlet = new PSCalculateEmails(true);
-            MasterConfiguration.MConfiguration.SetConfigurationName("ConfigurationTest.config");
+            MasterConfiguration.MConfiguration.SetConfigurationFileName("ConfigurationTest.config");
             cmdlet.Test();
 
             Assert.AreEqual(Now, requestedDateEnd);

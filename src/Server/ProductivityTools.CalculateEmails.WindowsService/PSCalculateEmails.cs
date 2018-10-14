@@ -39,7 +39,7 @@ namespace ProductivityTools.CalculateEmails.WindowsService
 
         protected override void OnStart(string[] args)
         {
-            MConfiguration.SetConfigurationName("Configuration.config");
+            MConfiguration.SetConfigurationFileName("Configuration.config");
             StartServer();
         }
 

@@ -24,7 +24,7 @@ namespace ProductivityTools.CalculateEmails.PSCalculateEmails.Commands
 
         protected override void Invoke()
         {
-            MasterConfiguration.MConfiguration.SetConfigurationName(this.Cmdlet.ConfigurationFile);
+            MasterConfiguration.MConfiguration.SetConfigurationFileName(this.Cmdlet.ConfigurationFile);
         }
     }
 }

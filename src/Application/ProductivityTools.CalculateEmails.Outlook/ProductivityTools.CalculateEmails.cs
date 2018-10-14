@@ -35,7 +35,7 @@ namespace ProductivityTools.CalculateEmails
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
             ProductivityTools.MasterConfiguration.MConfiguration.SetCurrentDomainPath(true);
-            ProductivityTools.MasterConfiguration.MConfiguration.SetConfigurationName("Configuration.config");
+            ProductivityTools.MasterConfiguration.MConfiguration.SetConfigurationFileName("ConfigurationDevelopment.config");
             RegisterAutofac();
 
             this.CalculateEmailsEnabled = true;

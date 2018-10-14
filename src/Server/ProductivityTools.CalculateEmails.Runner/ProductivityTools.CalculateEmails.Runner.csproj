@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ProductivityTools.MasterConfiguration, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\ProductivityTools.MasterConfiguration.0.0.2\lib\v4.6.1\ProductivityTools.MasterConfiguration.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
@@ -49,12 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\ProductivityTools.MasterConfiguration2\src\Library\ProductivityTools.MasterConfiguration\ProductivityTools.MasterConfiguration.csproj">
-      <Project>{108cefcd-3617-4c60-bdf3-d1f77636fb62}</Project>
-      <Name>ProductivityTools.MasterConfiguration</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProductivityTools.CalculateEmails.WindowsService\ProductivityTools.CalculateEmails.WindowsService.csproj">
       <Project>{fa4a7673-84e9-4377-b19a-f65d753337e3}</Project>
       <Name>ProductivityTools.CalculateEmails.WindowsService</Name>

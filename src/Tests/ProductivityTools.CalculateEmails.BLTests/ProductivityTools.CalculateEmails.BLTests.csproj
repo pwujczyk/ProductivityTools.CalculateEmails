@@ -50,10 +50,6 @@
     <Compile Include="ServiceTests\Events.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\ProductivityTools.MasterConfiguration2\src\Library\ProductivityTools.MasterConfiguration\ProductivityTools.MasterConfiguration.csproj">
-      <Project>{108cefcd-3617-4c60-bdf3-d1f77636fb62}</Project>
-      <Name>ProductivityTools.MasterConfiguration</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Application\ProductivityTools.CalculateEmails.ServiceClient\ProductivityTools.CalculateEmails.ServiceClient.csproj">
       <Project>{c93eee63-4a70-440a-b37c-bcb9955e9025}</Project>
       <Name>ProductivityTools.CalculateEmails.ServiceClient</Name>

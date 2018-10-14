@@ -36,17 +36,23 @@ class DateTimeTools{
 		//return new Date(parts[0], parts[1]-1, parts[2]); // Note: months are 0-based
 	}
 	
+	AddLeadingZero(number){
+		if (number<10){
+			return "0"+number;
+		}
+		else
+		{
+			return number;
+		}
+	}
+	
 	FormatDate(date){
 		var d = new Date(date)
 		var year = d.getFullYear();
-		var month = d.getMonth()+1;
-		if(month<10){
-			var monthResult="0"+month;
-		}else{
-			var monthResult=month
-		}
-		var day = d.getDate();
-		var result=year + '.'+ monthResult +'.'+day;
+		var month = this.AddLeadingZero(d.getMonth()+1);
+		
+		var day = this.AddLeadingZero(d.getDate());
+		var result=year + '.'+ month +'.'+day;
 		return result;
 	}
 }
@@ -108,7 +114,7 @@ class OutlookStatsTable extends Component {
 		const { outlookStatList } = this.props
 		console.log(this.props)
 		return (
-			<table>
+			<table className="blueTable">
 				<thead>
 					<tr>
 						<th>Date</th>

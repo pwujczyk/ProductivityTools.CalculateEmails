@@ -14,11 +14,11 @@ namespace ProductivityTools.CalculateEmails.Runner
         {
             if (args.Length > 0)
             {
-                MConfiguration.SetConfigurationName(args[0]);
+                MConfiguration.SetConfigurationFileName(args[0]);
             }
             else
             {
-                MConfiguration.SetConfigurationName("Configuration.config");
+                MConfiguration.SetConfigurationFileName("Configuration.config");
             }
             PSCalculateEmails service = new PSCalculateEmails();
             service.OnDebug();

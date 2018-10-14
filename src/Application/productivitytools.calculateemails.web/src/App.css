@@ -19,6 +19,7 @@
 	line-height: 60px; 
 }
 
+
 .Content
 {
 	margin: auto;
@@ -40,6 +41,7 @@
 .Label{
 	font:Segoe UI;
 	padding:5px;
+	font-size:10px;
 }
 
 .DateInput {
@@ -53,6 +55,7 @@
     border-radius: 15px;
     line-height: 1.64;
     position: relative;
+	box-shadow: 0 1px 10px 0 rgba(0,0,0,.55);
 }
 
 .DateContainer{
@@ -63,17 +66,62 @@
 }
 
 .Button{
-     border: 0;
+    border: 0;
+	height: 35px;
     border-radius: 22px;
     cursor: pointer;
     display: -ms-flexbox;
     -ms-flex-pack: center;
     justify-content: center;
     padding: 9px 19px;
-    margin-top: 20px;
+    margin-top: 17px;
+	margin-left:10px;
 	background-color: #42ad88;
-    box-shadow: 0 1px 3px 0 rgba(0,0,0,.25);
+    box-shadow: 0 1px 10px 0 rgba(0,0,0,.55);
     color: #fff;
     font-size: 12px;
 	width:100px;
 }
+
+table.blueTable {
+  background-color: #EEEEEE;
+  width: 800px;
+  text-align: center;
+  border-collapse: collapse;
+  align:center;
+  table-layout:fixed;
+  margin-left:100px;
+  
+}
+table.blueTable td, table.blueTable th {
+  border: 1px solid #AAAAAA;
+  padding: 3px 2px;
+  width: 100px;
+
+  
+}
+table.blueTable tbody td {
+  font-size: 13px;
+  width:2000px;
+}
+table.blueTable tr:nth-child(even) {
+  background: #42AD88;
+}
+table.blueTable thead {
+  background: #42AD88;
+  background: -moz-linear-gradient(top, #71c1a6 0%, #55b594 66%, #42AD88 100%);
+  background: -webkit-linear-gradient(top, #71c1a6 0%, #55b594 66%, #42AD88 100%);
+  background: linear-gradient(to bottom, #71c1a6 0%, #55b594 66%, #42AD88 100%);
+}
+table.blueTable thead th {
+  font-size: 15px;
+  font-weight: bold;
+  color: #FFFFFF;
+  text-align: center;
+  border-left: 2px solid #D0E4F5;
+}
+table.blueTable thead th:first-child {
+  border-left: none;
+}
+
+

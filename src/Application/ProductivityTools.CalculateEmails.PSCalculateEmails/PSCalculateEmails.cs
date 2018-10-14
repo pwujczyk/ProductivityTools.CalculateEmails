@@ -16,7 +16,7 @@ namespace ProductivityTools.CalculateEmails.PSCalculateEmails
     {
         static PSCalculateEmails()
         {
-            MasterConfiguration.MConfiguration.SetConfigurationName("Configuration.config");
+            MasterConfiguration.MConfiguration.SetConfigurationFileName("Configuration.config");
         }
 
         public DateTime? StartDate { get; set; }
@@ -42,7 +42,7 @@ namespace ProductivityTools.CalculateEmails.PSCalculateEmails
         {
             if (debug)
             {
-                MasterConfiguration.MConfiguration.SetConfigurationName("ConfigurationDevelopment.config");
+                MasterConfiguration.MConfiguration.SetConfigurationFileName("ConfigurationDevelopment.config");
                 RegisterCommands();
             }
         }
