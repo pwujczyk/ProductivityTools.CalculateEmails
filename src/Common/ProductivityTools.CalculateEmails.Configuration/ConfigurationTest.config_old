@@ -7,7 +7,6 @@
     <PortNetTcp Comment="net.tcp">7100</PortNetTcp>
     <PortWebApi Comment="Web api port">5101</PortWebApi>
     <DatabaseServerName>.\sql2017</DatabaseServerName>
-    <DatabaseName>EcoVadisPTTest</DatabaseName>
-    <CredentialPath>d:\tech\Pawel\PSCalendar\</CredentialPath>
+    <DatabaseName>EcoVadisPT</DatabaseName>
   </ApplicationConfiguration>
 </configuration>
