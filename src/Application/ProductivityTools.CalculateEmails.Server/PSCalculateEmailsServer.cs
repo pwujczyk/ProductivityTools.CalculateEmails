@@ -40,6 +40,8 @@ namespace ProductivityTools.CalculateEmails.Server
             host.AddServiceEndpoint(typeof(ICalculateEmailsProcessing), mqBinding, mqAddress);
             host.AddServiceEndpoint(typeof(ICalculateEmailsStatsService), new NetTcpBinding(), onlineAddress);
 
+            Console.Write($"opened online on address {onlineAddress}");
+
             ServiceEndpoint serviceEndpoint = new ServiceEndpoint(
                     ContractDescription.GetContract(typeof(ICalculateEmailsStatsWebService))
                     , new WebHttpBinding()

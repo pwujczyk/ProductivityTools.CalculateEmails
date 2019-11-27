@@ -120,11 +120,11 @@ namespace ProductivityTools.CalculateEmails
             EventLogEntryType.Warning, 234);
 
 
-            string source = "DemoTestApplication";
-            string log = "DemoEventLog";
-            EventLog demoLog = new EventLog(log);
-            demoLog.Source = source;
-            demoLog.WriteEntry("This is the first message to the log", EventLogEntryType.Information);
+            //string source = "DemoTestApplication";
+            //string log = "DemoEventLog";
+            //EventLog demoLog = new EventLog(log);
+            //demoLog.Source = source;
+            //demoLog.WriteEntry("This is the first message to the log", EventLogEntryType.Information);
         }
 
         public void HeartBeatChecker()
@@ -260,9 +260,16 @@ namespace ProductivityTools.CalculateEmails
 
         private CalculationDay GetCalculationDayDetails()
         {
-            StatsClient onlineClient = new StatsClient();
-            CalculationDay calculationDay = onlineClient.GetCalculationDay();
-            return calculationDay;
+            if (ServiceIsWorking)
+            {
+                StatsClient onlineClient = new StatsClient();
+                CalculationDay calculationDay = onlineClient.GetCalculationDay();
+                return calculationDay;
+            }
+            else
+            {
+                return new CalculationDay();
+            }
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
